@@ -3,7 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            position: relative;
+            padding-bottom: 58px;
+            min-height: 100vh;
+        }
+
+        footer {
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -11,13 +27,6 @@
     <title>@ViewData["Title"] - EventPlanner</title>
 </head>
 <body>
-<<<<<<< HEAD
-    @RenderBody()
-    <footer class="container-fluid">
-        <hr />
-        <p class="copyright text-muted">Copyright © Rockstars IT 2020</p>
-    </footer>
-=======
     <main>
         <div class="container-fluid">
             <br />
@@ -51,6 +60,11 @@
 
         </div>
     </main>
->>>>>>> menubalk
+
+    <footer class="container-fluid">
+        <hr />
+        <p class="copyright text-muted">Copyright © Rockstars IT 2020</p>
+    </footer>
+
 </body>
 </html>

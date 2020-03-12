@@ -1,4 +1,10 @@
-﻿footer {
+body {
+    position: relative;
+    padding-bottom: 58px;
+    min-height: 100vh;
+}
+
+footer {
     text-align: center;
     position: absolute;
     bottom: 0;
