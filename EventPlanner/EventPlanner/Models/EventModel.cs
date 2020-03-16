@@ -7,16 +7,14 @@ namespace EventPlanner.Models
 {
     public class EventModel
     {
-        public string ID { get; set; }
-
-        public string Name { get; set; }
-
-        public string Location { get; set; }
-        
-        public int StartEvent { get; set; }
-        
-        public int EndEvent { get; set; }
-
+        public string EventId { get; set; }
+        public string AccountId { get; set; }
+        public string EventName { get; set; }
         public DateTime Date { get; set; }
+        public int VisitorLimit { get; set; }
+        public string Description { get; set; }
+        public string Location { get; set; }
+        public string Email { get; set; }
+        public string ImageSrc { get; set; }
     }
 }
