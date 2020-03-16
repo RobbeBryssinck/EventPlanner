@@ -1,0 +1,51 @@
+﻿@model EventPlanner.Models.EventModel
+
+@{
+    ViewData["Title"] = "CreateEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateEvent</h1>
+
+<h4>EventModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateEvent">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartEvent" class="control-label"></label>
+                <input asp-for="StartEvent" class="form-control" />
+                <span asp-validation-for="StartEvent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndEvent" class="control-label"></label>
+                <input asp-for="EndEvent" class="form-control" />
+                <span asp-validation-for="EndEvent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
