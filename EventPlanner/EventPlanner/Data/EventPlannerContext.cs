@@ -14,11 +14,11 @@ namespace EventPlanner.Data
         {
         }
 
-        public DbSet<EventModel> Events { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EventModel>().ToTable("Event");
+            modelBuilder.Entity<Event>().ToTable("Event");
         }
     }
 }

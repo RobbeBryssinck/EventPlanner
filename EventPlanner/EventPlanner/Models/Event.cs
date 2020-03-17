@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class EventModel
+    public class Event
     {
         public string EventId { get; set; }
         public string AccountId { get; set; }

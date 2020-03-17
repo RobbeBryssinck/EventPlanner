@@ -13,19 +13,19 @@ namespace EventPlanner.Data
             context.Database.EnsureCreated();
 
             // Look for any events.
-            if (context.EventModel.ToList().Any())
+            if (context.Events.Any())
             {
                 return;   // DB has been seeded
             }
 
-            var events = new EventModel[]
+            var events = new Event[]
             {
-                new EventModel{EventName="ASP.NET Core cursus",Date=DateTime.Parse("2020-03-16"),VisitorLimit=100,
+                new Event{EventName="ASP.NET Core cursus",Date=DateTime.Parse("2020-03-16"),VisitorLimit=100,
                     Description="Lorem ipsum",Location="Eindhoven",Email="test@test.com",ImageSrc="test.jpg"},
             };
-            foreach (EventModel p in events)
+            foreach (Event e in events)
             {
-                context.Events.Add(p);
+                context.Events.Add(e);
             }
             context.SaveChanges();
         }
