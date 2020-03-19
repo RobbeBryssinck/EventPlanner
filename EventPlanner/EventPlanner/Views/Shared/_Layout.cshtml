@@ -20,10 +20,12 @@
             margin-left: auto;
         }
     </style>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
     <title>@ViewData["Title"] - EventPlanner</title>
 </head>
 <body>
@@ -58,9 +60,8 @@
     <footer class="container-fluid">
         <hr />
         <div class="row">
-            <div class="text-md-left">
-                <div class="col">
-                    <h5 class="text-uppercase">Links</h5>
+            <div class="col-md-5 col-lg-4 ml-lg-0">
+                <div class="text-center text-md-left">
                     <ul class="list-unstyled">
                         <li>
                             <a href="https://www.teamrockstars.nl/">Team Rockstars IT</a>
@@ -71,19 +72,25 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="col-md-3 col-lg-4">
+                <ul class="list-unstyled">
+                    <li>
+                        <p>
+                            Social media
+                        </p>
+                    </li>
+                    <li>
+                        <div class="fb-share-button" data-href="https://nl-nl.facebook.com/teamrockstarsit/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnl-nl.facebook.com%2Fteamrockstarsit%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Delen</a></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-lg-4">
+                <p class="text-center text-md-right copyright text-muted">Copyright © Rockstars IT 2020</p>
+            </div>
+
         </div>
-        
-                <div class="text-center">
-                    <p class="copyright text-muted">Copyright © Rockstars IT 2020</p>
-                </div>
-
-         
-     
-
-
-
-
-
     </footer>
 
 </body>
