@@ -1,4 +1,4 @@
-﻿@model EventPlanner.Models.EventModel
+﻿@model EventPlanner.Models.Event
 
 @{
     ViewData["Title"] = "CreateEvent";
@@ -14,9 +14,24 @@
         <form asp-action="CreateEvent">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="EventName" class="control-label"></label>
+                <input asp-for="EventName" class="form-control" />
+                <span asp-validation-for="EventName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VisitorLimit" class="control-label"></label>
+                <input asp-for="VisitorLimit" class="form-control" />
+                <span asp-validation-for="VisitorLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
@@ -24,19 +39,14 @@
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartEvent" class="control-label"></label>
-                <input asp-for="StartEvent" class="form-control" />
-                <span asp-validation-for="StartEvent" class="text-danger"></span>
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EndEvent" class="control-label"></label>
-                <input asp-for="EndEvent" class="form-control" />
-                <span asp-validation-for="EndEvent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+                <label asp-for="ImageSrc" class="control-label"></label>
+                <input asp-for="ImageSrc" class="form-control" />
+                <span asp-validation-for="ImageSrc" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
