@@ -1,4 +1,4 @@
-﻿
+﻿@model Event
 @{
     ViewData["Title"] = "EventPage";
 }
@@ -11,15 +11,15 @@
     </div>
     <div class="row">
         <div class="col-5">
-            <h1>Title event</h1>
+            <h1>@Model.EventName</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-4">
-            <p>Image</p>
+            <p>@Model.ImageSrc</p>
         </div>
-        <div class="col-6">
-            <p>Description</p>
+        <div class="col-8">
+            <p>@Model.Description</p>
         </div>
         <div class="col-2">
             <div class="card-body">
@@ -31,7 +31,7 @@
     </div>
     <div class="row">
         <div class="col-4">
-            <p>Location</p>
+            <p>@Model.Location</p>
         </div>
     </div>
 </div>
