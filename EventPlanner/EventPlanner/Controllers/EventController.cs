@@ -14,7 +14,7 @@ namespace EventPlanner.Controllers
             return View();
         }
 
-        public IActionResult Event()
+        public IActionResult CreateEvent()
         {
             return View();
         }
