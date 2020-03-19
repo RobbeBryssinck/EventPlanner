@@ -2,22 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventPlanner.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventPlanner.Controllers
 {
-    public class EventController : Controller
+    public class AccountController : Controller
     {
-        public IActionResult EventPage()
+        public IActionResult LoginPage()
         {
             return View();
         }
-
-        public IActionResult Event()
-        {
-            return View();
-        }
-
     }
 }
