@@ -12,5 +12,10 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+
+        public IActionResult RegisterPage()
+        {
+            return View();
+        }
     }
 }
