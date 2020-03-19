@@ -21,9 +21,9 @@
         }
 
         #register .container #register-row #register-column #register-box {
-            margin-top: 40%;
+            margin-top: 25%;
             max-width: 600px;
-            height: 320px;
+            height: 420px;
             border: 1px solid black;
             background-color: #EAEAEA;
         }
@@ -65,12 +65,57 @@
                     <div id="register-box" class="col-md-12">
                         <form id="register-form" class="form" action="" method="post">
                             <h3 class="text-center text-info">Register</h3>
-                            <div class="form-group">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="middel_name" id="middel_name" class="form-control input-sm" placeholder="Middel name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last name">
+                                    </div>
+                                </div>
                             </div>
-                            <label for="password">Password:</label><br>
-                            <input type="password" name="password" id="password show_hide_password" class="form-control">
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="zip_code" id="zip_code" class="form-control input-sm" placeholder="Zip code">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="street_name" id="street_name" class="form-control input-sm" placeholder="Street name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="date" id="birthDate" class="form-control">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+                            </div>
                             <br />
                             <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-register btn-md" value="submit">
