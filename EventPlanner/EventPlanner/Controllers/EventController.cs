@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventPlanner.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventPlanner.Controllers
@@ -13,9 +14,32 @@ namespace EventPlanner.Controllers
             return View();
         }
 
-        public IActionResult CreateEvent()
+        public IActionResult Event()
         {
             return View();
+        }
+
+        public ActionResult Create()
+        {
+            Event @event = new Event();
+
+            try
+            {
+
+                UpdateModel(event);
+
+                dinnerRepository.Add(event);
+                dinnerRepository.Save();
+
+                return RedirectToAction("Details", new { id = event.DinnerID });
+            }
+            catch
+            {
+
+                ModelState.AddRuleViolations(event.GetRuleViolations());
+
+                return View(event);
+            }
         }
     }
 }
