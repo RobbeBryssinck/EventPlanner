@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,56 +11,30 @@ namespace EventPlanner.Models
         [Key]
         public int EventId { get; set; }
 
-        [Required]
+        //[Required]
+        [StringLength(250)]
+        [Display(Name = "Event name")]
         public string EventName { get; set; }
 
-        [Required]
+        //[Required]
         public DateTime Date { get; set; }
 
-        [Required]
+        //[Required]
+        [Display(Name = "Visitor Limit")]
         public int VisitorLimit { get; set; }
 
-        [Required]
+        //[Required]
         public string Description { get; set; }
 
-        [Required]
+        //[Required]
         public string Location { get; set; }
 
-        [Required]
-        [EmailAddress(ErrorMessage = "Enter a vaid e-mailadres")]
+        //[Required]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        //[Required]
         public string ImageSrc { get; set; }
     }
 }
-=======
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EventPlanner.Models
-{
-    public class Event
-    {
-        [Key]
-        public int EventId { get; set; }
-
-        public string EventName { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public int VisitorLimit { get; set; }
-
-        public string Description { get; set; }
-
-        public string Location { get; set; }
-
-        public string Email { get; set; }
-
-        public string ImageSrc { get; set; }
-    }
-}
->>>>>>> master
