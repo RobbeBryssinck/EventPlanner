@@ -3,6 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
+    <title>@ViewData["Title"] - EventPlanner</title>
+
     <style>
         body {
             position: relative;
@@ -19,20 +28,28 @@
             margin-right: auto;
             margin-left: auto;
         }
-    </style>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
-    <title>@ViewData["Title"] - EventPlanner</title>
+        .btn-outline-primary {
+            color: #000000;
+            background-color: #ffe000;
+            border-color: #ffe000;
+        
+           
+        }
+
+        .btn-outline-primary:hover {
+                color: #000000;
+                background-color: #ffe000;
+                border-color: #000000;
+           
+            }
+    </style>
 </head>
 <body>
     <main>
         <div class="container-fluid">
             <br />
-            <nav class="navbar navbar-expand-sm" style="padding: 1px;">
+            <nav class="navbar navbar-expand-sm" style="padding: 1px; ">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/Logo.png" alt="Logo" style="width:60px;">
                 </a>
@@ -56,9 +73,8 @@
 
         </div>
     </main>
-
+    <br />
     <footer class="container-fluid">
-        <hr />
         <div class="row">
             <div class="col-md-5 col-lg-4 ml-lg-0">
                 <div class="text-center text-md-left">

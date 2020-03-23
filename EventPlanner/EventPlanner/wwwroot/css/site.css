@@ -13,3 +13,14 @@ footer {
     margin-right: auto;
     margin-left: auto;
 }
+.btn-primary {
+    color: #ffffff;
+    background-color: #000000;
+    border-color: #000000;
+}
+
+.btn-primary:hover {
+        color: #ffffff;
+        background-color: #000000;
+        border-color: #000000;
+    }
