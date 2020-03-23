@@ -23,6 +23,11 @@ namespace EventPlanner.Controllers
             return View();
         }
 
+        public IActionResult EventSuccessPage()
+        {
+            return View();
+        }
+
         public ActionResult CreateEvent()
         {
             return View(new Event());
