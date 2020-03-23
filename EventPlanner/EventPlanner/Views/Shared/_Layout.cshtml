@@ -3,6 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
+    <title>@ViewData["Title"] - EventPlanner</title>
+
     <style>
         body {
             position: relative;
@@ -19,20 +28,74 @@
             margin-right: auto;
             margin-left: auto;
         }
+
+
+        .fa {
+            padding: 20px;
+            font-size: 30px;
+            width: 60px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+
+            /* Add a hover effect if you want */
+            .fa:hover {
+                opacity: 0.7;
+            }
+
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+
+        .fa-linkedin {
+            background: #007bb5;
+            color: white;
+        }
+
+        .fa-youtube {
+            background: #bb0000;
+            color: white;
+        }
+
+        .fa-instagram {
+            background: #125688;
+            color: white;
+        }
+          .btn-outline-primary {
+            color: #000000;
+            background-color: #ffe000;
+            border-color: #ffe000;
+        
+           
+        }
+
+        .btn-outline-primary:hover {
+                color: #000000;
+                background-color: #ffe000;
+                border-color: #000000;
+           
+            }
     </style>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
     <title>@ViewData["Title"] - EventPlanner</title>
+
+
 </head>
 <body>
     <main>
         <div class="container-fluid">
             <br />
-            <nav class="navbar navbar-expand-sm" style="padding: 1px;">
+            <nav class="navbar navbar-expand-sm" style="padding: 1px; ">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/Logo.png" alt="Logo" style="width:60px;">
                 </a>
@@ -67,15 +130,32 @@
 
 
             @RenderBody()
+            <br />
+            <br />
+            <br />
 
         </div>
     </main>
-
+    <br />
     <footer class="container-fluid">
-        <hr />
         <div class="row">
-            <div class="col-md-5 col-lg-4 ml-lg-0">
-                <div class="text-center text-md-left">
+            <div class="text-md-left col-md-3 col-lg-3 ">
+                <p class="copyright text-muted">Copyright © Rockstars IT 2020</p>
+            </div>
+
+            <div class="text-md-left col-md-4 col-lg-5">
+                <div class="col">
+                    <h5 class="text-uppercase">Social Media</h5>
+                    <a href="https://www.facebook.com/teamrockstarsit/" class="fa fa-facebook"></a>
+                    <a href="https://www.youtube.com/channel/UCvJNUHHMT1aDyjEUlEBaiFQ" class="fa fa-youtube"></a>
+                    <a href="https://www.instagram.com/teamrockstarsit/?hl=nl" class="fa fa-instagram"></a>
+                    <a href="https://www.linkedin.com/company/teamrockstars/" class="fa fa-linkedin"></a>
+                </div>
+            </div>
+
+            <div class="text-md-right col-md-5 col-lg-4 ml-lg-0">
+                <div class="col">
+                    <h5 class="text-uppercase">Links</h5>
                     <ul class="list-unstyled">
                         <li>
                             <a href="https://www.teamrockstars.nl/">Team Rockstars IT</a>
@@ -86,24 +166,6 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="col-md-3 col-lg-4">
-                <ul class="list-unstyled">
-                    <li>
-                        <p>
-                            Social media
-                        </p>
-                    </li>
-                    <li>
-                        <div class="fb-share-button" data-href="https://nl-nl.facebook.com/teamrockstarsit/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnl-nl.facebook.com%2Fteamrockstarsit%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Delen</a></div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 col-lg-4">
-                <p class="text-center text-md-right copyright text-muted">Copyright © Rockstars IT 2020</p>
-            </div>
-
         </div>
     </footer>
 
