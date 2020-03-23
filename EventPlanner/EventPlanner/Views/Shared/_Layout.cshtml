@@ -3,6 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
+    <title>@ViewData["Title"] - EventPlanner</title>
+
     <style>
         body {
             position: relative;
@@ -19,6 +28,7 @@
             margin-right: auto;
             margin-left: auto;
         }
+
 
         .fa {
             padding: 20px;
@@ -53,6 +63,20 @@
             background: #125688;
             color: white;
         }
+          .btn-outline-primary {
+            color: #000000;
+            background-color: #ffe000;
+            border-color: #ffe000;
+        
+           
+        }
+
+        .btn-outline-primary:hover {
+                color: #000000;
+                background-color: #ffe000;
+                border-color: #000000;
+           
+            }
     </style>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -64,12 +88,14 @@
 
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
     <title>@ViewData["Title"] - EventPlanner</title>
+
+
 </head>
 <body>
     <main>
         <div class="container-fluid">
             <br />
-            <nav class="navbar navbar-expand-sm" style="padding: 1px;">
+            <nav class="navbar navbar-expand-sm" style="padding: 1px; ">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/Logo.png" alt="Logo" style="width:60px;">
                 </a>
@@ -103,9 +129,8 @@
 
         </div>
     </main>
-
+    <br />
     <footer class="container-fluid">
-        <hr />
         <div class="row">
             <div class="text-md-left col-md-3 col-lg-3 ">
                 <p class="copyright text-muted">Copyright © Rockstars IT 2020</p>
