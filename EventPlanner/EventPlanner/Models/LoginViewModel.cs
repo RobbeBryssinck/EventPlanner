@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class LoginModel
+    public class LoginViewModel
     {
         public string Username { get; set; }
         public string Password { get; set; }

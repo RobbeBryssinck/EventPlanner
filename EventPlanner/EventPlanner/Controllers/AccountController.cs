@@ -16,7 +16,7 @@ namespace EventPlanner.Controllers
         [HttpPost]
         public IActionResult Login()
         {
-            return View();
+            return Content("Login attempt");
         }
 
         public IActionResult RegisterPage()
