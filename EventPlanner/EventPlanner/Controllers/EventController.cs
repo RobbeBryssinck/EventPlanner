@@ -46,5 +46,11 @@ namespace EventPlanner.Controllers
 
             return RedirectToAction("EventSuccessPage", model);
         }
+
+        public IActionResult Events()
+        {
+            List<Event> events = db.Events.ToList();
+            return View(events);
+        }
     }
 }
