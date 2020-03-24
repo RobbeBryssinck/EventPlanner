@@ -1,7 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
 <body>
+    <style>
+        .btn-outline-primary {
+            color: #000000;
+            background-color: #ffe000;
+            border-color: #ffe000;
+        }
+
+        .btn-outline-primary:hover {
+                color: #000000;
+                background-color: #ffe000;
+                border-color: #000000;
+            }
+    </style>
     <!--background slider, (test).
     <div id="slides" class="carousel slide" data-ride="carousel">
         <ul class="carousel-indicators">
@@ -24,7 +38,7 @@
   
    
     <!--- Welcome Section -->
-    <div class="container-fluid padding">
+    <div class="container">
         <div class=" row welcome text-center">
             <div class="col-12">
                 <h1 class="display-4">Aankomende events.</h1>
@@ -38,7 +52,7 @@
         </div>
     </div>
     <!--- Three Column Section -->
-    <div class="container-fluid padding">
+    <div class="container">
         <div class="row text-center padding">
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <img class="rounded" style="max-width: 66%" src="~/Images/Bordspellenavond.jpg" />
@@ -54,7 +68,7 @@
                 <h3>Pizza-Avond</h3>
                 <p>
                     ...
-                
+
                 </p>
                 <p><a href="#" class="btn btn-outline-primary">Klik Hier!</a></p>
             </div>
@@ -66,11 +80,12 @@
                 </p>
                 <p><a href="#" class="btn btn-outline-primary">Klik Hier!</a></p>
             </div>
+        
         </div>
         <hr class="my-4" />
     </div>
     <!--- Foto met informatie -->
-    <div class="container-fluid padding">
+    <div class="container">
         <div class="row padding">
             <div class="col-md-12 col-lg-6">
                 <h2>Meer over ons.</h2>
@@ -91,11 +106,11 @@
                 <img class="rounded img-fluid" src="~/Images/RockstarTeamIT.jpg" />
             </div>
         </div>
+        <hr class="my-4" />
     </div>
-
-    <hr class="my-4" />
+   
     <!--  Coaching Title -->
-    <div class="container-fluid padding">
+    <div class="container">
         <div class="row welcome text-center">
             <div class="col-12">
                 <h1 class="display-4">Coaching</h1>
@@ -106,15 +121,15 @@
         </div>
     </div>
     <!--  Coaching cards -->
-    <div class="container-fluid padding">
+    <div class="container">
         <div class="row padding">
             <div class="col-md-6">
                 <div class="card">
                     <div class="row no-gutters">
                         <div class="col-auto">
-                            <img class="rounded-circle" style="max-width: 66%" src="~/Images/CoachingAnne.jpg" alt="Coaching">
+                            <img class="rounded-circle" style="max-width: 90%" src="~/Images/CoachingAnne.jpg" alt="Coaching">
                         </div>
-                       
+
                         <div class="col">
                             <div class="card-block pt-1">
                                 <h4 class="card-title">Anne</h4>
@@ -132,7 +147,7 @@
                 <div class="card">
                     <div class="row no-gutters">
                         <div class="col-auto">
-                            <img class="rounded-circle img-fluid" style="max-width: 66%" src="~/Images/CoachingEline.jpg" alt="Coaching1">
+                            <img class="rounded-circle img-fluid" style="max-width: 90%" src="~/Images/CoachingEline.jpg" alt="Coaching1">
                         </div>
                         <div class="col">
                             <div class="card-block pt-1">
@@ -145,34 +160,35 @@
                             </div>
                         </div>
                     </div>
-  
+
                 </div>
             </div>
         </div>
+        <hr class="my-4" />
     </div>
     <br />
-    <hr />
     <!--- Foto met informatie 2 -->
-    <div class="container-fluid padding" style="position: relative">
+    <div class="container" style="position: relative">
         <div class="row padding">
             <div class="col-md-12 col-lg-6">
                 <h2>Meer over ons.</h2>
                 <p class="text-secondary">
-                    IT Rockstars blijven zichzelf ontwikkelen binnen hun vakgebied; waar gelukkig heel erg veel te leren valt! 
-                    Naar mate je meer ervaren wordt kan je een hogere mate van complexiteit aan, 
+                    IT Rockstars blijven zichzelf ontwikkelen binnen hun vakgebied; waar gelukkig heel erg veel te leren valt!
+                    Naar mate je meer ervaren wordt kan je een hogere mate van complexiteit aan,
                     daarnaast ontstaan er tegelijkertijd continu nieuwe technieken.
                 </p>
                 <p class="text-secondary">
-                    Team Up IT biedt verschillende mogelijkheden om je technische kennis bij te spijkeren; 
-                    je kan deelnemen aan kennisevents, certificeringen behalen, 
+                    Team Up IT biedt verschillende mogelijkheden om je technische kennis bij te spijkeren;
+                    je kan deelnemen aan kennisevents, certificeringen behalen,
                     technische elearning modules doorlopen en met Project X werken aan je projectmanagement skills.
                 </p>
-            
+
             </div>
             <div class="col-lg-4">
-                <img class="img-fluid rounded" style="max-width: 70%; height: auto;" src="~/Images/RockstarOpleiding.jpg" />
+                <img class="img-fluid rounded" style="max-width: 100%" src="~/Images/RockstarOpleiding.jpg" />
             </div>
         </div>
+        <hr />
     </div>
-    <hr />
+  
 </body>
