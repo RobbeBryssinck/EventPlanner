@@ -23,9 +23,10 @@ namespace EventPlanner.Controllers
             return View();
         }
 
-        public IActionResult EventSuccessPage()
+        public IActionResult EventSuccessPage(Event model)
         {
-            return View();
+
+            return View(model);
         }
 
         public ActionResult CreateEvent()
@@ -43,7 +44,7 @@ namespace EventPlanner.Controllers
                 db.SaveChanges();
             }
 
-            return View();
+            return RedirectToAction("EventSuccessPage", model);
         }
     }
 }

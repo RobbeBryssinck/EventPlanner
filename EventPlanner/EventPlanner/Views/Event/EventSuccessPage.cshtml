@@ -19,29 +19,43 @@
             padding: 0;
             background-color: white;
         }
-                #CreateSuccess .container {
-            margin-top: 10%;
+
+        #CreateSuccess .container {
+            margin-top: 5%;
             max-width: 600px;
-            height: 320px;
+            height: 460px;
             border: 1px solid black;
-            background-color: white;
-            padding:20px;
+            background-color: #EAEAEA;
+            padding: 20px;
         }
 
+        .btn-continue {
+            color: black;
+            background-color: #fcd703;
+            border-color: #fcca03;
+        }
+
+            .btn-continue:hover {
+                color: black;
+                background-color: #fcca03;
+                border-color: #fcc203;
+            }
     </style>
 </head>
 <body>
     <div id="CreateSuccess">
         <div class="container">
-            <h1 class="text-center"> @*@Model.EventName*@ (Event name)</h1>
+            <h1 class="text-center"> @Model.EventName</h1>
             <hr />
-            <p>Het evenement (Event name) is aangemaakt</p>
+            <p>Het evenement @Model.EventName is aangemaakt</p>
             <h3>Informatie</h3>
-            <p><b>Event Name: </b>(Event Name)</p>
-            <p><b>Date: </b>(date)</p>
-            <p><b>Visitor Limit: </b>(Visitor limit)</p>
-            <p><b>Location: </b>(Location)</p>
-            <p><b>Email: </b>(Email)</p>
+            <p><b>Event Name: </b>@Model.EventName</p>
+            <p><b>Date: </b>@Model.Date</p>
+            <p><b>Visitor Limit: </b>@Model.VisitorLimit</p>
+            <p><b>Location: </b>@Model.Location</p>
+            <p><b>Email: </b>@Model.Email</p>
+            <hr />
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-continue btn-md">Continue</a>
         </div>
     </div>
 </body>
