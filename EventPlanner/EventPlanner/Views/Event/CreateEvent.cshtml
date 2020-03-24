@@ -3,59 +3,85 @@
 @{
     ViewData["Title"] = "CreateEvent";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <style>
+        .btn-Create {
+            color: black;
+            background-color: #fcd703;
+            border-color: #fcca03;
+        }
+
+            .btn-Create:hover {
+                color: black;
+                background-color: #fcca03;
+                border-color: #fcc203;
+            }
+    </style>
 }
 
-<h1>CreateEvent</h1>
 
-<h4>EventModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateEvent">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="EventName" class="control-label"></label>
-                <input asp-for="EventName" class="form-control" />
-                <span asp-validation-for="EventName" class="text-danger"></span>
+
+<div id="CreateEvent">
+    <div class="container">
+        <div id="CreateEvent-row" class="row justify-content-center align-items-center">
+            <div id="CreateEvent-column" class="col-md-6">
+                <div id="CreateEvent-box" class="col-md-12">
+                    <form id="CreateEvent-form" class="form" asp-action="CreateEvent">
+                        <h1>CreateEvent</h1>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="EventName" class="control-label"></label>
+                            <input asp-for="EventName" class="form-control" placeholder="Event name.." />
+                            <span asp-validation-for="EventName" class="text-danger"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Date" class="control-label"></label>
+                                    <input asp-for="Date" class="form-control" />
+                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="VisitorLimit" class="control-label"></label>
+                                    <input asp-for="VisitorLimit" class="form-control" />
+                                    <span asp-validation-for="VisitorLimit" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Discription.."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Location" class="control-label"></label>
+                            <input asp-for="Location" class="form-control" placeholder="Location.." />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="Email.." />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ImageSrc" class="control-label"></label>
+                            <input asp-for="ImageSrc" class="form-control" placeholder="Image.." />
+                            <span asp-validation-for="ImageSrc" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-Create" />
+                        </div>
+                        <a asp-action="Index">Back to List</a>
+
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VisitorLimit" class="control-label"></label>
-                <input asp-for="VisitorLimit" class="form-control" />
-                <span asp-validation-for="VisitorLimit" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageSrc" class="control-label"></label>
-                <input asp-for="ImageSrc" class="form-control" />
-                <span asp-validation-for="ImageSrc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
