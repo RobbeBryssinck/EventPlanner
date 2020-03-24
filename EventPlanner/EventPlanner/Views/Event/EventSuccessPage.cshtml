@@ -1,0 +1,64 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "View";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        #CreateSuccess .container {
+            margin-top: 5%;
+            max-width: 600px;
+            height: 460px;
+            border: 1px solid black;
+            background-color: #EAEAEA;
+            padding: 20px;
+        }
+
+        .btn-continue {
+            color: black;
+            background-color: #fcd703;
+            border-color: #fcca03;
+        }
+
+            .btn-continue:hover {
+                color: black;
+                background-color: #fcca03;
+                border-color: #fcc203;
+            }
+    </style>
+</head>
+<body>
+    <div id="CreateSuccess">
+        <div class="container">
+            <h1 class="text-center"> @Model.EventName</h1>
+            <hr />
+            <p>Het evenement @Model.EventName is aangemaakt</p>
+            <h3>Informatie</h3>
+            <p><b>Event Name: </b>@Model.EventName</p>
+            <p><b>Date: </b>@Model.Date</p>
+            <p><b>Visitor Limit: </b>@Model.VisitorLimit</p>
+            <p><b>Location: </b>@Model.Location</p>
+            <p><b>Email: </b>@Model.Email</p>
+            <hr />
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-continue btn-md">Continue</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
