@@ -86,9 +86,8 @@
                     <img src="~/Images/Logo.png" alt="Logo" style="width:60px;">
                 </a>
 
-                <form class="form-inline" asp-action="" asp-controller="Event">
-                    <input class="form-control mr-sm-" type="text" placeholder="Zoek een evenement" style="width:350px;">
-                    <input type="submit" class="btn btn-login btn-md" value="submit">
+                <form class="form-inline" asp-action="Events" asp-controller="Event">
+                    <input class="form-control mr-sm-" type="text" placeholder="Zoek een evenement" name="id" style="width:350px;">
                 </form>
 
                 <ul class="navbar-nav">

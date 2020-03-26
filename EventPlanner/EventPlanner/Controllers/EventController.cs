@@ -34,7 +34,7 @@ namespace EventPlanner.Controllers
         {
             return View(new Event());
         }
-        
+
         [HttpPost]
         public ActionResult CreateEvent(Event model)
         {
@@ -48,9 +48,20 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EventSuccessPage", model);
         }
 
-        public IActionResult Events()
+        public IActionResult Events(string id)
         {
-            List<Event> events = db.Events.ToList();
+            List<Event> events = new List<Event>();
+
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
+            }
+            else
+            {
+               events = db.Events.ToList();
+            }
+
             return View(events);
         }
     }
