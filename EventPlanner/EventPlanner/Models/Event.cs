@@ -11,30 +11,30 @@ namespace EventPlanner.Models
         [Key]
         public int EventId { get; set; }
 
-        //[Required]
+        [Required]
         [StringLength(250)]
         [Display(Name = "Event name")]
         public string EventName { get; set; }
 
-        //[Required]
+        [Required]
         public DateTime Date { get; set; }
 
-        //[Required]
+        [Required]
         [Display(Name = "Visitor Limit")]
+        [Range (1, 10000)]
         public int VisitorLimit { get; set; }
 
-        //[Required]
+        [Required]
         public string Description { get; set; }
 
-        //[Required]
+        [Required]
         public string Location { get; set; }
 
-        //[Required]
-        [DataType(DataType.EmailAddress)]
-        [EmailAddress]
+        [Required]
+        [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please use a valid e-mailadress")]
         public string Email { get; set; }
 
-        //[Required]
+        [Required]
         public string ImageSrc { get; set; }
     }
 }
