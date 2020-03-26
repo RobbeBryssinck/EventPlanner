@@ -69,8 +69,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="ImageSrc" class="control-label"></label>
-                            <input asp-for="ImageSrc" class="form-control" placeholder="Image.." />
+                            Afbeeldingen
+                            <br />
+                            <div method="post" asp-controller="Event" asp-action="Upload" enctype="multipart/form-data">
+                                <input type="file" name="files" multiple />
+                            </div>
                             <span asp-validation-for="ImageSrc" class="text-danger"></span>
                         </div>
                         <hr />
