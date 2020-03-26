@@ -30,6 +30,11 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        public IActionResult NotFound()
+        {
+            return View();
+        }
+
         public ActionResult CreateEvent()
         {
             return View(new Event());
@@ -60,6 +65,11 @@ namespace EventPlanner.Controllers
             else
             {
                events = db.Events.ToList();
+            }
+
+            if (events.Count == 0)
+            {
+                return RedirectToAction("NotFound");
             }
 
             return View(events);
