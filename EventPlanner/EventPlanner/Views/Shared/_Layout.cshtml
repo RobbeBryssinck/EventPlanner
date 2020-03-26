@@ -21,7 +21,7 @@
 
         footer {
             text-align: center;
-            position: absolute;
+            position: relative;
             bottom: 0;
             width: 100%;
             padding: 10px;
@@ -109,19 +109,11 @@
 
 
             @RenderBody()
-            <br />
-            <br />
-            <br />
 
         </div>
     </main>
-    <br />
     <footer class="container">
         <div class="row">
-            <div class="text-md-center col-md-3 col-lg-3 ">
-                <p></p>
-            </div>
-
             <div class="text-md-left col-md-4 col-lg-5">
                 <div class="col">
                     <h5 class="text-uppercase">Social Media</h5>
@@ -131,7 +123,9 @@
                     <a href="https://www.linkedin.com/company/teamrockstars/" class="fa fa-linkedin"></a>
                 </div>
             </div>
-
+            <div class="col-lg-3 col-md-3">
+                <p class="copyright text-muted">Copyright © Rockstars IT 2020</p>
+            </div>
             <div class="text-md-right col-md-5 col-lg-4 ml-lg-0">
                 <div class="col">
                     <h5 class="text-uppercase">Links</h5>
@@ -145,15 +139,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <p class="copyright text-muted">Copyright © Rockstars IT 2020</p>
-                </div>
-            </div>
-        </div>
-     
+        </div>    
     </footer>
 
 </body>
