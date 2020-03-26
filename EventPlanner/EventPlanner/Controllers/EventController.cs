@@ -43,19 +43,9 @@ namespace EventPlanner.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateEvent(Event model, ICollection<IFormFile> files)
+        public ActionResult CreateEvent(Event model)
         {
-            var uploads = Path.Combine(_environment.WebRootPath, "Images");
-            foreach (var file in files)
-            {
-                if (file.Length > 0)
-                {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-                }
-            }
+           
 
             if (ModelState.IsValid)
             {
@@ -65,6 +55,7 @@ namespace EventPlanner.Controllers
 
             return RedirectToAction("EventSuccessPage", model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Upload(ICollection<IFormFile> files)
         {
@@ -79,10 +70,8 @@ namespace EventPlanner.Controllers
                     }
                 }
             }
-            return View("");
+            return View("~/Views/Home/Index.cshtml");
         }
-
-
         public IActionResult Events()
         {
             List<Event> events = db.Events.ToList();
