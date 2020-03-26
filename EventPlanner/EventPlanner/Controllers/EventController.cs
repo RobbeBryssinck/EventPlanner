@@ -43,8 +43,19 @@ namespace EventPlanner.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateEvent(Event model)
+        public ActionResult CreateEvent(Event model, ICollection<IFormFile> files)
         {
+            var uploads = Path.Combine(_environment.WebRootPath, "Images");
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {
@@ -68,7 +79,7 @@ namespace EventPlanner.Controllers
                     }
                 }
             }
-            return View("CreateEvent");
+            return View("");
         }
 
 

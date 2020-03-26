@@ -71,14 +71,14 @@
                         <div class="form-group">
                             Afbeeldingen
                             <br />
-                            <div method="post" asp-controller="Event" asp-action="Upload" enctype="multipart/form-data">
+                            <div method="post" asp-controller="Event" enctype="multipart/form-data">
                                 <input type="file" name="files" multiple />
                             </div>
-                            <span asp-validation-for="ImageSrc" class="text-danger"></span>
                         </div>
                         <hr />
 
                         <div class="form-group">
+
                             <input type="submit" value="Create" class="btn btn-Create" />
                         </div>
                         <a asp-action="Index">Back to List</a>
