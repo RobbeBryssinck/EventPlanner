@@ -60,7 +60,7 @@
                 <img class="rounded" style="max-width: 66%" src="~/Images/@item.ImageSrc" />
                 <h3>@item.EventName</h3>
 
-                <p><a href="#" class="btn btn-login btn-md">Klik Hier!</a></p>
+                <p><a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)' class="btn btn-login btn-md">Klik Hier!</a></p>
             </div>
             }
         </div>
