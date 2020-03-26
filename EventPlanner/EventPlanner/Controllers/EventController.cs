@@ -18,9 +18,10 @@ namespace EventPlanner.Controllers
             this.db = db;
         }
 
-        public IActionResult EventPage()
+        public IActionResult EventPage(int eventID)
         {
-            return View();
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            return View(events[0]);
         }
 
         public IActionResult EventSuccessPage(Event model)

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Event>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -35,8 +36,6 @@
             </div>
         </div>
     </div> -->
-  
-   
     <!--- Welcome Section -->
     <div class="container">
         <div class=" row welcome text-center">
@@ -46,41 +45,24 @@
             <hr />
             <div class="col-12">
                 <p class="lead">
-                 @*Text for under the aankomende events*@
+                    @*Text for under the aankomende events*@
                 </p>
             </div>
         </div>
     </div>
     <!--- Three Column Section -->
     <div class="container">
+
         <div class="row text-center padding">
+            @foreach (var item in Model)
+            {
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <img class="rounded" style="max-width: 66%" src="~/Images/Bordspellenavond.jpg" />
-                <h3>Chess-Event</h3>
-                <p>
-                    ...
+                <img class="rounded" style="max-width: 66%" src="~/Images/@item.ImageSrc" />
+                <h3>@item.EventName</h3>
 
-                </p>
-                <p><a href="#" class="btn btn-login btn-md">Klik Hier!</a></p>
+                <p><a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)' class="btn btn-login btn-md">Klik Hier!</a></p>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <img class="rounded" style="max-width: 66%" src="~/Images/Pizzasessie.jpg" />
-                <h3>Pizza-Avond</h3>
-                <p>
-                    ...
-
-                </p>
-                <p><a href="#" class="btn btn-login btn-md">Klik Hier!</a></p>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <img class="rounded" style="max-width: 66%" src="~/Images/SoftwareOntwikkeling.jpg" />
-                <h3>Software-Ontwikkeling</h3>
-                <p>
-                    ...
-                </p>
-                <p><a href="#" class="btn btn-login btn-md">Klik Hier!</a></p>
-            </div>
-        
+            }
         </div>
         <hr class="my-4" />
     </div>
@@ -108,7 +90,7 @@
         </div>
         <hr class="my-4" />
     </div>
-   
+
     <!--  Coaching Title -->
     <div class="container">
         <div class="row welcome text-center">
@@ -116,7 +98,7 @@
                 <h1 class="display-4">Coaching</h1>
                 <br />
             </div>
-            
+
             <hr />
         </div>
     </div>
@@ -190,5 +172,5 @@
         </div>
         <hr />
     </div>
-  
+
 </body>
