@@ -30,11 +30,16 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        public IActionResult NotFound()
+        {
+            return View();
+        }
+
         public ActionResult CreateEvent()
         {
             return View(new Event());
         }
-        
+
         [HttpPost]
         public ActionResult CreateEvent(Event model)
         {
@@ -48,9 +53,25 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EventSuccessPage", model);
         }
 
-        public IActionResult Events()
+        public IActionResult Events(string id)
         {
-            List<Event> events = db.Events.ToList();
+            List<Event> events = new List<Event>();
+
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
+            }
+            else
+            {
+               events = db.Events.ToList();
+            }
+
+            if (events.Count == 0)
+            {
+                return RedirectToAction("NotFound");
+            }
+
             return View(events);
         }
     }
