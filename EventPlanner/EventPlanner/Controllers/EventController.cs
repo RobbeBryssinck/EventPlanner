@@ -37,23 +37,23 @@ namespace EventPlanner.Controllers
             return View(model);
         }
     
-        public ActionResult CreateEvent()
+        public IActionResult CreateEvent()
         {
             return View(new Event());
         }
         [HttpPost]
-        public ActionResult CreateEvent(Event model)
+        public IActionResult CreateEvent(Event model)
         {
             if (ModelState.IsValid)
             {
                 db.Events.Add(model);
                 db.SaveChanges();
             }
-            return View("EventImage", model);
+            return View("EventImage");
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage(Event model, ICollection<IFormFile> files)
+        public async Task<IActionResult> UploadImage(ICollection<IFormFile> files)
         {
             var uploads = Path.Combine(_environment.WebRootPath, "Images");
             foreach (var file in files)
@@ -67,7 +67,7 @@ namespace EventPlanner.Controllers
                 }
             }
          
-            return RedirectToAction("EventSuccesPage", model);
+            return View("EventCreationSucces");
         }
         public IActionResult Events()
         {
