@@ -1,0 +1,27 @@
+﻿@model Event
+
+@{
+    ViewData["Title"] = "Add Images";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <style>
+    .btn-outline-primary {
+    color: #000000;
+    background-color: #ffe000;
+    border-color: #ffe000;
+}
+
+.btn-outline-primary:hover {
+        color: #000000;
+        background-color: #ffe000;
+        border-color: #000000;
+    }
+    </style>
+}
+
+<div id="CreateSuccess">
+    <div class="container">
+        <h2 class="text-md-left"> Event creation was successful!</h2>
+        <br />
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Continue</a>
+    </div>
+</div>
