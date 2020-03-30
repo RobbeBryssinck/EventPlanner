@@ -81,20 +81,33 @@ namespace EventPlanner.Controllers
         {
             List<Event> events = new List<Event>();
 
-
             if (!String.IsNullOrEmpty(id))
             {
                 events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
             }
             else
             {
-               events = db.Events.ToList();
+                events = db.Events.ToList();
             }
 
             if (events.Count == 0)
             {
                 return RedirectToAction("NotFound");
             }
+
+            return View(events);
+        }
+
+        public IActionResult Guilds()
+        {
+            List<Event> events = db.Events.Where(s => s.EventType == "Guild").ToList();
+
+            return View(events);
+        }
+
+        public IActionResult Chapter()
+        {
+            List<Event> events = db.Events.Where(s => s.EventType == "Chapter").ToList();
 
             return View(events);
         }
