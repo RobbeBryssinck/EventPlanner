@@ -80,5 +80,12 @@ namespace EventPlanner.Controllers
 
             return View(events);
         }
+
+        public IActionResult Chapter()
+        {
+            List<Event> events = db.Events.Where(s => s.EventType == "Chapter").ToList();
+
+            return View(events);
+        }
     }
 }

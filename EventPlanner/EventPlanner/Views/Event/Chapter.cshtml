@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Event>
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h1>Chapter</h1>
+<br />
+@foreach (var item in Model)
+{
+    <div class="container" style="border-style:solid;">
+        <div class="row">
+            <div class="col"><h4>@item.EventName</h4><br /></div>
+        </div>
+
+        <div class="row">
+            <div class="col"><h6>@item.Date</h6> </div>
+        </div>
+
+        <div class="row">
+            <div class="col"><h7>@item.Location</h7><br /><br /></div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">@item.ImageSrc</div>
+            <div class="col-9"><h8>@item.Description</h8></div>
+        </div>
+    </div>
+    <br />
+}
