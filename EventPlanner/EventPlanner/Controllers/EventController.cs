@@ -53,5 +53,10 @@ namespace EventPlanner.Controllers
             List<Event> events = db.Events.ToList();
             return View(events);
         }
+        public IActionResult EventsJoin(int id)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == id).ToList();
+            return View(events[0]);
+        }
     }
 }
