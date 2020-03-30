@@ -7,9 +7,9 @@
 <br />
 @foreach (var item in Model)
 {
-    <div class="container" style="border-style:solid;">
+    <div class="container EventsBorder" style="border-style:solid;">
         <div class="row">
-            <div class="col"><h4>@item.EventName</h4><br /></div>
+            <div class="col"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)'>@item.EventName</a></h4><br /></div>
         </div>
 
         <div class="row">
