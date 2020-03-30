@@ -40,5 +40,9 @@ namespace EventPlanner.Models
 
         [Required]
         public string ImageSrc { get; set; }
+
+
+        [Required]
+        public string EventType { get; set; }
     }
 }
