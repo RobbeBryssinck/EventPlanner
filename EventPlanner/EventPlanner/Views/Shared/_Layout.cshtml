@@ -39,10 +39,11 @@
             border-radius: 50%;
         }
 
-            /* Add a hover effect if you want */
-            .fa:hover {
-                opacity: 0.7;
-            }
+     
+        /* Add a hover effect if you want */
+        .fa:hover {
+            opacity: 0.7;
+        }
 
         .fa-facebook {
             background: #3B5998;
@@ -69,6 +70,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -86,21 +89,21 @@
                     <img src="~/Images/Logo.png" alt="Logo" style="width:60px;">
                 </a>
 
-                <form class="form-inline" action="/action_page.php">
-                    <input class="form-control mr-sm-" type="text" placeholder="Zoek een evenement" style="width:350px;">
+                <form class="form-inline" asp-action="Events" asp-controller="Event">
+                    <input class="form-control mr-sm-" type="text" placeholder="Zoek een evenement" name="id" style="width:350px;">
                 </form>
 
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Event" asp-action="Events" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Event" asp-action="Events" id="navbardrop" data-toggle="dropdown" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                            onMouseOut="this.style.color='#000'"> Evenementen </a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Event" asp-action="CreateEvent" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
-                           onMouseOut="this.style.color='#000'"> Maak evenement </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Event" asp-action="Events"> Alle Evenementen </a>
+                            <a class="dropdown-item" asp-controller="Event" asp-action="Chapter"> Chapters </a>
+                            <a class="dropdown-item" asp-controller="Event" asp-action="Guilds"> Guilds & Leisures </a>
+                            <hr />
+                            <a class="dropdown-item" asp-controller="Event" asp-action="CreateEvent"> Maak evenement</a>
+                        </div>
                     </li>
                 </ul>
 
@@ -146,7 +149,7 @@
                     </ul>
                 </div>
             </div>
-        </div>    
+        </div>
     </footer>
 
 </body>

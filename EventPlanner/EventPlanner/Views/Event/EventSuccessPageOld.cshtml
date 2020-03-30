@@ -20,7 +20,7 @@
             background-color: white;
         }
 
-        #CreateSuccess .container {
+        #NotFound .container {
             margin-top: 5%;
             max-width: 600px;
             height: 460px;
@@ -43,7 +43,7 @@
     </style>
 </head>
 <body>
-    <div id="CreateSuccess">
+    <div id="NotFound">
         <div class="container">
             <h1 class="text-center"> @Model.EventName</h1>
             <hr />
@@ -54,8 +54,13 @@
             <p><b>Visitor Limit: </b>@Model.VisitorLimit</p>
             <p><b>Location: </b>@Model.Location</p>
             <p><b>Email: </b>@Model.Email</p>
+           
+       
+            
             <hr />
+            
             <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-continue btn-md">Continue</a>
+            
         </div>
     </div>
 </body>
