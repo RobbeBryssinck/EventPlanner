@@ -6,17 +6,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col">
-            <p>Back to home</p>
+            <b class="text-dark">@Html.ActionLink("Back to events","Events","Event")</b>
         </div>
     </div>
     <div class="row">
-        <div class="col-5">
+        <div class="col-lg-12">
             <h1>@Model.EventName</h1>
         </div>
     </div>
+    <hr />
     <div class="row">
         <div class="col-4">
-            <p>@Model.ImageSrc</p>
+            <img class="rounded img-fluid" style="max-width: 90%" src=~/Images/@Model.ImageSrc alt="Coaching1">
         </div>
         <div class="col-6">
             <p>@Model.Description</p>
@@ -31,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col-4">
-            <p>@Model.Location</p>
+            <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
         </div>
     </div>
 </div>
