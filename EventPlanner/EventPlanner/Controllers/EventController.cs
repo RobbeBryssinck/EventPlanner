@@ -54,8 +54,13 @@ namespace EventPlanner.Controllers
             {
                 db.Events.Add(model);
                 db.SaveChanges();
+
+                return View("EventImage");
             }
-            return View("EventImage");
+            else
+            {
+                return View("EventCreateFail");
+            }
         }
 
         [HttpPost]
