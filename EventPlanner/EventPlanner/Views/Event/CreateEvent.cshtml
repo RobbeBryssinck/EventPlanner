@@ -1,4 +1,4 @@
-﻿@model EventPlanner.Models.Event
+﻿@model EventPlanner.Models.EventViewModel
 
 @{
     ViewData["Title"] = "CreateEvent";
@@ -24,7 +24,7 @@
         <div id="CreateEvent-row" class="row justify-content-center align-items-center">
             <div id="CreateEvent-column" class="col-md-6">
                 <div id="CreateEvent-box" class="col-md-12">
-                    <form id="CreateEvent-form" class="form" asp-action="CreateEvent">
+                    <form id="CreateEvent-form" class="form" asp-action="CreateEvent" enctype="multipart/form-data">
                         <h1>Evenement informatie</h1>
                         <hr />
                         <div class="form-group">
@@ -65,7 +65,18 @@
                             <input asp-for="Email" class="form-control" placeholder="Email.." />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
-                    
+
+                        <div class="form-group">
+                            <label asp-for="EventType" class="control-label"></label>
+                            <input asp-for="EventType" class="form-control" placeholder="Event type.." />
+                            <span asp-validation-for="EventType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="files" class="control-label"></label>
+                            <input asp-for="files" type="file" name="files" multiple />
+                            <span asp-validation-for="files" class="text-danger"></span>
+                        </div>
                         <div class="form-group">
                             <input type="submit" value="Maak aan" class="btn btn-Create" />
                         </div>
