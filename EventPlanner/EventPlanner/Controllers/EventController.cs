@@ -14,7 +14,7 @@ namespace EventPlanner.Controllers
 {
     public class EventController : Controller
     {
-       
+
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
 
@@ -39,9 +39,9 @@ namespace EventPlanner.Controllers
 
         public IActionResult CreateEvent()
         {
-            return View(new Event());
+            return View(new EventViewModel());
         }
-
+        /*
         [HttpPost]
         public IActionResult CreateEvent(Event model)
         {
@@ -57,23 +57,44 @@ namespace EventPlanner.Controllers
                 return View("EventCreateFail");
             }
         }
+        */
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage(ICollection<IFormFile> files)
+        public async Task<IActionResult> CreateEvent(EventViewModel model)
         {
-            var uploads = Path.Combine(_environment.WebRootPath, "Images");
-            foreach (var file in files)
+            Event realmodel = new Event();
+            if (ModelState.IsValid)
             {
-                if (file.Length > 0)
+                var uploads = Path.Combine(_environment.WebRootPath, "Images");
+                foreach (var file in model.files)
                 {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    realmodel.ImageSrc = file.FileName;
+                    if (file.Length > 0)
                     {
-                        await file.CopyToAsync(fileStream);
+                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
                     }
                 }
+
+
+                realmodel.EventId = model.EventId;
+                realmodel.EventName = model.EventName;
+                realmodel.Date = model.Date;
+                realmodel.VisitorLimit = model.VisitorLimit;
+                realmodel.Description = model.Description;
+                realmodel.Location = model.Location;
+                realmodel.EventType = model.EventType;
+                realmodel.Email = model.Email;
+
+                db.Events.Add(realmodel);
+                db.SaveChanges();
+                return View("EventCreationSucces");
             }
-         
-            return View("EventCreationSucces");
+
+            else
+                return View("EventCreateFail");
         }
 
 

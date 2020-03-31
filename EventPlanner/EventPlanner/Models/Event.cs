@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -41,8 +42,6 @@ namespace EventPlanner.Models
         
         public string ImageSrc { get; set; }
 
-
-        
         public string EventType { get; set; }
     }
 }
