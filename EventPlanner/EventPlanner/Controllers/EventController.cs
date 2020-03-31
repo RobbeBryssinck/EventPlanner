@@ -37,11 +37,6 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        public IActionResult NotFound()
-        {
-            return View();
-        }
-
         public IActionResult CreateEvent()
         {
             return View(new Event());
