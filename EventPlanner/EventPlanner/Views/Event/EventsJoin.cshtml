@@ -5,16 +5,17 @@
 
 <div class="container-fluid">
     <div class="row">
+        <div class="col">
+            <h1>@Model.EventName</h1>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-6">
-            <div class="row">
-                <div class="col-5">
-                    <h1>@Model.EventName</h1>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-lg-4">
                     <img class="rounded" style="max-width: 100%" src="~/Images/@Model.ImageSrc" />
-            </div>
+                </div>
                 <div class="col-lg-8">
                     <p>@Model.Description</p>
                 </div>
