@@ -41,6 +41,11 @@ namespace EventPlanner.Controllers
         {
             return View(new EventViewModel());
         }
+
+        public IActionResult EventNotFound()
+        {
+            return View();
+        }
         /*
         [HttpPost]
         public IActionResult CreateEvent(Event model)
@@ -113,7 +118,7 @@ namespace EventPlanner.Controllers
 
             if (events.Count == 0)
             {
-                return RedirectToAction("NotFound");
+                return RedirectToAction("EventNotFound");
             }
 
             return View(events);
