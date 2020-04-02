@@ -15,6 +15,7 @@ namespace EventPlanner.Data
         }
 
         public DbSet<Event> Events { get; set; }
+        public DbSet<Coach> Coaches { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
