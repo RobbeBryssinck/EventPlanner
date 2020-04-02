@@ -79,15 +79,14 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteCoach(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
-            string name = coaches[0].Name;
             db.Coaches.Remove(coaches[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteCoachComplete", (object)name);
+            return RedirectToAction("DeleteCoachComplete");
         }
 
-        public IActionResult DeleteCoachComplete(string name)
+        public IActionResult DeleteCoachComplete()
         {
-            return View((object)name);
+            return View();
         }
     }
 }
