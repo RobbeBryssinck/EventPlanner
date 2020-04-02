@@ -70,10 +70,24 @@ namespace EventPlanner.Controllers
                 return View("AddCoachFail");
         }
 
-        public IActionResult DeleteCoach(int coachID)
+        public IActionResult DeleteCoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
             return View(coaches[0]);
+        }
+
+        public IActionResult DeleteCoach(int coachID)
+        {
+            List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
+            string name = coaches[0].Name;
+            db.Coaches.Remove(coaches[0]);
+            db.SaveChanges();
+            return RedirectToAction("DeleteCoachComplete", (object)name);
+        }
+
+        public IActionResult DeleteCoachComplete(string name)
+        {
+            return View((object)name);
         }
     }
 }
