@@ -21,5 +21,11 @@ namespace EventPlanner.Controllers
         {
             return View(db.Coaches.ToList());
         }
+
+        public IActionResult CoachPage(int coachID)
+        {
+            List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
+            return View(coaches[0]);
+        }
     }
 }

@@ -1,1 +1,40 @@
-﻿
+﻿@model Coach
+@{
+    ViewData["Title"] = "Coach";
+}
+<style>
+    .btn-login {
+        color: black;
+        background-color: #fcd703;
+        border-color: #fcca03;
+    }
+
+        .btn-login:hover {
+            color: black;
+            background-color: #fcca03;
+            border-color: #fcc203;
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <b class="text-dark">@Html.ActionLink("Terug naar coaches", "Coaches", "Coach")</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>@Model.Name</h1>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-4">
+            <img class="rounded img-fluid" style="max-width: 90%" src=~/Images/@Model.ImageSrc alt="Coaching1">
+        </div>
+        <div class="col-6">
+            <p>@Model.Info</p>
+            <button href="mailto: @Model.Email" class="btn btn-login">Email mij!</button>
+        </div>
+    </div>
+</div>
