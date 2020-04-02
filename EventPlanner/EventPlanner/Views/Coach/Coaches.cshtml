@@ -1,7 +1,20 @@
-﻿
+﻿@model IEnumerable<Coach>
 @{
     ViewData["Title"] = "Coaches";
 }
 
 <h1>Coaches</h1>
+<br />
+@foreach (var item in Model)
+{
+    <div class="container EventsBorder">
+        <div class="row">
+            <div class="col"><h4><a href='@string.Format("/Coach/CoachPage?coachID={0}", item.CoachId)'>@item.Name</a></h4><br /></div>
+        </div>
 
+        <div class="row">
+            <div class="col-3"><img class="rounded" style="max-width: 66%" src="~/Images/@item.ImageSrc" /></div>
+            <div class="col-9"><h8>@item.Info</h8></div>
+        </div>
+    </div><br/>
+}

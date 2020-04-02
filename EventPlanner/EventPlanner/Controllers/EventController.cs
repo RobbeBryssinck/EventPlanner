@@ -105,6 +105,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Events(string id)
         {
+            //TODO: change List to IEnumerable or IReadOnly?
             List<Event> events = new List<Event>();
 
             if (!String.IsNullOrEmpty(id))
