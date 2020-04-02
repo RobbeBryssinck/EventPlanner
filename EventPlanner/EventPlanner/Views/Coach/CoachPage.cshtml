@@ -34,7 +34,10 @@
         </div>
         <div class="col-6">
             <p>@Model.Info</p>
-            <a href="mailto: @Model.Email" class="btn btn-login">Email mij!</a>
+            <div class="row">
+                <a href="mailto: @Model.Email" class="btn btn-login">Email mij!</a>
+                <a href='@string.Format("/Coach/DeleteCoach?coachID={0}", Model.CoachId)' class="btn btn-danger">Verwijder coach</a>
+            </div>
         </div>
     </div>
 </div>

@@ -69,5 +69,11 @@ namespace EventPlanner.Controllers
             else
                 return View("AddCoachFail");
         }
+
+        public IActionResult DeleteCoach(int coachID)
+        {
+            List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
+            return View(coaches[0]);
+        }
     }
 }

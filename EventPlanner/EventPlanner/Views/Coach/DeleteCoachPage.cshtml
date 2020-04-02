@@ -1,0 +1,16 @@
+﻿@model Coach
+@{
+    ViewData["Title"] = "Verwijder coach";
+}
+
+<div class="container">
+    <div class="row">
+        <h1>Verwijder coach: @Model.Name</h1>
+    </div>
+    <div class="row">
+        <p>Weet je zeker dat je @Model.Name als coach wil verwijderen?</p>
+    </div>
+    <div class="row">
+        <a href='@string.Format("/Coach/DeleteCoach?coachID={0}", Model.CoachId)' class="btn btn-danger">Verwijder coach</a>
+    </div>
+</div>
