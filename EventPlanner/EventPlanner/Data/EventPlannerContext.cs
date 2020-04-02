@@ -20,6 +20,7 @@ namespace EventPlanner.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Event>().ToTable("Event");
+            modelBuilder.Entity<Coach>().ToTable("Coach");
         }
     }
 }

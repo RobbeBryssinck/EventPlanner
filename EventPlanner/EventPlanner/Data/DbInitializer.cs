@@ -54,6 +54,24 @@ namespace EventPlanner.Data
                 context.Events.Add(e);
             }
             context.SaveChanges();
+
+            var coaches = new Coach[]
+            {
+                new Coach{Name="Anne", Email="anne@teamrockstars.nl", 
+                    Info="Als happy thinker kijkt Anne naar waar je al (bewust of onbewust) goed in bent en biedt ze optimisme en begrip. " +
+                    "Luisteren & lachen doet ze graag. Als jongste thuis stond ze haar mannetje en heeft ze avontuurlijke en gastvrije ‘genen’ meegekregen. " +
+                    "Communicatie studieachtergrond en 10 jaar ervaring in Recruitment en Coaching."},
+
+                new Coach{Name="Eline", Email="eline@teamrockstars.nl", 
+                Info="Eline weet je te motiveren en uit te dagen zonder te duwen en doet dit door haar superpowers in te zetten; ze luistert, observeert en zegt wat ze ziet, " +
+                "hoort en voelt. Als benjamin in een gezin met vijf kinderen heeft ze deze skills sterk kunnen ontwikkelen. 10 jaar ervaring in Recruitment, HR, " +
+                "Learning & Development en Coaching."},
+            };
+            foreach (Coach coach in coaches)
+            {
+                context.Coaches.Add(coach);
+            }
+            context.SaveChanges();
         }
     }
 }
