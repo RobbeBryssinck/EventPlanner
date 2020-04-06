@@ -23,7 +23,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Index()
         {
-            var emp_data = db.Events.OrderBy(e => e.Date).ToList();
+            var emp_data = db.Events.Where(f => f.Date > DateTime.Now).OrderBy(e => e.Date).ToList();
             return View(emp_data.GetRange(0, 3));
         }
 

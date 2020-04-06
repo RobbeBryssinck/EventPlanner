@@ -133,7 +133,7 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                events = db.Events.ToList();
+                events = db.Events.Where(s => s.Date > DateTime.Now).ToList();
             }
 
             if (events.Count == 0)
@@ -146,14 +146,20 @@ namespace EventPlanner.Controllers
 
         public IActionResult Educational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Educational").ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
 
             return View(events);
         }
 
-        public IActionResult Recreation()
+        public IActionResult Recreational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Recreation").ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Recreational" && s.Date > DateTime.Now).ToList();
+
+            return View(events);
+        }
+        public IActionResult EventArchive()
+        {
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now).ToList();
 
             return View(events);
         }
