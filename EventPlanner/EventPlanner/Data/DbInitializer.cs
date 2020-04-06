@@ -74,6 +74,39 @@ namespace EventPlanner.Data
                 context.Coaches.Add(coach);
             }
             context.SaveChanges();
+
+            var ratings = new Rating[]
+            {
+                new Rating
+                {
+                    EventId=1, StarRating=4, Comment="Is goed"
+                },
+
+                new Rating
+                {
+                    EventId=2, StarRating=1, Comment="Heel mooi"
+                },
+
+                new Rating
+                {
+                    EventId=3, StarRating=5, Comment="Zeer gaaf"
+                },
+
+                new Rating
+                {
+                    EventId=4, StarRating=1, Comment="Niet zo leuk"
+                },
+                                
+                new Rating
+                {
+                    EventId=4, StarRating=3, Comment="Wel Oke"
+                }
+            };
+            foreach (Rating rating in ratings)
+            {
+                context.Ratings.Add(rating);
+            }
+            context.SaveChanges();
         }
     }
 }
