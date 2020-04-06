@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col">
-            <b class="text-dark">@Html.ActionLink("Back to events","Events","Event")</b>
+            <b class="text-dark">@Html.ActionLink("Back to events", "Events", "Event")</b>
         </div>
     </div>
     <div class="row">
@@ -26,14 +26,14 @@
             <div class="card-body">
                 <h5 class="card-title">Are you interested?</h5>
                 <p class="card-text">@*@Model.Participants*@ people are already going!</p>
-                <a href="@Url.Action("EventsJoin","Event",new {id = Model.EventId })"class="btn btn-primary">Join event</a>
+                <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-primary">Join event</a>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-4">
             <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
-            <iframe src="http://maps.google.co.u/maps?q=" moma+new+york&amp;output=embed"></iframe>
+            <iframe frameborder="3" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
+                    src="https://maps.google.com/maps?hl=nl&q=@Model.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed">
         </div>
     </div>
-</div>
