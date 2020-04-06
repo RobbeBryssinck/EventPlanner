@@ -26,7 +26,8 @@
             <div class="card-body">
                 <h5 class="card-title">Are you interested?</h5>
                 <p class="card-text">@*@Model.Participants*@ people are already going!</p>
-                <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-primary">Join event</a>
+                <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Join event</a>
+                <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder event</a>
             </div>
         </div>
     </div>

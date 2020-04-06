@@ -1,0 +1,16 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "Verwijder event";
+}
+
+    <div class="container">
+        <div class="row">
+            <h1>Verwijder event: <i>@Model.EventName</i></h1>
+        </div>
+        <div class="row">
+            <p>Weet je zeker dat je <i>@Model.EventName</i> als event wil verwijderen?</p>
+        </div>
+        <div class="row">
+            <a href='@string.Format("/Event/DeleteEvent?eventId={0}", Model.EventId)' class="btn btn-danger">Verwijder event</a>
+        </div>
+    </div>

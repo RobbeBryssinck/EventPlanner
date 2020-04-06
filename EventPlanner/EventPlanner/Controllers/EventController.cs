@@ -102,6 +102,25 @@ namespace EventPlanner.Controllers
                 return View("EventCreateFail");
         }
 
+        public IActionResult DeleteEventPage(int EventId)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
+            return View(events[0]);
+        }
+
+        public IActionResult DeleteEvent(int EventId)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
+            db.Events.Remove(events[0]);
+            db.SaveChanges();
+            return RedirectToAction("DeleteEventComplete");
+        }
+
+        public IActionResult DeleteEventComplete()
+        {
+            return View();
+        }
+
 
         public IActionResult Events(string id)
         {
@@ -125,19 +144,20 @@ namespace EventPlanner.Controllers
             return View(events);
         }
 
-        public IActionResult Guilds()
+        public IActionResult Educational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Guild").ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Educational").ToList();
 
             return View(events);
         }
 
-        public IActionResult Chapter()
+        public IActionResult Recreation()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Chapter").ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Recreation").ToList();
 
             return View(events);
         }
+
         public IActionResult EventsJoin(int id)
         {
             List<Event> events = db.Events.Where(x => x.EventId == id).ToList();
