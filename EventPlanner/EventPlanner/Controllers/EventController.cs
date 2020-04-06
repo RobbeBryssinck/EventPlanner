@@ -114,7 +114,7 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                events = db.Events.ToList();
+                events = db.Events.Where(s => s.Date > DateTime.Now).ToList();
             }
 
             if (events.Count == 0)
