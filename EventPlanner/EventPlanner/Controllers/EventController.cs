@@ -125,16 +125,16 @@ namespace EventPlanner.Controllers
             return View(events);
         }
 
-        public IActionResult Guilds()
+        public IActionResult Educational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Guild" && s.Date > DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
 
             return View(events);
         }
 
-        public IActionResult Chapter()
+        public IActionResult Recreational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Chapter" && s.Date > DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Recreational" && s.Date > DateTime.Now).ToList();
 
             return View(events);
         }
