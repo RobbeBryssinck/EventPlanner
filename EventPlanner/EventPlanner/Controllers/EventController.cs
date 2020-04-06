@@ -138,9 +138,9 @@ namespace EventPlanner.Controllers
 
             return View(events);
         }
-        public IActionResult Archive()
+        public IActionResult EventArchive()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Chapter").ToList();
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now).ToList();
 
             return View(events);
         }
