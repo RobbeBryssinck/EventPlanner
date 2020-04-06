@@ -26,7 +26,14 @@
             <div class="card-body">
                 <h5 class="card-title">Are you interested?</h5>
                 <p class="card-text">@*@Model.Participants*@ people are already going!</p>
-                <a href="@Url.Action("EventsJoin","Event",new {id = Model.EventId })"class="btn btn-primary">Join event</a>
+                @if (@Model.Date > DateTime.Now)
+                {
+                    <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-primary">Join event</a>
+                }
+                else
+                {
+                    <a  class="text-warning font-weight-bold">Event is afgelopen.</a>
+                }
             </div>
         </div>
     </div>

@@ -127,14 +127,14 @@ namespace EventPlanner.Controllers
 
         public IActionResult Guilds()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Guild").ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Guild" && s.Date > DateTime.Now).ToList();
 
             return View(events);
         }
 
         public IActionResult Chapter()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Chapter").ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Chapter" && s.Date > DateTime.Now).ToList();
 
             return View(events);
         }
