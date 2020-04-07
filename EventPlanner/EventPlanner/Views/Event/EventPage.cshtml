@@ -34,8 +34,8 @@
     </div>
     <div class="row">
         <div class="col-3">
-            <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.City</b>
+            <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
             <iframe frameborder="1" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
-                    src='@string.Format("https://maps.google.com/maps?hl=nl&q={0}&ie=UTF8&t=m&z=15&iwloc=B&output=embed", Model.City + Model.Street + Model.HouseNumber + Model.ZipCode)'></iframe>
+                    src="https://maps.google.com/maps?hl=nl&q=@Model.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed"></iframe>
         </div>
     </div>

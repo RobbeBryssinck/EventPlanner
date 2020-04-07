@@ -31,20 +31,8 @@ namespace EventPlanner.Models
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Straat")]
-        public string Street { get; set; }
-
-        [Required]
-        [Display(Name = "Huis nummer")]
-        public string HouseNumber { get; set; }
-
-        [Required]
-        [Display(Name = "Post-code")]
-        public string ZipCode { get; set; }
-
-        [Required]
-        [Display(Name = "Stad")]
-        public string City { get; set; }
+        [Display(Name = "Locatie")]
+        public string Location { get; set; }
 
         [Required]
         [Display(Name = "Email")]

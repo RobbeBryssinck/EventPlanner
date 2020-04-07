@@ -6,7 +6,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Google Maps JavaScript library -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCMGzFaY4NywUNBSz80pFEuncUHgze1uQo"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCMGzFaY4NywUNBSz80pFEuncUHgze1uQo"></script>
     <style>
         .btn-Create {
             color: black;
@@ -59,27 +59,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="Street" class="control-label"></label>
-                            <input asp-for="Street" class="form-control" placeholder="Straatnaam" />
-                            <span asp-validation-for="Street" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="HouseNumber" class="control-label"></label>
-                            <input asp-for="HouseNumber" class="form-control" placeholder="Huisnummer" />
-                            <span asp-validation-for="HouseNumber" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="City" class="control-label"></label>
-                            <input asp-for="City" class="form-control" placeholder="Stad.." />
-                            <span asp-validation-for="City" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="ZipCode" class="control-label"></label>
-                            <input asp-for="ZipCode" class="form-control" placeholder="Post-Code.." />
-                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            <label asp-for="Location" class="control-label"></label>
+                            <input asp-for="Location" type="text" class="form-control" id="search_input" placeholder="Type address..." />
+                            <span asp-validation-for="Location" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
@@ -111,13 +93,6 @@
     </div>
 </div>
 <!-- Autocomplete location search input -->
-<div class="form-group">
-    <label>Location:</label>
-    <input type="text" class="form-control" id="search_input" placeholder="Type address..." />
-</div>
-     </div>
-   </div>
-</div>
 <script>
     var searchInput = 'search_input';
 
