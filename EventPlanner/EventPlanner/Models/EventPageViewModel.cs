@@ -7,5 +7,11 @@ namespace EventPlanner.Models
 {
     public class EventPageViewModel
     {
+        [Key]
+        public int RatingId { get; set; }
+        public int EventId { get; set; }
+        public int StarRating { get; set; }
+        public string Comment { get; set; }
+
     }
 }
