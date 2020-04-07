@@ -46,7 +46,22 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+
+        public IActionResult ArchivedEvent(int eventID)
+        {
+            RatingEventViewModel ratingEventViewModel = new RatingEventViewModel();
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            Event currentEvent = events[0];
+
+            List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
+
+            ratingEventViewModel.Event = currentEvent;
+            ratingEventViewModel.Ratings = ratings;
+            return View(ratingEventViewModel);
+        }
+
         /*
+
         [HttpPost]
         public IActionResult CreateEvent(Event model)
         {
@@ -102,25 +117,6 @@ namespace EventPlanner.Controllers
                 return View("EventCreateFail");
         }
 
-        public IActionResult DeleteEventPage(int EventId)
-        {
-            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
-            return View(events[0]);
-        }
-
-        public IActionResult DeleteEvent(int EventId)
-        {
-            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
-            db.Events.Remove(events[0]);
-            db.SaveChanges();
-            return RedirectToAction("DeleteEventComplete");
-        }
-
-        public IActionResult DeleteEventComplete()
-        {
-            return View();
-        }
-
 
         public IActionResult Events(string id)
         {
@@ -163,7 +159,6 @@ namespace EventPlanner.Controllers
 
             return View(events);
         }
-
         public IActionResult EventsJoin(int id)
         {
             List<Event> events = db.Events.Where(x => x.EventId == id).ToList();

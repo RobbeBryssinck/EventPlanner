@@ -8,6 +8,7 @@ namespace EventPlanner.Models
     public class RatingEventViewModel
     {
         public Event Event { get; set; }
-        public List<Rating> Rating { get; set; }
+
+        public List<Rating> Ratings { get; set; }
     }
 }
