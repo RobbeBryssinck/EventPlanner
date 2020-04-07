@@ -26,20 +26,22 @@
             <div class="card-body">
                 <h5 class="card-title">Are you interested?</h5>
                 <p class="card-text">@*@Model.Participants*@ people are already going!</p>
-                @if (@Model.Date > DateTime.Now)
-                {
-                    <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-primary">Join event</a>
+                @if (@Model.Date > DateTime.Now) {
+                    <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Join event</a>
                 }
                 else
                 {
                     <a  class="text-warning font-weight-bold">Event is afgelopen.</a>
                 }
+                <br />
+                 <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder event</a>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-4">
             <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
+            <iframe frameborder="3" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
+                    src="https://maps.google.com/maps?hl=nl&q=@Model.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed">
         </div>
     </div>
-</div>
