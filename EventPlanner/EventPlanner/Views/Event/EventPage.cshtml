@@ -3,7 +3,7 @@
     ViewData["Title"] = "EventPage";
 }
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col">
             <b class="text-dark">@Html.ActionLink("Back to events", "Events", "Event")</b>
@@ -26,14 +26,15 @@
             <div class="card-body">
                 <h5 class="card-title">Are you interested?</h5>
                 <p class="card-text">@*@Model.Participants*@ people are already going!</p>
-                @if (@Model.Date > DateTime.Now) {
-                    <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Join event</a>
+                @if (@Model.Date > DateTime.Now)
+                {
+                    <a href="@Url.Action("EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Join event</a>
                 }
                 else
                 {
-                    <a  class="text-warning font-weight-bold">Event is afgelopen.</a>
+                    <a class="text-warning font-weight-bold">Event is afgelopen.</a>
                 }
-                 <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder event</a>
+                <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder event</a>
             </div>
         </div>
     </div>
@@ -44,3 +45,4 @@
                     src="https://maps.google.com/maps?hl=nl&q=@Model.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed">
         </div>
     </div>
+</div>
