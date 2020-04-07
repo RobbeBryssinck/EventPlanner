@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Event>
+﻿@model IEnumerable<RatingEventViewModel>
 @{
     ViewData["Title"] = "Events";
 }
@@ -9,20 +9,20 @@
 {
     <div class="container EventsBorder">
         <div class="row">
-            <div class="col"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)'>@item.EventName</a></h4><br /></div>
+            <div class="col"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", item.Event.EventId)'>@item.Event.EventName</a></h4><br /></div>
         </div>
 
         <div class="row">
-            <div class="col"><h6>@item.Date</h6> </div>
+            <div class="col"><h6>@item.Event.Date</h6> </div>
         </div>
 
         <div class="row">
-            <div class="col"><h7>@item.Location</h7><br /><br /></div>
+            <div class="col"><h7>@item.Event.Location</h7><br /><br /></div>
         </div>
 
         <div class="row">
-            <div class="col-3"><img class="rounded" style="max-width: 66%" src="~/Images/@item.ImageSrc" /></div>
-            <div class="col-9"><h8>@item.Description</h8></div>
+            <div class="col-3"><img class="rounded" style="max-width: 66%" src="~/Images/@item.Event.ImageSrc" /></div>
+            <div class="col-9"><h8>@item.Event.Description</h8></div>
         </div>
     </div>
     <br />
