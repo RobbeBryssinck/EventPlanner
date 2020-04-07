@@ -4,6 +4,9 @@
     ViewData["Title"] = "CreateEvent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Google Maps JavaScript library -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCMGzFaY4NywUNBSz80pFEuncUHgze1uQo"></script>
     <style>
         .btn-Create {
             color: black;
@@ -57,13 +60,13 @@
 
                         <div class="form-group">
                             <label asp-for="Street" class="control-label"></label>
-                            <input asp-for="Street" class="form-control" placeholder="Locatie.." />
+                            <input asp-for="Street" class="form-control" placeholder="Straatnaam" />
                             <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="HouseNumber" class="control-label"></label>
-                            <input asp-for="HouseNumber" class="form-control" placeholder="Locatie.." />
+                            <input asp-for="HouseNumber" class="form-control" placeholder="Huisnummer" />
                             <span asp-validation-for="HouseNumber" class="text-danger"></span>
                         </div>
 
@@ -107,3 +110,28 @@
         </div>
     </div>
 </div>
+<!-- Autocomplete location search input -->
+<div class="form-group">
+    <label>Location:</label>
+    <input type="text" class="form-control" id="search_input" placeholder="Type address..." />
+</div>
+     </div>
+   </div>
+</div>
+<script>
+    var searchInput = 'search_input';
+
+    $(document).ready(function () {
+        var autocomplete;
+        autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+            types: ['geocode'],
+            /*componentRestrictions: {
+             country: "Netherlands"
+            }*/
+        });
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var near_place = autocomplete.getPlace();
+        });
+    });
+</script>
