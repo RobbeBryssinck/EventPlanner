@@ -1,7 +1,7 @@
 ﻿@model Event
 @{
     ViewData["Title"] = "EventPage";
-    
+
 }
 
 <div class="container">
@@ -36,7 +36,7 @@
                 </div>
                 @if (@Model.Date > DateTime.Now)
                 {
-                    <a href="@Url.Action("EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Neem deel</a>
+                    <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Neem deel</a>
                 }
                 else
                 {
@@ -51,4 +51,5 @@
         <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
         <iframe class="iframe-container" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
                 src="https://maps.google.com/maps?hl=nl&q=@Model.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed"></iframe>
+    </div>
 </div>
