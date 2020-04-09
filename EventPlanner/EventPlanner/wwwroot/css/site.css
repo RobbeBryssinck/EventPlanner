@@ -1,7 +1,6 @@
 .iframe-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* Ratio 16:9 ( 100%/16*9 = 56.25% ) */
 }
 
     .iframe-container > * {
@@ -21,6 +20,7 @@
     margin-bottom: 50px;
     background: #eee;
 }
+
 body {
     position: relative;
     padding-bottom: 150px;
@@ -73,3 +73,80 @@ footer {
     background-color: lightgray;
     border-style: solid;
 }
+
+.btn-Create {
+    color: black;
+    background-color: #fcd703;
+    border-color: #fcca03;
+}
+
+    .btn-Create:hover {
+        color: black;
+        background-color: #fcca03;
+        border-color: #fcc203;
+    }
+
+.btn-outline-primary {
+    color: #000000;
+    background-color: #ffe000;
+    border-color: #ffe000;
+}
+
+    .btn-outline-primary:hover {
+        color: #000000;
+        background-color: #ffe000;
+        border-color: #000000;
+    }
+
+#CreateSuccess .container {
+    margin-top: 5%;
+    max-width: 600px;
+    height: 200px;
+    border: 1px solid black;
+    background-color: #EAEAEA;
+    padding: 20px;
+}
+
+.btn-continue {
+    color: black;
+    background-color: #fcd703;
+    border-color: #fcca03;
+}
+
+    .btn-continue:hover {
+        color: black;
+        background-color: #fcca03;
+        border-color: #fcc203;
+    }
+
+#NotFound .container {
+    margin-top: 5%;
+    max-width: 600px;
+    height: 460px;
+    border: 1px solid black;
+    background-color: #EAEAEA;
+    padding: 20px;
+}
+
+.btn-continue {
+    color: black;
+    background-color: #fcd703;
+    border-color: #fcca03;
+}
+
+    .btn-continue:hover {
+        color: black;
+        background-color: #fcca03;
+        border-color: #fcc203;
+    }
+.btn-login {
+    color: black;
+    background-color: #fcd703;
+    border-color: #fcca03;
+}
+
+    .btn-login:hover {
+        color: black;
+        background-color: #fcca03;
+        border-color: #fcc203;
+    }
