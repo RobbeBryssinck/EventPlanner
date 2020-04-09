@@ -1,7 +1,6 @@
 ﻿@model Rating
 @{
     ViewData["Title"] = "EventFeedbackPage";
-    Layout = "EventSuccessPage";
     <style>
         .btn-Create {
             color: black;
@@ -17,21 +16,42 @@
     </style>
 }
 
-<div id="CreateEvent">
+<div id="CreateFeedback">
     <div class="container">
-        <div id="CreateEvent-row" class="row justify-content-center align-items-center">
-            <div id="CreateEvent-column" class="col-md-6">
-                <div id="CreateEvent-box" class="col-md-12">
-                    <form id="CreateEvent-form" class="form" asp-action="CreateEvent" enctype="multipart/form-data">
-                        <h1>Evenement informatie</h1>
+        <div id="CreateFeedback-row" class="row justify-content-center align-items-center">
+            <div id="CreateFeedback-column" class="col-md-6">
+                <div id="CreateFeedback-box" class="col-md-12">
+                    <form id="CreateFeedback-form" class="form" asp-action="CreateFeedback" enctype="multipart/form-data">
+                        <h1>Schrijf feedback</h1>
                         <hr />
+                        @Html.HiddenFor(m => Model.EventId)
+
                         <div class="form-group">
                             <label asp-for="RatingTitle" class="control-label"></label>
-                            <input asp-for="RatingTitle" class="form-control" placeholder="Feedback tile.." />
+                            <input asp-for="RatingTitle" class="form-control" placeholder="Onderwerp.." />
                             <span asp-validation-for="RatingTitle" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
-                            <input type="submit" value="Maak aan" class="btn btn-Create" />
+                            <label asp-for="StarRating" class="control-label"></label>
+                            <select id="StarRating" class="form-control" name="StarRating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <span asp-validation-for="StarRating" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Comment" class="control-label"></label>
+                            <input asp-for="Comment" class="form-control" placeholder="Commentaar.." />
+                            <span asp-validation-for="Comment" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Verstuur" class="btn btn-Create" />
                         </div>
 
                     </form>

@@ -39,8 +39,10 @@ namespace EventPlanner.Controllers
 
         public IActionResult EventFeedbackPage(int eventID)
         {
-            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            return View(events[0]);
+            Rating rating = new Rating();
+            rating.EventId = eventID;
+
+            return View(rating);
         }
 
         public IActionResult CreateEvent()
@@ -84,6 +86,21 @@ namespace EventPlanner.Controllers
             }
         }
         */
+
+        [HttpPost]
+        public IActionResult CreateFeedback(Rating rating)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Ratings.Add(rating);
+                db.SaveChanges();
+                return View("FeedbackSubmitted");
+            }
+
+            else
+                return View("EventNotFound");
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateEvent(EventViewModel model)
