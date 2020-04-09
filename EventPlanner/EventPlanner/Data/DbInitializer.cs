@@ -12,10 +12,9 @@ namespace EventPlanner.Data
         {
             context.Database.EnsureCreated();
 
-            // Look for any events.
             if (context.Events.Any())
             {
-                return;   // DB has been seeded
+                return;
             }
 
             var events = new Event[]
@@ -24,7 +23,8 @@ namespace EventPlanner.Data
                     Date=DateTime.Parse("2020-04-03"),VisitorLimit=50,
                     Description="Ja hoor!! We zetten onverminderd door met de mega-succesvolle bordspellenavond… " +
                         "Neem je spellen mee, en je partner, vriend of zus. Eet je mee? Laat dit dan even weten aan onze ultieme spelleider Sven Klaassen Bos!",
-                    Location="Eindhoven",Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType="Recreation"},
+                    Location="Eindhoven,Rachelsmolen1,5612MA",
+                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType="Recreation"},
 
                 new Event{EventName="Pizzasessie IT Rockstar Sven Haster | Four easy steps to migrate to JPMS",
                     Date=DateTime.Parse("2020-04-15"),VisitorLimit=40,
@@ -32,7 +32,8 @@ namespace EventPlanner.Data
                         "to migrate to JPMS” geven in Jules Verne in Apeldoorn. Hier wil je bij zijn! Java 9 introduceerde het Java module system, ook wel project " +
                         "Jigsaw genoemd. Voor veel ontwikkelaars is dit nog een abstract en ondoorzichtig geheel en dit is dan ook dé reden dat veel projecten nog op Java 8 zitten. " +
                         "In deze presentatie laat IT Rockstar Sven vier simpele stappen zien om je project JPMS compliant te maken en naar Java 9+ te migreren.",
-                    Location="Apeldoorn",Email="shout@teamrockstars.nl",ImageSrc="SvenHaster.jpg", EventType="Educational"},
+                    Location="Apeldoorn,Laanvandemensenrechten,7331VX,362",
+                    Email="shout@teamrockstars.nl",ImageSrc="SvenHaster.jpg", EventType="Educational"},
 
                 new Event{EventName="IT Rockstar Christiaan Nieuwlaat | Modulaire Software Ontwikkeling – Chapter Lower South",
                     Date=DateTime.Parse("2020-04-16"),VisitorLimit=50,
@@ -41,17 +42,30 @@ namespace EventPlanner.Data
                         "bestaan uit “herbruikbare” onderdelen. Dit gebeurt op macro niveau, het ombouwen van een monoliet naar microservices, maar ook op micro niveau, het " +
                         "gebruik maken van modules als bibliotheken, bijvoorbeeld in de vorm van java 9+ modules. We gaan het hebben over deze verschillende niveaus, waarom we " +
                         "gebruik willen maken van modulaire ontwikkeling en wat de voor- en nadelen hiervan zijn.",
-                    Location="Tilburg",Email="shout@teamrockstars.nl",ImageSrc="ChristiaanNieuwlaat.jpg", EventType="Educational"},
+                    Location="Tilburg,Spoorlaan,5038CB,26",
+                    Email="shout@teamrockstars.nl",ImageSrc="ChristiaanNieuwlaat.jpg", EventType="Educational"},
 
                 new Event{EventName="Pizzasessie IT Rockstar Bart Kardol | Digitalisering verandert de wereld, ook op zee",
                     Date=DateTime.Parse("2020-04-22"),VisitorLimit=50,
                     Description="n chapter Upper South hebben we IT Rockstar gepland staan op 22 April voor een supervette sessie: “Digitalisering verandert de wereld, ook op zee”. " +
                     "Catchy titel, nietwaar? Inschrijven voor zijn sessie doe je hier! Het event vindt plaats op Team Rockstars IT HQ in ‘s-Hertogenbosch!",
-                    Location="Den Bosch",Email="shout@teamrockstars.nl",ImageSrc="BartKardol.jpg", EventType="Educational"},
+                    Location="DenBosch,Lekkerbeetjesstraat,5511AL,5",
+                    Email="shout@teamrockstars.nl",ImageSrc="BartKardol.jpg", EventType="Educational"},
             };
             foreach (Event e in events)
             {
                 context.Events.Add(e);
+            }
+            context.SaveChanges();
+
+            var accounts = new Account[]
+            {
+                new Account{UserName="admin", Role="Administrator",
+                    Password="admin", FirstName="John", LastName="Doe", ZipCode="1234AB", HouseNumber=12, Email="john.doe@gmail.com", DateOfBirth=DateTime.Parse("1990-01-01")},
+            };
+            foreach (Account account in accounts)
+            {
+                context.Accounts.Add(account);
             }
             context.SaveChanges();
 

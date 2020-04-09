@@ -149,7 +149,7 @@ namespace EventPlanner.Controllers
                 realmodel.Date = model.Date;
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
-                realmodel.Location = model.Location;
+                realmodel.Location = model.Location.Replace(" ",String.Empty);  
                 realmodel.EventType = model.EventType;
                 realmodel.Email = model.Email;
 
@@ -188,20 +188,29 @@ namespace EventPlanner.Controllers
         public IActionResult Educational()
         {
             List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
-
+            if (events.Count == 0)
+            {
+                return RedirectToAction("EventNotFound");
+            }
             return View(events);
         }
 
-        public IActionResult Recreational()
+        public IActionResult Recreation()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Recreational" && s.Date > DateTime.Now).ToList();
-
+            List<Event> events = db.Events.Where(s => s.EventType == "Recreation" && s.Date > DateTime.Now).ToList();
+            if (events.Count == 0)
+            {
+                return RedirectToAction("EventNotFound");
+            }
             return View(events);
         }
         public IActionResult EventArchive()
         {
             List<Event> events = db.Events.Where(s => s.Date < DateTime.Now).ToList();
-
+            if (events.Count == 0)
+            {
+                return RedirectToAction("EventNotFound");
+            }
             return View(events);
         }
         public IActionResult EventsJoin(int id)

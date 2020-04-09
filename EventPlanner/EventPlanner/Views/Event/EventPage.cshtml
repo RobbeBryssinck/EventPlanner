@@ -1,12 +1,13 @@
 ﻿@model Event
 @{
     ViewData["Title"] = "EventPage";
+
 }
 
 <div class="container">
     <div class="row">
         <div class="col">
-            <b class="text-dark">@Html.ActionLink("Back to events", "Events", "Event")</b>
+            <b class="text-dark">@Html.ActionLink("Terug naar evenementen", "Events", "Event")</b>
         </div>
     </div>
     <div class="row">
@@ -20,23 +21,37 @@
             <img class="rounded img-fluid" style="max-width: 90%" src=~/Images/@Model.ImageSrc alt="Coaching1">
         </div>
         <div class="col-6">
-            <p>@Model.Description</p>
+            <h5 class="card-title">@Model.Date</h5>
+            <p class="card-text">@Model.Description</p>
         </div>
         <div class="col-2">
             <div class="card-body">
-                <h5 class="card-title">Are you interested?</h5>
-                <p class="card-text">@*@Model.Participants*@ people are already going!</p>
-                <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Join event</a>
-                <br />
-                <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder event</a>
+                <div class="card-body">
+                    <h5 class="card-title">Deel dit evenement</h5>
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="I just joined an event, check it out!" data-show-count="false">Tweet</a>
+                    <div class="fb-share-button" data-href="https://localhost:44399/Event/EventPage?eventID=@Model.EventId" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Delen</a></div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Ben je geïnteresseerd?</h5>
+                    <p class="card-text">@*@Model.Participants*@ mensen gaan al!</p>
+                    @if (@Model.Date > DateTime.Now)
+                    {
+                        <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })"class="btn btn-block btn-primary" style="width:100%">Neem deel</a>
+                    }
+                    else
+                    {
+                        <a class="text-warning font-weight-bold">Evenement is afgelopen</a>
+                    }
+                    <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder evenement</a>
+                </div>
             </div>
         </div>
     </div>
+    <hr />
     <div class="row">
-        <div class="col-4">
-            <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
-            <iframe frameborder="3" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
-                    src="https://maps.google.com/maps?hl=nl&q=@Model.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed">
-        </div>
+        <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
+        <iframe class="iframe-container" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
+                src="https://maps.google.com/maps?hl=nl&q=@Model.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed"></iframe>
     </div>
 </div>
+

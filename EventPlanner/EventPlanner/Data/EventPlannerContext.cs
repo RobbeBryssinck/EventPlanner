@@ -15,12 +15,14 @@ namespace EventPlanner.Data
         }
 
         public DbSet<Event> Events { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Event>().ToTable("Event");
+            modelBuilder.Entity<Account>().ToTable("Account");
             modelBuilder.Entity<Coach>().ToTable("Coach");
             modelBuilder.Entity<Rating>().ToTable("Rating");
         }
