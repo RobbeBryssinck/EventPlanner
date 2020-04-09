@@ -107,8 +107,11 @@ namespace EventPlanner.Controllers
         */
 
         [HttpPost]
-        public IActionResult CreateFeedback(Rating rating)
+        public IActionResult CreateFeedback(Rating rating, int eventID)
         {
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            Event currentEvent = events[0];
+
             if (ModelState.IsValid)
             {
                 db.Ratings.Add(rating);

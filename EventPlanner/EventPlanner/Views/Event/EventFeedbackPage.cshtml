@@ -84,18 +84,18 @@
                             <label asp-for="StarRating" class="control-label"></label>
                             <br />  
                             <div class="rate">
-                                <input type="radio" id="star5" name="StarRating" value="5" />
+                                <input type="radio" id="star5" name="StarRating" value="5" required/>
                                 <label for="star5" title="Fantastisch">5</label>
-                                <input type="radio" id="star4" name="StarRating" value="4" />
+                                <input type="radio" id="star4" name="StarRating" value="4" required/>
                                 <label for="star4" title="Goed">4</label>
-                                <input type="radio" id="star3" name="StarRating" value="3" />
+                                <input type="radio" id="star3" name="StarRating" value="3" required/>
                                 <label for="star3" title="Wel oké">3</label>
-                                <input type="radio" id="star2" name="StarRating" value="2" />
+                                <input type="radio" id="star2" name="StarRating" value="2" required/>
                                 <label for="star2" title="Matig">2</label>
-                                <input type="radio" id="star1" name="StarRating" value="1" />
+                                <input type="radio" id="star1" name="StarRating" value="1" required/>
                                 <label for="star1" title="Slecht">1</label>
+                                <span asp-validation-for="StarRating" class="text-danger"></span>
                             </div>
-                            <span asp-validation-for="StarRating" class="text-danger"></span>
                         </div>
                         <br />
                         <br />
