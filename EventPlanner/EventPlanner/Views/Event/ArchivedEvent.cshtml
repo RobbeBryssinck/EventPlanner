@@ -2,18 +2,18 @@
 @{
     ViewData["Title"] = "EventPage";
     <style>
-    .btn-feedback {
-        color: white;
-        background-color: forestgreen;
-        border-color: forestgreen;
-    }
+        .btn-feedback {
+            color: white;
+            background-color: forestgreen;
+            border-color: forestgreen;
+        }
 
-    .btn-feedback:hover {
-        color: white;
-        background-color: green;
-        border-color: green;
-    }
-</style>
+            .btn-feedback:hover {
+                color: white;
+                background-color: green;
+                border-color: green;
+            }
+    </style>
 
 }
 
@@ -44,7 +44,7 @@
                 <br />
                 <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.Event.EventId)' class="btn btn-danger">Verwijder event</a>
                 <p> </p>
-                <a href='@string.Format("/Event/EventFeedbackPage?EventId={0}", Model.Event.EventId)' class="btn btn-feedback" >Geef feedback</a>
+                <a href='@string.Format("/Event/EventFeedbackPage?EventId={0}", Model.Event.EventId)' class="btn btn-feedback">Geef feedback</a>
             </div>
         </div>
     </div>
@@ -66,26 +66,44 @@
             {
                 case 1:
                     <p style="font-weight:bold;"><img src="~/Images/Stars/1-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
-                    break;
-                case 2:
+                    break; <a href='@string.Format("/Event/DeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                        <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                    </a>
+                    case 2:
 
-                    <p style="font-weight:bold;"><img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
-                    break;
-                case 3:
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/DeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a><img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                    case 3:
 
-                    <p style="font-weight:bold;"> <img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
-                    break;
-                case 4:
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/DeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a> <img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                    case 4:
 
-                    <p style="font-weight:bold;"> <img src="~/Images/Stars/4-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
-                    break;
-                case 5:
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/DeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a> <img src="~/Images/Stars/4-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                    case 5:
 
-                    <p style="font-weight:bold;"> <img src="~/Images/Stars/5-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
-                    break;
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/DeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a> <img src="~/Images/Stars/5-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                }
+                <p>Commentaar: @item.Comment</p>
+                <hr />
             }
-            <p>Commentaar: @item.Comment</p>
-            <hr />
-        }
     </div>
 </div>

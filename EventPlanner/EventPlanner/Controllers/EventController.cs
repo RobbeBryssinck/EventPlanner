@@ -68,6 +68,25 @@ namespace EventPlanner.Controllers
             return View(ratingEventViewModel);
         }
 
+        public IActionResult DeleteFeedbackPage(int ratingID)
+        {
+            List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
+            return View(ratings[0]);
+        }
+
+        public IActionResult DeleteFeedback(int ratingID)
+        {
+            List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
+            db.Ratings.Remove(ratings[0]);
+            db.SaveChanges();
+            return RedirectToAction("DeleteFeedbackComplete");
+        }
+
+        public IActionResult DeleteFeedbackComplete()
+        {
+            return View();
+        }
+
         /*
 
         [HttpPost]

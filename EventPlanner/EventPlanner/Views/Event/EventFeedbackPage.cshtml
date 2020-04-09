@@ -1,6 +1,7 @@
 ﻿@model Rating
 @{
     ViewData["Title"] = "EventFeedbackPage";
+
     <style>
         .btn-Create {
             color: black;
@@ -12,6 +13,53 @@
                 color: black;
                 background-color: #fcca03;
                 border-color: #fcc203;
+            }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+
+            .rate:not(:checked) > input {
+                position: absolute;
+                top: -9999px;
+            }
+
+            .rate:not(:checked) > label {
+                float: right;
+                width: 1em;
+                overflow: hidden;
+                white-space: nowrap;
+                cursor: pointer;
+                font-size: 30px;
+                color: #ccc;
+            }
+
+                .rate:not(:checked) > label:before {
+                    content: '★ ';
+                }
+
+            .rate > input:checked ~ label {
+                color: #ffc700;
+            }
+
+            .rate:not(:checked) > label:hover,
+            .rate:not(:checked) > label:hover ~ label {
+                color: #deb217;
+            }
+
+            .rate > input:checked + label:hover,
+            .rate > input:checked + label:hover ~ label,
+            .rate > input:checked ~ label:hover,
+            .rate > input:checked ~ label:hover ~ label,
+            .rate > label:hover ~ input:checked ~ label {
+                color: #c59b08;
             }
     </style>
 }
@@ -34,15 +82,23 @@
 
                         <div class="form-group">
                             <label asp-for="StarRating" class="control-label"></label>
-                            <select id="StarRating" class="form-control" name="StarRating">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
+                            <br />  
+                            <div class="rate">
+                                <input type="radio" id="star5" name="StarRating" value="5" />
+                                <label for="star5" title="Fantastisch">5</label>
+                                <input type="radio" id="star4" name="StarRating" value="4" />
+                                <label for="star4" title="Goed">4</label>
+                                <input type="radio" id="star3" name="StarRating" value="3" />
+                                <label for="star3" title="Wel oké">3</label>
+                                <input type="radio" id="star2" name="StarRating" value="2" />
+                                <label for="star2" title="Matig">2</label>
+                                <input type="radio" id="star1" name="StarRating" value="1" />
+                                <label for="star1" title="Slecht">1</label>
+                            </div>
                             <span asp-validation-for="StarRating" class="text-danger"></span>
                         </div>
+                        <br />
+                        <br />
 
                         <div class="form-group">
                             <label asp-for="Comment" class="control-label"></label>
