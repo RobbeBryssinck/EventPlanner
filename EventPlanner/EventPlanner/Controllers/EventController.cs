@@ -37,6 +37,12 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        public IActionResult EventFeedbackPage(int eventID)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            return View(events[0]);
+        }
+
         public IActionResult CreateEvent()
         {
             return View(new EventViewModel());

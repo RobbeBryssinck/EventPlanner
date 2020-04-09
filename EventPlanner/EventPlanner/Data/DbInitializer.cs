@@ -79,27 +79,32 @@ namespace EventPlanner.Data
             {
                 new Rating
                 {
-                    EventId=1, StarRating=4, Comment="Is goed"
+                    EventId=1, RatingTitle="Is goed", StarRating=4, Comment="Het event werkt voorbeeldig"
                 },
 
                 new Rating
                 {
-                    EventId=2, StarRating=1, Comment="Heel mooi"
+                    EventId=1, RatingTitle="Super goed", StarRating=5, Comment="Het evenement werkt perfect, niks kan beter"
                 },
 
                 new Rating
                 {
-                    EventId=3, StarRating=5, Comment="Zeer gaaf"
+                    EventId=2, RatingTitle="Niet mooi", StarRating=1, Comment="Het werkt niet goed"
                 },
 
                 new Rating
                 {
-                    EventId=4, StarRating=1, Comment="Niet zo leuk"
+                    EventId=3, RatingTitle="Gaaf", StarRating=5, Comment="Het is zeer gaaf"
                 },
-                                
+
                 new Rating
                 {
-                    EventId=4, StarRating=3, Comment="Wel Oke"
+                    EventId=4, RatingTitle="slecht", StarRating=1, Comment="Werkt niet naar wens"
+                },
+
+                new Rating
+                {
+                    EventId=4, RatingTitle="Wel oke", StarRating=3, Comment="werkt prima hoe ik wil"
                 }
             };
             foreach (Rating rating in ratings)

@@ -1,0 +1,42 @@
+﻿@model Rating
+@{
+    ViewData["Title"] = "EventFeedbackPage";
+    Layout = "EventSuccessPage";
+    <style>
+        .btn-Create {
+            color: black;
+            background-color: #fcd703;
+            border-color: #fcca03;
+        }
+
+            .btn-Create:hover {
+                color: black;
+                background-color: #fcca03;
+                border-color: #fcc203;
+            }
+    </style>
+}
+
+<div id="CreateEvent">
+    <div class="container">
+        <div id="CreateEvent-row" class="row justify-content-center align-items-center">
+            <div id="CreateEvent-column" class="col-md-6">
+                <div id="CreateEvent-box" class="col-md-12">
+                    <form id="CreateEvent-form" class="form" asp-action="CreateEvent" enctype="multipart/form-data">
+                        <h1>Evenement informatie</h1>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="RatingTitle" class="control-label"></label>
+                            <input asp-for="RatingTitle" class="form-control" placeholder="Feedback tile.." />
+                            <span asp-validation-for="RatingTitle" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Maak aan" class="btn btn-Create" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

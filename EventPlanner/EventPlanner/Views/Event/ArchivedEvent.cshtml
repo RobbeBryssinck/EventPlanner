@@ -1,6 +1,20 @@
 ﻿@model RatingEventViewModel
 @{
     ViewData["Title"] = "EventPage";
+    <style>
+    .btn-feedback {
+        color: white;
+        background-color: forestgreen;
+        border-color: forestgreen;
+    }
+
+    .btn-feedback:hover {
+        color: white;
+        background-color: green;
+        border-color: green;
+    }
+</style>
+
 }
 
 <div class="container">
@@ -29,37 +43,49 @@
                 <a class="text-warning font-weight-bold">Event is afgelopen.</a>
                 <br />
                 <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.Event.EventId)' class="btn btn-danger">Verwijder event</a>
+                <p> </p>
+                <a href='@string.Format("/Event/EventFeedbackPage?EventId={0}", Model.Event.EventId)' class="btn btn-feedback" >Geef feedback</a>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>Feedback</h1>
-            @foreach (var item in Model.Ratings)
-            {
-                int caseswitch = item.StarRating;
-                switch (caseswitch)
-                {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                }
-                <p>Commetaar: @item.Comment</p>
-            }
-        </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Event.Location</b>
+        <iframe frameborder="3" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
+                src="https://maps.google.com/maps?hl=nl&q=@Model.Event.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed"></iframe>
     </div>
-    <div class="row">
-        <div class="col-4">
-            <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Event.Location</b>
-            <iframe frameborder="3" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
-                    src="https://maps.google.com/maps?hl=nl&q=@Model.Event.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed">
-        </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Feedback</h1>
+        @foreach (var item in Model.Ratings)
+        {
+            int caseswitch = item.StarRating;
+            switch (caseswitch)
+            {
+                case 1:
+                    <p style="font-weight:bold;"><img src="~/Images/Stars/1-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
+                    break;
+                case 2:
+
+                    <p style="font-weight:bold;"><img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
+                    break;
+                case 3:
+
+                    <p style="font-weight:bold;"> <img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
+                    break;
+                case 4:
+
+                    <p style="font-weight:bold;"> <img src="~/Images/Stars/4-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
+                    break;
+                case 5:
+
+                    <p style="font-weight:bold;"> <img src="~/Images/Stars/5-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle</p>
+                    break;
+            }
+            <p>Commetaar: @item.Comment</p>
+            <hr />
+        }
     </div>
 </div>
