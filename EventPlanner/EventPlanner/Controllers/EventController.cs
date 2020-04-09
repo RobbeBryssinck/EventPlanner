@@ -98,7 +98,7 @@ namespace EventPlanner.Controllers
             }
 
             else
-                return View("EventNotFound");
+                return View("FeedbackCreateFail");
         }
 
 
