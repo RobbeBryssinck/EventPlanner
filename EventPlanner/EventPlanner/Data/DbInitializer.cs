@@ -12,10 +12,9 @@ namespace EventPlanner.Data
         {
             context.Database.EnsureCreated();
 
-            // Look for any events.
             if (context.Events.Any())
             {
-                return;   // DB has been seeded
+                return;
             }
 
             var events = new Event[]
@@ -52,6 +51,17 @@ namespace EventPlanner.Data
             foreach (Event e in events)
             {
                 context.Events.Add(e);
+            }
+            context.SaveChanges();
+
+            var accounts = new Account[]
+            {
+                new Account{UserName="admin", Role="Administrator",
+                    Password="admin", FirstName="John", LastName="Doe", ZipCode="1234AB", HouseNumber=12, Email="john.doe@gmail.com", DateOfBirth=DateTime.Parse("1990-01-01")},
+            };
+            foreach (Account account in accounts)
+            {
+                context.Accounts.Add(account);
             }
             context.SaveChanges();
 
