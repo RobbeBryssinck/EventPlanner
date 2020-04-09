@@ -89,7 +89,7 @@ namespace EventPlanner.Controllers
                 realmodel.Date = model.Date;
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
-                realmodel.Location = model.Location;
+                realmodel.Location = model.Location.Replace(" ",String.Empty);  
                 realmodel.EventType = model.EventType;
                 realmodel.Email = model.Email;
 
