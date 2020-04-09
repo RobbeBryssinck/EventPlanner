@@ -7,7 +7,7 @@
 <br />
 @foreach (var item in Model)
 {
-    <div class="container EventsBorder">
+    <div class="container EventsBorder rounded">
         <div class="row">
             <div class="col"><h4><a href='@string.Format("/Event/ArchivedEvent?eventID={0}", item.EventId)'>@item.EventName</a></h4><br /></div>
         </div>
