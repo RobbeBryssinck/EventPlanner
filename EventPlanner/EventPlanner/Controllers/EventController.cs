@@ -37,6 +37,14 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        public IActionResult EventFeedbackPage(int eventID)
+        {
+            Rating rating = new Rating();
+            rating.EventId = eventID;
+
+            return View(rating);
+        }
+
         public IActionResult CreateEvent()
         {
             return View(new EventViewModel());
@@ -46,7 +54,41 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+
+        public IActionResult ArchivedEvent(int eventID)
+        {
+            RatingEventViewModel ratingEventViewModel = new RatingEventViewModel();
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            Event currentEvent = events[0];
+
+            List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
+
+            ratingEventViewModel.Event = currentEvent;
+            ratingEventViewModel.Ratings = ratings;
+            return View(ratingEventViewModel);
+        }
+
+        public IActionResult DeleteFeedbackPage(int ratingID)
+        {
+            List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
+            return View(ratings[0]);
+        }
+
+        public IActionResult DeleteFeedback(int ratingID)
+        {
+            List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
+            db.Ratings.Remove(ratings[0]);
+            db.SaveChanges();
+            return RedirectToAction("DeleteFeedbackComplete");
+        }
+
+        public IActionResult DeleteFeedbackComplete()
+        {
+            return View();
+        }
+
         /*
+
         [HttpPost]
         public IActionResult CreateEvent(Event model)
         {
@@ -63,6 +105,24 @@ namespace EventPlanner.Controllers
             }
         }
         */
+
+        [HttpPost]
+        public IActionResult CreateFeedback(Rating rating, int eventID)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            Event currentEvent = events[0];
+
+            if (ModelState.IsValid)
+            {
+                db.Ratings.Add(rating);
+                db.SaveChanges();
+                return View("FeedbackSubmitted");
+            }
+
+            else
+                return View("FeedbackCreateFail");
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateEvent(EventViewModel model)
@@ -100,25 +160,6 @@ namespace EventPlanner.Controllers
 
             else
                 return View("EventCreateFail");
-        }
-
-        public IActionResult DeleteEventPage(int EventId)
-        {
-            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
-            return View(events[0]);
-        }
-
-        public IActionResult DeleteEvent(int EventId)
-        {
-            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
-            db.Events.Remove(events[0]);
-            db.SaveChanges();
-            return RedirectToAction("DeleteEventComplete");
-        }
-
-        public IActionResult DeleteEventComplete()
-        {
-            return View();
         }
 
 
@@ -172,7 +213,6 @@ namespace EventPlanner.Controllers
             }
             return View(events);
         }
-
         public IActionResult EventsJoin(int id)
         {
             List<Event> events = db.Events.Where(x => x.EventId == id).ToList();
