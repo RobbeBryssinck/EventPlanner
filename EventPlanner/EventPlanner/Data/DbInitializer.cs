@@ -62,6 +62,14 @@ namespace EventPlanner.Data
             {
                 new Account{UserName="admin", Role="Administrator",
                     Password="admin", FirstName="John", LastName="Doe", ZipCode="1234AB", HouseNumber=12, Email="john.doe@gmail.com", DateOfBirth=DateTime.Parse("1990-01-01")},
+                new Account{UserName="Henk123", Role="User",
+                    Password="123Henk", FirstName="Henk", LastName="de Blok", ZipCode="4326KJ", HouseNumber=33, Email="henkdeblok@gmail.com", DateOfBirth=DateTime.Parse("1994-11-15")},
+                new Account{UserName="Nancy", Role="User",
+                    Password="Blokkenbouwer5", FirstName="Nancy", LastName="de Wit", ZipCode="6897LM", HouseNumber=5, Email="nancywit@hotmail.com", DateOfBirth=DateTime.Parse("2000-09-02")},
+                new Account{UserName="RoyMoerbeek", Role="User",
+                    Password="StrandGanger", FirstName="Roy", LastName="Moerbeek", ZipCode="7892AF", HouseNumber=89, Email="RoyMoerbeek@gmail.com", DateOfBirth=DateTime.Parse("2001-08-29")},
+                new Account{UserName="Lieke", Role="User",
+                    Password="Wachtwoord", FirstName="Lieke", LastName="Buurman", ZipCode="6845KL", HouseNumber=4, Email="liekebuurman@gmail.com", DateOfBirth=DateTime.Parse("1980-02-15")},
             };
             foreach (Account account in accounts)
             {
@@ -126,6 +134,24 @@ namespace EventPlanner.Data
                 context.Ratings.Add(rating);
             }
             context.SaveChanges();
+
+            var registrations = new Registration[]
+            {
+                new Registration{AccountId=1, EventId=2},
+                new Registration{AccountId=5, EventId=3},
+                new Registration{AccountId=2, EventId=1},
+                new Registration{AccountId=3, EventId=4},
+                new Registration{AccountId=3, EventId=1},
+                new Registration{AccountId=3, EventId=2},
+                new Registration{AccountId=6, EventId=4},
+                new Registration{AccountId=5, EventId=1},
+                new Registration{AccountId=1, EventId=4},
+                new Registration{AccountId=4, EventId=2}
+            };
+            foreach (Registration registration in registrations)
+            {
+                context.Registrations.Add(registration);
+            }
         }
     }
 }
