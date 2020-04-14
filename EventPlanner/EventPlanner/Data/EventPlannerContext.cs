@@ -18,6 +18,7 @@ namespace EventPlanner.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,7 @@ namespace EventPlanner.Data
             modelBuilder.Entity<Account>().ToTable("Account");
             modelBuilder.Entity<Coach>().ToTable("Coach");
             modelBuilder.Entity<Rating>().ToTable("Rating");
+            modelBuilder.Entity<Registration>().ToTable("Registration");
         }
     }
 }

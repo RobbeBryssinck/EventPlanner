@@ -31,7 +31,7 @@
                 <p> </p>
                 <h5 class="card-title">Ben je geïnteresseerd?</h5>
                 <p class="card-text">@*@Model.Participants*@ mensen gaan al!</p>
-                <a href="@Url.Action(" EventsJoin","Event",new {id=Model.EventId })" class="btn btn-block btn-primary" style="width:100%">Neem deel</a>
+                <a href='@string.Format("/Event/EventsJoin?EventId={0}", Model.EventId)' class="btn btn-block btn-primary" style="width:100%">Neem deel</a>
                 <p> </p>
                 <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder evenement</a>
             </div>
