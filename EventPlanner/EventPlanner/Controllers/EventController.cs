@@ -213,9 +213,14 @@ namespace EventPlanner.Controllers
             }
             return View(events);
         }
+<<<<<<< HEAD
         public IActionResult EventsJoin(int id)
+=======
+
+        public IActionResult EventsJoin(int eventId)
+>>>>>>> joinEvent
         {
-            List<Event> events = db.Events.Where(x => x.EventId == id).ToList();
+            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
             return View(events[0]);
         }
     }
