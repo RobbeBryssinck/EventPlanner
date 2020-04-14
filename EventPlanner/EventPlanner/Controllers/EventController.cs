@@ -87,6 +87,24 @@ namespace EventPlanner.Controllers
             return View();
         }
 
+        public IActionResult ChangeEventPage(int eventID)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            db.Events.Remove(events[0]);
+            db.SaveChanges();
+            return RedirectToAction("ChangeEventComplete");
+        }
+
+        public IActionResult ChangeEventComplete()
+        {
+            return View();
+        }
+
+        public IActionResult ChangeEventFailed()
+        {
+            return View();
+        }
+
         /*
 
         [HttpPost]
@@ -213,14 +231,9 @@ namespace EventPlanner.Controllers
             }
             return View(events);
         }
-<<<<<<< HEAD
         public IActionResult EventsJoin(int id)
-=======
-
-        public IActionResult EventsJoin(int eventId)
->>>>>>> joinEvent
         {
-            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
+            List<Event> events = db.Events.Where(x => x.EventId == id).ToList();
             return View(events[0]);
         }
     }
