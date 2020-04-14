@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventPlanner.Data;
 using EventPlanner.Models;
+using EventPlanner.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -217,7 +218,17 @@ namespace EventPlanner.Controllers
         public IActionResult EventsJoin(int eventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
-            return View(events[0]);
+            Event joinEvent = events[0];
+            JoinEventViewModel joinEventViewModel = new JoinEventViewModel();
+
+            joinEventViewModel.EventId = joinEvent.EventId;
+            joinEventViewModel.EventName = joinEvent.EventName;
+            joinEventViewModel.Date = joinEvent.Date;
+            joinEventViewModel.VisitorLimit = joinEvent.VisitorLimit;
+            joinEventViewModel.Description = joinEvent.Description;
+            joinEventViewModel.ImageSrc = joinEvent.ImageSrc;
+
+            return View(joinEventViewModel);
         }
     }
 }
