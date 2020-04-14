@@ -230,5 +230,24 @@ namespace EventPlanner.Controllers
 
             return View(joinEventViewModel);
         }
+
+        public IActionResult DeleteEventPage(int EventId)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
+            return View(events[0]);
+        }
+
+        public IActionResult DeleteEvent(int EventId)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
+            db.Events.Remove(events[0]);
+            db.SaveChanges();
+            return RedirectToAction("DeleteEventComplete");
+        }
+
+        public IActionResult DeleteEventComplete()
+        {
+            return View();
+        }
     }
 }
