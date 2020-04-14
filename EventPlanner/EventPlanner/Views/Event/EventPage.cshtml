@@ -42,6 +42,7 @@
                     {
                         <a class="text-warning font-weight-bold">Evenement is afgelopen</a>
                     }
+                    <a href='@string.Format("/Event/ChangeEventPage?EventId={0}", Model.EventId)' class="btn btn-primary">Wijzig evenement</a>
                     <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder evenement</a>
                 </div>
             </div>
