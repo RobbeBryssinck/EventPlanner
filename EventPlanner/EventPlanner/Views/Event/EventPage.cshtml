@@ -19,24 +19,27 @@
             <img class="rounded img-fluid" style="max-width: 90%" src=~/Images/@Model.ImageSrc alt="Coaching1">
         </div>
         <div class="col-6">
-            <h5 class="card-title">@Model.Date</h5>
-            <p class="card-text">@Model.Description</p>
+                <h5 class="card-title">@Model.Date</h5>
+                <p class="card-text">@Model.Description</p>
         </div>
-        <div class="col-2">
-            <div class="card-body">
-                <h5 class="card-title">Deel dit evenement</h5>
-                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="I just joined an event, check it out!" data-show-count="false">Tweet</a>
-                <div class="fb-share-button" data-href="https://localhost:44399/Event/EventPage?eventID=@Model.EventId" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Delen</a></div>
-                <p> </p>
-                <h5 class="card-title">Ben je geïnteresseerd?</h5>
-                <p class="card-text">@*@Model.Participants*@ mensen gaan al!</p>
+            <div class="col-2">
+                <div class="card" style="border: none;">
+                    <h5 class="card-title">Deel dit evenement</h5>
+                    <div><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="I just joined an event, check it out!" data-show-count="false">Tweet</a></div>
+                    <div class="fb-share-button" data-href="https://localhost:44399/Event/EventPage?eventID=@Model.EventId" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Delen</a></div>
+                    <p> </p>
+                    <h5 class="card-title">Ben je geïnteresseerd?</h5>
+                    <p class="card-text">@*@Model.Participants*@ mensen gaan al!</p>
+                </div>
+                <hr />
+                <br />
                 <a href='@string.Format("/Event/EventsJoin?EventId={0}", Model.EventId)' class="btn btn-block btn-primary" style="width:100%">Neem deel</a>
                 <p> </p>
                 <a href='@string.Format("/Event/DeleteEventPage?EventId={0}", Model.EventId)' class="btn btn-danger">Verwijder evenement</a>
+
             </div>
         </div>
     </div>
-</div>
 <div class="row">
     <i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Location</b>
     <iframe class="iframe-container" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
