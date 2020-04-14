@@ -1,6 +1,108 @@
 ﻿@model IEnumerable<Event>
 @{
     ViewData["Title"] = "Home Page";
+    
+    <style>
+        .card-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .card-image .card .card-img-wrapper {
+            height: 100%;
+        }
+
+        .card-image .card .card-body {
+            display: none;
+        }
+
+        .card-image-title-description .card .card-img-wrapper {
+            max-height: 160px;
+        }
+
+        .card-image-title-description .card {
+            position: relative;
+            min-height: 300px;
+        }
+
+            .card-image-title-description .card .card-body {
+                height: auto;
+                position: relative;
+                top: 0;
+                margin-bottom: -70px;
+            }
+
+            .card-image-title-description .card:hover .card-body {
+                top: -70px;
+            }
+
+            .card-image-title-description .card .card-body .card-title {
+                margin-bottom: .75rem;
+            }
+
+        .card {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            height: 100%;
+        }
+
+            .card:hover {
+                box-shadow: 8px 12px 31px -10px #ab98ab;
+            }
+
+        .card-img-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50%;
+            overflow: hidden;
+        }
+
+            .card-img-wrapper img {
+                transition: 1.5s ease;
+            }
+
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.15);
+        }
+
+        .card-body .card-title {
+            margin-bottom: calc(50% + 20px);
+            transition: 1.5s ease;
+        }
+
+        .card:hover .card-body .card-title {
+            margin-bottom: .75rem;
+        }
+
+        .card-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background-color: #fff;
+            transition: 1.5s ease;
+        }
+
+        .card-content {
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            width: 100%;
+            height: auto;
+            transition: 1.5s ease;
+        }
+
+        .card:hover .card-body {
+            height: 80%;
+        }
+
+        .card:hover .card-content {
+            bottom: 0;
+        }
+    </style>
 }
 
 <body>
@@ -18,22 +120,33 @@
             </div>
         </div>
     </div>
+
     <!--- Three Column Section -->
     <div class="container">
-
-        <div class="row text-center padding">
+        <div class="row">
             @foreach (var item in Model)
             {
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <img class="rounded" style="max-width: 66%" src="~/Images/@item.ImageSrc" />
-                <h3>@item.EventName</h3>
 
-                <p><a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)' class="btn btn-login btn-md">Klik Hier!</a></p>
-            </div>
+                <div class="card-wrapper col-lg-4 col-md-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img class="card-img-top" src="~/Images/@item.ImageSrc" alt="Card image cap">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.EventName</h5>
+                            <div class="card-content">
+                                <a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)' class="btn btn-primary">Meer informatie</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
         <hr class="my-4" />
     </div>
+
+
+
     <!--- Foto met informatie -->
     <div class="container">
         <div class="row padding">
