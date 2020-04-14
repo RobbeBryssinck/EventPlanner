@@ -145,8 +145,11 @@ footer {
     border-color: #fcca03;
 }
 
-    .btn-login:hover {
+.btn-login:hover {
         color: black;
         background-color: #fcca03;
         border-color: #fcc203;
     }
+.card {
+    border: none;
+}
