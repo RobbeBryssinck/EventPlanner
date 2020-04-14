@@ -124,6 +124,9 @@ namespace EventPlanner.Data
             foreach (Rating rating in ratings)
             {
                 context.Ratings.Add(rating);
+            }
+            context.SaveChanges();
+
             var registrations = new Registration[]
             {
                 new Registration{AccountId=1, EventId=2},
@@ -141,7 +144,6 @@ namespace EventPlanner.Data
             {
                 context.Registrations.Add(registration);
             }
-            context.SaveChanges();
         }
     }
 }
