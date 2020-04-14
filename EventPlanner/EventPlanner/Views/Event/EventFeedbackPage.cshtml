@@ -1,0 +1,118 @@
+﻿@model Rating
+@{
+    ViewData["Title"] = "EventFeedbackPage";
+
+    <style>
+        .btn-Create {
+            color: black;
+            background-color: #fcd703;
+            border-color: #fcca03;
+        }
+
+            .btn-Create:hover {
+                color: black;
+                background-color: #fcca03;
+                border-color: #fcc203;
+            }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+
+            .rate:not(:checked) > input {
+                position: absolute;
+                top: -9999px;
+            }
+
+            .rate:not(:checked) > label {
+                float: right;
+                width: 1em;
+                overflow: hidden;
+                white-space: nowrap;
+                cursor: pointer;
+                font-size: 30px;
+                color: #ccc;
+            }
+
+                .rate:not(:checked) > label:before {
+                    content: '★ ';
+                }
+
+            .rate > input:checked ~ label {
+                color: #ffc700;
+            }
+
+            .rate:not(:checked) > label:hover,
+            .rate:not(:checked) > label:hover ~ label {
+                color: #deb217;
+            }
+
+            .rate > input:checked + label:hover,
+            .rate > input:checked + label:hover ~ label,
+            .rate > input:checked ~ label:hover,
+            .rate > input:checked ~ label:hover ~ label,
+            .rate > label:hover ~ input:checked ~ label {
+                color: #c59b08;
+            }
+    </style>
+}
+
+<div id="CreateFeedback">
+    <div class="container">
+        <div id="CreateFeedback-row" class="row justify-content-center align-items-center">
+            <div id="CreateFeedback-column" class="col-md-6">
+                <div id="CreateFeedback-box" class="col-md-12">
+                    <form id="CreateFeedback-form" class="form" asp-action="CreateFeedback" enctype="multipart/form-data">
+                        <h1>Schrijf feedback</h1>
+                        <hr />
+                        @Html.HiddenFor(m => Model.EventId)
+
+                        <div class="form-group">
+                            <label asp-for="RatingTitle" class="control-label"></label>
+                            <input asp-for="RatingTitle" class="form-control" placeholder="Onderwerp.." />
+                            <span asp-validation-for="RatingTitle" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="StarRating" class="control-label"></label>
+                            <br />  
+                            <div class="rate">
+                                <input type="radio" id="star5" name="StarRating" value="5" required/>
+                                <label for="star5" title="Fantastisch">5</label>
+                                <input type="radio" id="star4" name="StarRating" value="4" required/>
+                                <label for="star4" title="Goed">4</label>
+                                <input type="radio" id="star3" name="StarRating" value="3" required/>
+                                <label for="star3" title="Wel oké">3</label>
+                                <input type="radio" id="star2" name="StarRating" value="2" required/>
+                                <label for="star2" title="Matig">2</label>
+                                <input type="radio" id="star1" name="StarRating" value="1" required/>
+                                <label for="star1" title="Slecht">1</label>
+                                <span asp-validation-for="StarRating" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+
+                        <div class="form-group">
+                            <label asp-for="Comment" class="control-label"></label>
+                            <input asp-for="Comment" class="form-control" placeholder="Commentaar.." />
+                            <span asp-validation-for="Comment" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Verstuur" class="btn btn-Create" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
