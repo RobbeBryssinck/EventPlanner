@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Event>
 @{
     ViewData["Title"] = "Home Page";
-    
+
     <style>
         .card-wrapper {
             margin-bottom: 30px;
@@ -192,8 +192,9 @@
     </div>
     <br />
     <!--- Foto met informatie 2 -->
-    <div class="container" style="position: relative">
+    <div class="container">
         <div class="row padding">
+
             <div class="col-md-12 col-lg-6">
                 <h2>Opleiding </h2>
                 <p class="text-secondary">
@@ -206,21 +207,43 @@
                     je kan deelnemen aan kennisevents, certificeringen behalen,
                     technische elearning modules doorlopen en met Project X werken aan je projectmanagement skills.
                 </p>
-                <h6>Inschrijven voor de nieuwsbrief:</h6>
-
-                <form>
-                    <label for="fname">Naam:</label><br>
-                    <input type="text" id="fname" name="fname" value=""><br>
-                    <label for="lname">Achternaam:</label><br>
-                    <input type="text" id="lname" name="lname" value=""><br>
-                    <label for="email">Emailadres:</label><br>
-                    <input type="text" id="email" name="email" value=""><br><br>
-                    <input type="submit" value="Submit"><br>
-                </form>
-
             </div>
-            <div class="col-lg-4">
-                <img class="img-fluid rounded" style="max-width: 100%" src="~/Images/RockstarOpleiding.jpg" />
+            <div class="col-lg-6">
+                <img class="rounded img-fluid" src="~/Images/RockstarOpleiding.jpg" />
+            </div>
+        </div>
+        <hr class="my-4" />
+    </div>
+    <div class="container justify-content-center align-items-center">
+        <h6 class="text-center">Inschrijven voor de nieuwsbrief:</h6>
+
+        <div id="NewsLetter">
+            <div class="container">
+                <div id="NewsLetter-row" class="row justify-content-center align-items-center">
+                    <div id="NewsLetter-column" class="col-md-6">
+                        <div id="NewsLetter-box" class="col-md-12">
+                            <form id="NewsLetter-form" class="form">
+
+                                <div class="form-group">
+                                    <label class="control-label" for="fname">Naam:</label>
+                                    <input placeholder="Naam.." class="form-control" type="text" id="fname" name="fname" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="lname">Achternaam:</label>
+                                    <input placeholder="Achternaam.." class="form-control" type="text" id="lname" name="lname" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Emailadres:</label>
+                                    <input placeholder="Emailadres.." class="form-control" type="text" id="email" name="email" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn-Create btn" type="submit" value="Submit">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
