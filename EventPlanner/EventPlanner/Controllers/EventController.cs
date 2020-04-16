@@ -68,6 +68,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult CreateEvent()
         {
+            List<Categorie> categories = db.Categorie.ToList();
             return View(new EventViewModel());
         }
 
@@ -208,6 +209,8 @@ namespace EventPlanner.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEvent(EventViewModel model)
         {
+            
+
             Event realmodel = new Event();
             if (ModelState.IsValid)
             {
