@@ -90,20 +90,16 @@ namespace EventPlanner.Controllers
         public IActionResult ChangeEventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            db.Events.Remove(events[0]);
-            db.SaveChanges();
-            return RedirectToAction("ChangeEventComplete");
+            return View(events[0]);
         }
 
-        public IActionResult ChangeEventComplete()
+        [HttpPost]
+        public IActionResult ChangeEventPage()
         {
             return View();
         }
 
-        public IActionResult ChangeEventFailed()
-        {
-            return View();
-        }
+
 
         /*
 
