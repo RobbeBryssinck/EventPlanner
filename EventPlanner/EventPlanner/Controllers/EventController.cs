@@ -274,11 +274,12 @@ namespace EventPlanner.Controllers
             return View(events);
         }
 
-        public IActionResult EventsJoin(int eventId)
+        [HttpGet]
+        public IActionResult EventJoin(int eventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
             Event joinEvent = events[0];
-            JoinEventViewModel joinEventViewModel = new JoinEventViewModel();
+            EventJoinPageViewModel joinEventViewModel = new EventJoinPageViewModel();
 
             joinEventViewModel.EventId = joinEvent.EventId;
             joinEventViewModel.EventName = joinEvent.EventName;
@@ -288,6 +289,22 @@ namespace EventPlanner.Controllers
             joinEventViewModel.ImageSrc = joinEvent.ImageSrc;
 
             return View(joinEventViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EventJoin(EventJoinPageViewModel model)
+        {
+            Registration registration = new Registration();
+            List<Account> accounts = db.Accounts.Where(x => x.UserName == model.Username).ToList();
+            Account account = accounts[0];
+
+            registration.AccountId = account.AccountId;
+            registration.EventId = model.EventId;
+
+            db.Registrations.Add(registration);
+            db.SaveChanges();
+
+            return View("RegistrationSucceeded");
         }
 
         public IActionResult DeleteEventPage(int EventId)
