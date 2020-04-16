@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventPlanner.Data;
 using EventPlanner.Models;
+using EventPlanner.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -228,10 +229,39 @@ namespace EventPlanner.Controllers
             return View(events);
         }
 
-        public IActionResult EventsJoin(int id)
+        public IActionResult EventsJoin(int eventId)
         {
-            List<Event> events = db.Events.Where(x => x.EventId == id).ToList();
+            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
+            Event joinEvent = events[0];
+            JoinEventViewModel joinEventViewModel = new JoinEventViewModel();
+
+            joinEventViewModel.EventId = joinEvent.EventId;
+            joinEventViewModel.EventName = joinEvent.EventName;
+            joinEventViewModel.Date = joinEvent.Date;
+            joinEventViewModel.VisitorLimit = joinEvent.VisitorLimit;
+            joinEventViewModel.Description = joinEvent.Description;
+            joinEventViewModel.ImageSrc = joinEvent.ImageSrc;
+
+            return View(joinEventViewModel);
+        }
+
+        public IActionResult DeleteEventPage(int EventId)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
             return View(events[0]);
+        }
+
+        public IActionResult DeleteEvent(int EventId)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
+            db.Events.Remove(events[0]);
+            db.SaveChanges();
+            return RedirectToAction("DeleteEventComplete");
+        }
+
+        public IActionResult DeleteEventComplete()
+        {
+            return View();
         }
     }
 }
