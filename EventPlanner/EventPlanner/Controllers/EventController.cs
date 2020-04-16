@@ -95,9 +95,13 @@ namespace EventPlanner.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangeEventPage()
+        public IActionResult ChangeEventPage(Event model)
         {
-            return View();
+            List<Event> events = db.Events.Where(x => x.EventId == model.EventId).ToList();
+            Event oldEvent = events[0];
+            db.Entry(oldEvent).CurrentValues.SetValues(model);
+            db.SaveChanges();
+            return RedirectToAction("EventPage", new {model.EventId});
         }
 
 
