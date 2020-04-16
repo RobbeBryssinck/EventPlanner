@@ -68,8 +68,9 @@ namespace EventPlanner.Controllers
 
         public IActionResult CreateEvent()
         {
-            List<Categorie> categories = db.Categories.ToList();
-            return View(new EventViewModel());
+            EventViewModel model = new EventViewModel();
+            model.Categories = db.Categories.ToList();
+            return View(model);
         }
 
         public IActionResult EventNotFound()
