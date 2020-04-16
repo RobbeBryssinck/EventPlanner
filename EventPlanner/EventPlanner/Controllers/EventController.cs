@@ -91,17 +91,59 @@ namespace EventPlanner.Controllers
         public IActionResult ChangeEventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            return View(events[0]);
+            Event model = events[0];
+            EventViewModel realmodel = new EventViewModel();
+
+            realmodel.EventId = model.EventId;
+            realmodel.EventName = model.EventName;
+            realmodel.Date = model.Date;
+            realmodel.VisitorLimit = model.VisitorLimit;
+            realmodel.Description = model.Description;
+            realmodel.Location = model.Location;
+            realmodel.EventType = model.EventType;
+            realmodel.Email = model.Email;
+
+            return View(realmodel);
         }
 
         [HttpPost]
-        public IActionResult ChangeEventPage(Event model)
+        public async Task<IActionResult> ChangeEventPage(EventViewModel model)
         {
-            List<Event> events = db.Events.Where(x => x.EventId == model.EventId).ToList();
-            Event oldEvent = events[0];
-            db.Entry(oldEvent).CurrentValues.SetValues(model);
-            db.SaveChanges();
-            return RedirectToAction("EventPage", new {model.EventId});
+            Event realmodel = new Event();
+            if (ModelState.IsValid)
+            {
+                var uploads = Path.Combine(_environment.WebRootPath, "Images");
+                foreach (var file in model.files)
+                {
+                    realmodel.ImageSrc = file.FileName;
+                    if (file.Length > 0)
+                    {
+                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+                    }
+                }
+
+                realmodel.EventId = model.EventId;
+                realmodel.EventName = model.EventName;
+                realmodel.Date = model.Date;
+                realmodel.VisitorLimit = model.VisitorLimit;
+                realmodel.Description = model.Description;
+                realmodel.Location = model.Location.Replace(" ", String.Empty);
+                realmodel.EventType = model.EventType;
+                realmodel.Email = model.Email;
+
+                List<Event> events = db.Events.Where(x => x.EventId == model.EventId).ToList();
+                Event oldEvent = events[0];
+                db.Entry(oldEvent).CurrentValues.SetValues(realmodel);
+                db.SaveChanges();
+                return RedirectToAction("EventPage", new { realmodel.EventId });
+            }
+            else
+            {
+                return View("EventCreateFail");
+            }
         }
 
 
@@ -168,7 +210,7 @@ namespace EventPlanner.Controllers
                 realmodel.Date = model.Date;
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
-                realmodel.Location = model.Location.Replace(" ",String.Empty);  
+                realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.EventType = model.EventType;
                 realmodel.Email = model.Email;
 
