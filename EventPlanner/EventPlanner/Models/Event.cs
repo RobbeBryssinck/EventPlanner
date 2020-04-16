@@ -43,6 +43,6 @@ namespace EventPlanner.Models
 
         [Required]
         [Display(Name = "Evenement type")]
-        public string EventType { get; set; }
+        public EventType EventType { get; set; }
     }
 }
