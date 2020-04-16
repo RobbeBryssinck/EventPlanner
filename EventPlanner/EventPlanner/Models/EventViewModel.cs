@@ -47,5 +47,7 @@ namespace EventPlanner.Models
 
         [Display(Name = "Foto")]
         public ICollection<IFormFile> files { get; set; }
+
+        public List<Categorie> Categories { get; set; }
     }
 }

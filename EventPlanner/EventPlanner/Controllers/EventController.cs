@@ -38,6 +38,26 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        public IActionResult EventCategories()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCategorie(Categorie model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Categorie.Add(model);
+                db.SaveChanges();
+                return View("FeedbackSubmitted");
+            }
+
+            else
+                return View("FeedbackCreateFail");
+        }
+
         public IActionResult EventFeedbackPage(int eventID)
         {
             Rating rating = new Rating();

@@ -9,6 +9,11 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCMGzFaY4NywUNBSz80pFEuncUHgze1uQo"></script>
 }
 
+@foreach (var item in Model.Categories)
+{
+    <p>@item.CategorieName</p>
+}
+
 <div id="CreateEvent">
     <div class="container">
         <div id="CreateEvent-row" class="row justify-content-center align-items-center">
