@@ -59,7 +59,11 @@
 
                         <div class="form-group">
                             <label asp-for="EventType" class="control-label"></label>
-                            <input asp-for="EventType" class="form-control" placeholder="Event type.." />
+                            <select asp-for="EventType" id="inputTag" class="form-control" placeholder="heelp">
+                                <option>Recreatie</option>
+                                <option>Educatief</option>
+                               
+                            </select>
                             <span asp-validation-for="EventType" class="text-danger"></span>
                         </div>
 
