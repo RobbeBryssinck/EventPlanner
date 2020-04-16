@@ -23,8 +23,8 @@ namespace EventPlanner.Controllers
 
         public IActionResult Index()
         {
-            var emp_data = db.Events.Where(f => f.Date > DateTime.Now).OrderBy(e => e.Date).ToList();
-            return View(emp_data.GetRange(0, 3));
+            var emp_data = db.Events.Where(f => f.Date > DateTime.Now).OrderBy(e => e.Date).ToList().Take(3);
+            return View(emp_data);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
