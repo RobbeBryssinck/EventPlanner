@@ -49,7 +49,7 @@ namespace EventPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categorie.Add(model);
+                db.Categories.Add(model);
                 db.SaveChanges();
                 return View("FeedbackSubmitted");
             }
@@ -68,7 +68,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult CreateEvent()
         {
-            List<Categorie> categories = db.Categorie.ToList();
+            List<Categorie> categories = db.Categories.ToList();
             return View(new EventViewModel());
         }
 

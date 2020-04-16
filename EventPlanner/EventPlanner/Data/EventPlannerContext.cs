@@ -19,7 +19,7 @@ namespace EventPlanner.Data
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Registration> Registrations { get; set; }
-        public DbSet<Categorie> Categorie { get; set; }
+        public DbSet<Categorie> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

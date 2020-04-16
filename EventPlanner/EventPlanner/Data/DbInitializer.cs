@@ -158,17 +158,17 @@ namespace EventPlanner.Data
            {
                 new Categorie
                 {
-                    CategorieId=1, CategorieName="Test", Info="Dit is een test"
+                    CategorieName="Test", Info="Dit is een test"
                 },
 
                 new Categorie
                 {
-                    CategorieId=2, CategorieName="Test2", Info="Het evenement werkt perfect, niks kan beter"
+                    CategorieName="Test2", Info="Het evenement werkt perfect, niks kan beter"
                 }
            };
             foreach (Categorie categorie in categories)
             {
-                context.Categorie.Add(categorie);
+                context.Categories.Add(categorie);
             }
             context.SaveChanges();
         }
