@@ -132,11 +132,8 @@ namespace EventPlanner.Data
             foreach (Rating rating in ratings)
             {
                 context.Ratings.Add(rating);
-            }
-            context.SaveChanges();
-
-            var registrations = new Registration[]
-            {
+                var registrations = new Registration[]
+                {
                 new Registration{AccountId=1, EventId=2},
                 new Registration{AccountId=5, EventId=3},
                 new Registration{AccountId=2, EventId=1},
@@ -147,10 +144,12 @@ namespace EventPlanner.Data
                 new Registration{AccountId=5, EventId=1},
                 new Registration{AccountId=1, EventId=4},
                 new Registration{AccountId=4, EventId=2}
-            };
-            foreach (Registration registration in registrations)
-            {
-                context.Registrations.Add(registration);
+                };
+                foreach (Registration registration in registrations)
+                {
+                    context.Registrations.Add(registration);
+                }
+                context.SaveChanges();
             }
         }
     }
