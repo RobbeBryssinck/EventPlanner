@@ -26,6 +26,7 @@ namespace EventPlanner.Models
         [Range (1, 10000)]
         public int VisitorLimit { get; set; }
 
+        public int Visitors { get; set; }
         [Required]
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
