@@ -1,7 +1,14 @@
 ﻿@model Event
 <div class="rounded container EventsBorder">
     <div class="row">
-        <div class="col"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
+        @if (Model.Date > DateTime.Now)
+        {
+            <div class="col"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
+        }
+        else
+        {
+            <div class="col"><h4><a href='@string.Format("/Event/ArchivedEvent?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
+        }
     </div>
 
     <div class="row">
