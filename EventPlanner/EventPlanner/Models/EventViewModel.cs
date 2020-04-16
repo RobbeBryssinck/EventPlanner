@@ -38,14 +38,14 @@ namespace EventPlanner.Models
         [Display(Name = "Email")]
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please use a valid e-mailadress")]
         public string Email { get; set; }
-
         
         public string ImageSrc { get; set; }
 
         [Required]
         [Display(Name = "Evenement type")]
-        public string EventType { get; set; }
+        public EventType EventType { get; set; }
 
+        [Display(Name = "Foto")]
         public ICollection<IFormFile> files { get; set; }
     }
 }

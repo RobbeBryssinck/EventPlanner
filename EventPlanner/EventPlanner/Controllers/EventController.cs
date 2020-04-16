@@ -144,7 +144,6 @@ namespace EventPlanner.Controllers
                     }
                 }
 
-
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
                 realmodel.Date = model.Date;
@@ -188,7 +187,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Educational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == EventType.Educational && s.Date > DateTime.Now).ToList();
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
@@ -198,7 +197,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Recreation()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Recreation" && s.Date > DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == EventType.Recreation && s.Date > DateTime.Now).ToList();
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
