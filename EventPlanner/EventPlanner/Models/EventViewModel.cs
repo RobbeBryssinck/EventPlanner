@@ -44,6 +44,7 @@ namespace EventPlanner.Models
         [Required]
         [Display(Name = "Evenement type")]
         public EventType EventType { get; set; }
+        public int Visitors { get; set; }
 
         [Display(Name = "Foto")]
         public ICollection<IFormFile> files { get; set; }
