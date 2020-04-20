@@ -49,7 +49,7 @@ namespace EventPlanner.Models
         public ICollection<IFormFile> files { get; set; }
 
         [Required]
-        [Display(Name = "Voor medewerkers")]
-        public bool ForEmployees { get; set; }
+        [Display(Name = "Voor wie?")]
+        public EventGroup ForEmployees { get; set; }
     }
 }

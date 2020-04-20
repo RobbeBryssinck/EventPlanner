@@ -47,6 +47,6 @@ namespace EventPlanner.Models
 
         [Required]
         [Display(Name = "Voor medewerkers")]
-        public bool ForEmployees { get; set; }
+        public EventGroup ForEmployees { get; set; }
     }
 }
