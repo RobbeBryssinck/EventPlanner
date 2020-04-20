@@ -158,12 +158,12 @@ namespace EventPlanner.Data
            {
                 new Categorie
                 {
-                    CategorieName="Test", Info="Dit is een test"
+                    CategorieName="Educational", Info="Leren"
                 },
 
                 new Categorie
                 {
-                    CategorieName="Test2", Info="Het evenement werkt perfect, niks kan beter"
+                    CategorieName="Recreation", Info="recreatie"
                 }
            };
             foreach (Categorie categorie in categories)

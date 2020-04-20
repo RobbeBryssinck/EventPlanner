@@ -272,7 +272,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Educational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == "Educatief" && s.Date > DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
