@@ -36,6 +36,7 @@ namespace EventPlanner.Controllers
             realmodel.EventId = model.EventId;
             realmodel.EventName = model.EventName;
             realmodel.Date = model.Date;
+            realmodel.ImageSrc = model.ImageSrc;
             realmodel.VisitorLimit = model.VisitorLimit;
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
