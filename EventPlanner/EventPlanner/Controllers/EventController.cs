@@ -123,6 +123,7 @@ namespace EventPlanner.Controllers
             realmodel.VisitorLimit = model.VisitorLimit;
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
+            realmodel.ImageSrc = model.ImageSrc;
             realmodel.EventType = model.EventType;
             realmodel.Email = model.Email;
 
@@ -136,18 +137,20 @@ namespace EventPlanner.Controllers
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images");
-                foreach (var file in model.files)
+                if (model.files != null)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    foreach (var file in model.files)
                     {
-                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        realmodel.ImageSrc = file.FileName;
+                        if (file.Length > 0)
                         {
-                            await file.CopyToAsync(fileStream);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
                         }
                     }
                 }
-
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
                 realmodel.Date = model.Date;
@@ -155,6 +158,10 @@ namespace EventPlanner.Controllers
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.EventType = model.EventType;
+                if (model.files == null)
+                {
+                    realmodel.ImageSrc = model.ImageSrc;
+                }
                 realmodel.Email = model.Email;
 
                 List<Event> events = db.Events.Where(x => x.EventId == model.EventId).ToList();
@@ -211,7 +218,7 @@ namespace EventPlanner.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEvent(EventViewModel model)
         {
-            
+
 
             Event realmodel = new Event();
             if (ModelState.IsValid)
