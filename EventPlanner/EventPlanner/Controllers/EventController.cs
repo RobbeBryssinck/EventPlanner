@@ -32,7 +32,7 @@ namespace EventPlanner.Controllers
             Event model = events[0];
             EventViewModel realmodel = new EventViewModel();
 
-            var Visitors2 = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+            var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
             realmodel.EventId = model.EventId;
             realmodel.EventName = model.EventName;
             realmodel.Date = model.Date;
@@ -42,7 +42,7 @@ namespace EventPlanner.Controllers
             realmodel.Location = model.Location;
             realmodel.EventType = model.EventType;
             realmodel.Email = model.Email;
-            realmodel.Visitors = Visitors2;
+            realmodel.Visitors = Participants;
 
             return View(realmodel);
         }
