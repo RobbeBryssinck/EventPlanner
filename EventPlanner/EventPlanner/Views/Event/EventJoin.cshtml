@@ -1,0 +1,33 @@
+﻿@model EventJoinPageViewModel
+@{
+    ViewData["Title"] = "EventsJoin";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>@Model.EventName</h1>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <img class="rounded" style="max-width: 100%" src="~/Images/@Model.ImageSrc" />
+        </div>
+        <div class="col-lg-6">
+            <form class="form-check" asp-action="EventJoin">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Username">Gebruikersnaam</label>
+                        <input asp-for="Username" class="form-control" placeholder="Gebruikersnaam">
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input asp-for="EventId" type="hidden" />
+                    <button class="btn btn-primary" type="submit">Meld me aan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

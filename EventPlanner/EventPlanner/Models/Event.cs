@@ -43,7 +43,12 @@ namespace EventPlanner.Models
 
         [Required]
         [Display(Name = "Evenement type")]
+<<<<<<< HEAD
         public string EventType { get; set; }
 
+=======
+        public EventType EventType { get; set; }
+        public int Visitors { get; set; }
+>>>>>>> master
     }
 }
