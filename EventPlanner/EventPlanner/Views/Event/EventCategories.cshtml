@@ -1,0 +1,48 @@
+﻿@model Categorie
+@{
+    ViewData["Title"] = "EventCategories";
+}
+
+<style>
+    .btn-Create {
+        color: black;
+        background-color: #fcd703;
+        border-color: #fcca03;
+    }
+
+        .btn-Create:hover {
+            color: black;
+            background-color: #fcca03;
+            border-color: #fcc203;
+        }
+</style>
+
+<div id="CreateCategorie">
+    <div class="container">
+        <div id="CreateCategorie-row" class="row justify-content-center align-items-center">
+            <div id="CreateCategorie-column" class="col-md-6">
+                <div id="CreateCategorie-box" class="col-md-12">
+                    <form id="CreateCategorie-form" class="form" asp-action="CreateCategorie" enctype="multipart/form-data">
+                        <h1>Evenement categorie</h1>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="CategorieName" class="control-label"></label>
+                            <input asp-for="CategorieName" class="form-control" placeholder="Naam van de Categorie.." />
+                            <span asp-validation-for="CategorieName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Info" class="control-label"></label>
+                            <textarea asp-for="Info" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Beschrijving.."></textarea>
+                            <span asp-validation-for="Info" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Categorie toevoegen" class="btn btn-Create" />
+                        </div>
+                        <a asp-action="Events">Alle evenementen</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

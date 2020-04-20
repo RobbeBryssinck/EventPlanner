@@ -59,7 +59,12 @@
 
                         <div class="form-group">
                             <label asp-for="EventType" class="control-label"></label>
-                            <select asp-for="EventType" asp-items="@Html.GetEnumSelectList<EventType>()" class="form-control"></select>
+                            <select asp-for="EventType" class="form-control" placeholder="Eventtype..">
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <option value="@item.CategorieName">@item.CategorieName</option>
+                                }
+                            </select>
                             <span asp-validation-for="EventType" class="text-danger"></span>
                         </div>
 

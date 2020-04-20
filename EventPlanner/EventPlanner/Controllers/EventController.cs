@@ -53,6 +53,26 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        public IActionResult EventCategories()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCategorie(Categorie model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Categories.Add(model);
+                db.SaveChanges();
+                return View("CategorieCreated");
+            }
+
+            else
+                return View("CategorieFailed");
+        }
+
         public IActionResult EventFeedbackPage(int eventID)
         {
             Rating rating = new Rating();
@@ -63,10 +83,17 @@ namespace EventPlanner.Controllers
 
         public IActionResult CreateEvent()
         {
-            return View(new EventViewModel());
+            EventViewModel model = new EventViewModel();
+            model.Categories = db.Categories.ToList();
+            return View(model);
         }
 
         public IActionResult EventNotFound()
+        {
+            return View();
+        }
+
+        public IActionResult EventChangeFail()
         {
             return View();
         }
@@ -108,6 +135,7 @@ namespace EventPlanner.Controllers
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
             Event model = events[0];
             EventViewModel realmodel = new EventViewModel();
+            realmodel.Categories = db.Categories.ToList();
 
             realmodel.EventId = model.EventId;
             realmodel.EventName = model.EventName;
@@ -115,8 +143,10 @@ namespace EventPlanner.Controllers
             realmodel.VisitorLimit = model.VisitorLimit;
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
+            realmodel.ImageSrc = model.ImageSrc;
             realmodel.EventType = model.EventType;
             realmodel.Email = model.Email;
+
 
             return View(realmodel);
         }
@@ -128,17 +158,25 @@ namespace EventPlanner.Controllers
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images");
-                foreach (var file in model.files)
+                if (model.files != null)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    foreach (var file in model.files)
                     {
-                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        realmodel.ImageSrc = file.FileName;
+                        if (file.Length > 0)
                         {
-                            await file.CopyToAsync(fileStream);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    return View("EventCreateFail");
+                }
+
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
                 realmodel.Date = model.Date;
@@ -146,6 +184,10 @@ namespace EventPlanner.Controllers
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.EventType = model.EventType;
+                if (model.files == null)
+                {
+                    realmodel.ImageSrc = model.ImageSrc;
+                }
                 realmodel.Email = model.Email;
 
 
@@ -157,7 +199,7 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                return View("EventCreateFail");
+                return View("EventChangeFail");
             }
         }
 
@@ -203,20 +245,29 @@ namespace EventPlanner.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEvent(EventViewModel model)
         {
+
+
             Event realmodel = new Event();
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images");
-                foreach (var file in model.files)
+                if (model.files != null)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    foreach (var file in model.files)
                     {
-                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        realmodel.ImageSrc = file.FileName;
+                        if (file.Length > 0)
                         {
-                            await file.CopyToAsync(fileStream);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
                         }
                     }
+                }
+                else
+                {
+                    return View("EventCreateFail");
                 }
 
                 realmodel.EventId = model.EventId;
@@ -262,7 +313,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Educational()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == EventType.Educational && s.Date > DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
@@ -272,7 +323,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Recreation()
         {
-            List<Event> events = db.Events.Where(s => s.EventType == EventType.Recreation && s.Date > DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.EventType == "Recreation" && s.Date > DateTime.Now).ToList();
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");

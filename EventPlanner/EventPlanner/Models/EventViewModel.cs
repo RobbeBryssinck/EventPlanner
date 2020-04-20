@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,7 +23,7 @@ namespace EventPlanner.Models
 
         [Required]
         [Display(Name = "Bezoeker limiet")]
-        [Range (1, 10000)]
+        [Range(1, 10000)]
         public int VisitorLimit { get; set; }
 
         [Required]
@@ -38,7 +38,7 @@ namespace EventPlanner.Models
         [Display(Name = "Email")]
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please use a valid e-mailadress")]
         public string Email { get; set; }
-        
+
         public string ImageSrc { get; set; }
 
         [Required]
@@ -52,5 +52,7 @@ namespace EventPlanner.Models
         [Required]
         [Display(Name = "Voor wie?")]
         public EventGroup ForEmployees { get; set; }
+
+        public List<Categorie> Categories { get; set; }
     }
 }
