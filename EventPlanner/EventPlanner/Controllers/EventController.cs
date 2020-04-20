@@ -66,11 +66,11 @@ namespace EventPlanner.Controllers
             {
                 db.Categories.Add(model);
                 db.SaveChanges();
-                return View("FeedbackSubmitted");
+                return View("CategorieCreated");
             }
 
             else
-                return View("FeedbackCreateFail");
+                return View("CategorieFailed");
         }
 
         public IActionResult EventFeedbackPage(int eventID)
@@ -89,6 +89,11 @@ namespace EventPlanner.Controllers
         }
 
         public IActionResult EventNotFound()
+        {
+            return View();
+        }
+
+        public IActionResult EventChangeFail()
         {
             return View();
         }
@@ -142,6 +147,7 @@ namespace EventPlanner.Controllers
             realmodel.EventType = model.EventType;
             realmodel.Email = model.Email;
 
+
             return View(realmodel);
         }
 
@@ -166,6 +172,11 @@ namespace EventPlanner.Controllers
                         }
                     }
                 }
+                else
+                {
+                    return View("EventCreateFail");
+                }
+
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
                 realmodel.Date = model.Date;
@@ -188,7 +199,7 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                return View("EventCreateFail");
+                return View("EventChangeFail");
             }
         }
 
@@ -240,16 +251,23 @@ namespace EventPlanner.Controllers
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images");
-                foreach (var file in model.files)
+                if (model.files != null)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    foreach (var file in model.files)
                     {
-                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        realmodel.ImageSrc = file.FileName;
+                        if (file.Length > 0)
                         {
-                            await file.CopyToAsync(fileStream);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
                         }
                     }
+                }
+                else
+                {
+                    return View("EventCreateFail");
                 }
 
                 realmodel.EventId = model.EventId;

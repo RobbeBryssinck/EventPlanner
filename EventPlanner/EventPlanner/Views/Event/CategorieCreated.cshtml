@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "CategorieCreated";
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        #CreateSuccess .container {
+            margin-top: 5%;
+            max-width: 600px;
+            height: 200px;
+            border: 1px solid black;
+            background-color: #EAEAEA;
+            padding: 20px;
+        }
+
+        .btn-continue {
+            color: black;
+            background-color: #fcd703;
+            border-color: #fcca03;
+        }
+
+            .btn-continue:hover {
+                color: black;
+                background-color: #fcca03;
+                border-color: #fcc203;
+            }
+    </style>
+
+}
+
+
+
+<div id="CreateSuccess">
+    <div class="container">
+
+        <h1 class="text-center">De categorie is aangemaakt.</h1>
+        <hr />
+        <div class="row justify-content-center">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-continue" style="margin: 0 auto;">Terug</a>
+        </div>
+    </div>
+</div>
