@@ -61,7 +61,7 @@
 
                         <div class="form-group">
                             <label asp-for="EventType" class="control-label"></label>
-                            <select asp-for="EventType" class="form-control" placeholder="Email..">
+                            <select asp-for="EventType" class="form-control" placeholder="Eventtype..">
                                 @foreach (var item in Model.Categories)
                                 {
                                     <option value="@item.CategorieName">@item.CategorieName</option>

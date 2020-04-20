@@ -24,7 +24,7 @@ namespace EventPlanner.Data
                     Description="Ja hoor!! We zetten onverminderd door met de mega-succesvolle bordspellenavond… " +
                         "Neem je spellen mee, en je partner, vriend of zus. Eet je mee? Laat dit dan even weten aan onze ultieme spelleider Sven Klaassen Bos!",
                     Location="Eindhoven,Rachelsmolen1,5612MA",
-                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType = EventType.Recreation},
+                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType = "Recreation"},
 
                 new Event{EventName="Pizzasessie IT Rockstar Sven Haster | Four easy steps to migrate to JPMS",
                     Date=DateTime.Parse("2020-04-15"),VisitorLimit=40,
@@ -33,7 +33,7 @@ namespace EventPlanner.Data
                         "Jigsaw genoemd. Voor veel ontwikkelaars is dit nog een abstract en ondoorzichtig geheel en dit is dan ook dé reden dat veel projecten nog op Java 8 zitten. " +
                         "In deze presentatie laat IT Rockstar Sven vier simpele stappen zien om je project JPMS compliant te maken en naar Java 9+ te migreren.",
                     Location="Apeldoorn,Laanvandemensenrechten,7331VX,362",
-                    Email="shout@teamrockstars.nl",ImageSrc="SvenHaster.jpg", EventType = EventType.Educational},
+                    Email="shout@teamrockstars.nl",ImageSrc="SvenHaster.jpg", EventType = "Educational"},
 
                 new Event{EventName="IT Rockstar Christiaan Nieuwlaat | Modulaire Software Ontwikkeling – Chapter Lower South",
                     Date=DateTime.Parse("2020-04-16"),VisitorLimit=50,
@@ -43,14 +43,14 @@ namespace EventPlanner.Data
                         "gebruik maken van modules als bibliotheken, bijvoorbeeld in de vorm van java 9+ modules. We gaan het hebben over deze verschillende niveaus, waarom we " +
                         "gebruik willen maken van modulaire ontwikkeling en wat de voor- en nadelen hiervan zijn.",
                     Location="Tilburg,Spoorlaan,5038CB,26",
-                    Email="shout@teamrockstars.nl",ImageSrc="ChristiaanNieuwlaat.jpg", EventType = EventType.Educational},
+                    Email="shout@teamrockstars.nl",ImageSrc="ChristiaanNieuwlaat.jpg", EventType = "Educational"},
 
                 new Event{EventName="Pizzasessie IT Rockstar Bart Kardol | Digitalisering verandert de wereld, ook op zee",
                     Date=DateTime.Parse("2020-04-22"),VisitorLimit=50,
                     Description="n chapter Upper South hebben we IT Rockstar gepland staan op 22 April voor een supervette sessie: “Digitalisering verandert de wereld, ook op zee”. " +
                     "Catchy titel, nietwaar? Inschrijven voor zijn sessie doe je hier! Het event vindt plaats op Team Rockstars IT HQ in ‘s-Hertogenbosch!",
                     Location="DenBosch,Lekkerbeetjesstraat,5511AL,5",
-                    Email="shout@teamrockstars.nl",ImageSrc="BartKardol.jpg", EventType = EventType.Educational},
+                    Email="shout@teamrockstars.nl",ImageSrc="BartKardol.jpg", EventType = "Educational"},
             };
             foreach (Event e in events)
             {
