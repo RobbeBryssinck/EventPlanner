@@ -29,7 +29,22 @@ namespace EventPlanner.Controllers
         public IActionResult EventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            return View(events[0]);
+            Event model = events[0];
+            EventViewModel realmodel = new EventViewModel();
+
+            var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+            realmodel.EventId = model.EventId;
+            realmodel.EventName = model.EventName;
+            realmodel.Date = model.Date;
+            realmodel.ImageSrc = model.ImageSrc;
+            realmodel.VisitorLimit = model.VisitorLimit;
+            realmodel.Description = model.Description;
+            realmodel.Location = model.Location;
+            realmodel.EventType = model.EventType;
+            realmodel.Email = model.Email;
+            realmodel.Visitors = Participants;
+
+            return View(realmodel);
         }
 
         public IActionResult EventSuccessPage(Event model)
@@ -124,7 +139,6 @@ namespace EventPlanner.Controllers
                         }
                     }
                 }
-
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
                 realmodel.Date = model.Date;
@@ -133,6 +147,7 @@ namespace EventPlanner.Controllers
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.EventType = model.EventType;
                 realmodel.Email = model.Email;
+
 
                 List<Event> events = db.Events.Where(x => x.EventId == model.EventId).ToList();
                 Event oldEvent = events[0];
