@@ -138,6 +138,7 @@ namespace EventPlanner.Controllers
             realmodel.VisitorLimit = model.VisitorLimit;
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
+            realmodel.ImageSrc = model.ImageSrc;
             realmodel.EventType = model.EventType;
             realmodel.Email = model.Email;
 
