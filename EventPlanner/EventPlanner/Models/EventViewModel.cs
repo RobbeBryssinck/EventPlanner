@@ -47,5 +47,9 @@ namespace EventPlanner.Models
 
         [Display(Name = "Foto")]
         public ICollection<IFormFile> files { get; set; }
+
+        [Required]
+        [Display(Name = "Voor medewerkers")]
+        public bool ForEmployees { get; set; }
     }
 }

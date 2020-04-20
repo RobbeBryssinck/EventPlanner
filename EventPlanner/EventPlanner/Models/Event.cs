@@ -44,5 +44,9 @@ namespace EventPlanner.Models
         [Required]
         [Display(Name = "Evenement type")]
         public EventType EventType { get; set; }
+
+        [Required]
+        [Display(Name = "Voor medewerkers")]
+        public bool ForEmployees { get; set; }
     }
 }
