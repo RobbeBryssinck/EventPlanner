@@ -249,7 +249,7 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                events = db.Events.Where(s => s.Date > DateTime.Now).ToList();
+                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
             }
 
             if (events.Count == 0)
@@ -286,6 +286,13 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
+            return View(events);
+        }
+
+        [HttpGet]
+        public IActionResult EventsForEmployees()
+        {
+            List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
             return View(events);
         }
 

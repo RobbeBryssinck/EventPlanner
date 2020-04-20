@@ -26,7 +26,6 @@ namespace EventPlanner.Models
         [Range (1, 10000)]
         public int VisitorLimit { get; set; }
 
-        public int Visitors { get; set; }
         [Required]
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
@@ -45,9 +44,13 @@ namespace EventPlanner.Models
         [Required]
         [Display(Name = "Evenement type")]
         public EventType EventType { get; set; }
+        public int Visitors { get; set; }
 
         [Display(Name = "Foto")]
-        [Required]
         public ICollection<IFormFile> files { get; set; }
+
+        [Required]
+        [Display(Name = "Voor wie?")]
+        public EventGroup ForEmployees { get; set; }
     }
 }
