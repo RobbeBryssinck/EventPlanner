@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.ViewModels
 {
-    public class JoinEventViewModel
+    public class EventJoinPageViewModel
     {
         public string Username { get; set; }
-        public string Password { get; set; }
         public int EventId { get; set; }
         public string EventName { get; set; }
         public DateTime Date { get; set; }

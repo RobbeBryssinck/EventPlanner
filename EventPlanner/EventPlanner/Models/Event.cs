@@ -45,5 +45,6 @@ namespace EventPlanner.Models
         [Display(Name = "Evenement type")]
         public string EventType { get; set; }
 
+        public int Visitors { get; set; }
     }
 }
