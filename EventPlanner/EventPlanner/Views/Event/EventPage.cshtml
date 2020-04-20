@@ -29,7 +29,7 @@
                     <div class="fb-share-button" data-href="https://localhost:44399/Event/EventPage?eventID=@Model.EventId" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Delen</a></div>
                     <p> </p>
                     <h5 class="card-title">Ben je geïnteresseerd?</h5>
-                    @if (Model.VisitorLimit == Model.Visitors)
+                    @if (!(Model.VisitorLimit == Model.Visitors))
                     {
                         <p class="card-text">Er zijn nog @(Model.VisitorLimit - Model.Visitors) plaatsen vrij!</p>
                     }
@@ -40,7 +40,7 @@
                 </div>
                 <hr />
                 <br />
-                @if (Model.VisitorLimit == Model.Visitors)
+                @if (!(Model.VisitorLimit == Model.Visitors))
                 {
                     <a href='@string.Format("/Event/EventJoin?EventId={0}", Model.EventId)' class="btn btn-block btn-primary" style="width:100%">Neem deel</a>
                 }
