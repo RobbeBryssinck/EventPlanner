@@ -21,7 +21,7 @@
     <ul class="list-group" id="myList">
         @foreach (var item in Model)
         {
-            <li class="list-group-item"><a href='@string.Format("/Event/CategoryPage?category={0}", item.CategorieName)'>@item.CategorieName</a></li>
+            <li class="list-group-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { category = item.CategorieName })</li>
         }
     </ul>
 </div>
