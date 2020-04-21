@@ -172,10 +172,6 @@ namespace EventPlanner.Controllers
                         }
                     }
                 }
-                else
-                {
-                    return View("EventCreateFail");
-                }
 
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
@@ -184,6 +180,7 @@ namespace EventPlanner.Controllers
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.EventType = model.EventType;
+                realmodel.ForEmployees = model.ForEmployees;
                 if (model.files == null)
                 {
                     realmodel.ImageSrc = model.ImageSrc;
