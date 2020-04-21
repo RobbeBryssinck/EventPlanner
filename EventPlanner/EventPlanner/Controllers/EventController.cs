@@ -203,27 +203,6 @@ namespace EventPlanner.Controllers
             }
         }
 
-
-
-        /*
-
-        [HttpPost]
-        public IActionResult CreateEvent(Event model)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Events.Add(model);
-                db.SaveChanges();
-
-                return View("EventImage");
-            }
-            else
-            {
-                return View("EventCreateFail");
-            }
-        }
-        */
-
         [HttpPost]
         public IActionResult CreateFeedback(Rating rating, int eventID)
         {
@@ -278,6 +257,7 @@ namespace EventPlanner.Controllers
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.EventType = model.EventType;
                 realmodel.Email = model.Email;
+                realmodel.ForEmployees = model.ForEmployees;
 
                 db.Events.Add(realmodel);
                 db.SaveChanges();
@@ -286,6 +266,17 @@ namespace EventPlanner.Controllers
 
             else
                 return View("EventCreateFail");
+        }
+
+        public IActionResult Categories()
+        {
+            return View(db.Categories.ToList());
+        }
+
+        public IActionResult CategoryPage(string category)
+        {
+            
+            return View(db.Events.Where(s => s.EventType == category && s.Date > DateTime.Now).ToList());
         }
 
 
