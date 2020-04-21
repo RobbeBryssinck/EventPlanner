@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Categorie>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+@foreach (var item in Model)
+{
+    <a href='@string.Format("/Event/CategoryPage?category={0}", item.CategorieName)' class="btn btn-primary">@item.CategorieName</a>
+}
