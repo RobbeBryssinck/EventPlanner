@@ -19,13 +19,6 @@ namespace EventPlanner.Data
 
             var events = new Event[]
             {
-                new Event{EventName="Bordspellenavond!",
-                    Date=DateTime.Parse("2020-05-03"),VisitorLimit=50,
-                    Description="Ja hoor!! We zetten onverminderd door met de mega-succesvolle bordspellenavond… " +
-                        "Neem je spellen mee, en je partner, vriend of zus. Eet je mee? Laat dit dan even weten aan onze ultieme spelleider Sven Klaassen Bos!",
-                    Location="Eindhoven,Rachelsmolen1",
-                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType = "Recreation", ForEmployees=EventGroup.RockstarsEmployees},
-
                 new Event{EventName="Guilds & Leisures | Hardlopen @ Vestingloop!",
                     Date=DateTime.Parse("2020-06-07"),VisitorLimit=50,
                     Description="Vanuit de vliegensvlugge Hardloop Guild hebben we weer een mooie run op het program staan! " +
@@ -78,6 +71,13 @@ namespace EventPlanner.Data
                     "Catchy titel, nietwaar? Inschrijven voor zijn sessie doe je hier! Het event vindt plaats op Team Rockstars IT HQ in ‘s-Hertogenbosch!",
                     Location="DenBosch,Lekkerbeetjesstraat5",
                     Email="shout@teamrockstars.nl",ImageSrc="BartKardol.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+
+                new Event{EventName="Bordspellenavond!",
+                    Date=DateTime.Parse("2020-05-03"),VisitorLimit=50,
+                    Description="Ja hoor!! We zetten onverminderd door met de mega-succesvolle bordspellenavond… " +
+                        "Neem je spellen mee, en je partner, vriend of zus. Eet je mee? Laat dit dan even weten aan onze ultieme spelleider Sven Klaassen Bos!",
+                    Location="Eindhoven,Rachelsmolen1",
+                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType = "Recreation", ForEmployees=EventGroup.RockstarsEmployees},
             };
             foreach (Event e in events)
             {
