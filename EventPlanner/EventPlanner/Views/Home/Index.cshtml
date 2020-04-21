@@ -126,27 +126,23 @@
         <div class="row">
             @foreach (var item in Model)
             {
-
                 <div class="card-wrapper col-lg-4 col-md-6 col-xs-12">
                     <div class="card">
                         <div class="card-img-wrapper">
-                            <img class="card-img-top" src="~/Images/@item.ImageSrc" alt="Card image cap">
+                            <img class="card-img-top" src="~/Images/@item.ImageSrc" alt="@item.ImageSrc.ToString()">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">@item.EventName</h5>
                             <div class="card-content">
-                                <a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)' class="btn btn-primary">Meer informatie</a>
+                                <a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)' class="btn btn-Create">Meer informatie</a>
                             </div>
                         </div>
                     </div>
                 </div>
             }
         </div>
-        <hr class="my-4" />
     </div>
-
-
-
+    <hr class="my-4" />
     <!--- Foto met informatie -->
     <div class="container">
         <div class="row padding">

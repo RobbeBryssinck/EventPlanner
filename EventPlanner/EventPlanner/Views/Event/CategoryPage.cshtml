@@ -1,0 +1,14 @@
+﻿@model CategoryEventsViewModel
+@{
+    ViewData["Title"] = "CategoryPage";
+}
+
+<h1>@Model.CategoryName</h1>
+<p>@Model.CategoryInfo</p>
+<br />
+
+@foreach (var item in Model.Events)
+{
+    <partial name="_EventTemplatePartial" model="item" />
+}
+

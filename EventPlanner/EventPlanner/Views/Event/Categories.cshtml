@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Categorie>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myList li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<div class="container">
+    <h2>Categorieën</h2>
+    <input class="form-control" id="myInput" type="text" placeholder="Zoek een categorie..">
+    <br>
+    <ul class="list-group" id="myList">
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item"><a href='@string.Format("/Event/CategoryPage?category={0}", item.CategorieName)'>@item.CategorieName</a></li>
+        }
+    </ul>
+</div>

@@ -19,12 +19,32 @@ namespace EventPlanner.Data
 
             var events = new Event[]
             {
-                new Event{EventName="Bordspellenavond!",
-                    Date=DateTime.Parse("2020-05-03"),VisitorLimit=50,
-                    Description="Ja hoor!! We zetten onverminderd door met de mega-succesvolle bordspellenavond… " +
-                        "Neem je spellen mee, en je partner, vriend of zus. Eet je mee? Laat dit dan even weten aan onze ultieme spelleider Sven Klaassen Bos!",
-                    Location="Eindhoven,Rachelsmolen1",
-                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType = "Recreation", ForEmployees=EventGroup.RockstarsEmployees},
+                new Event{EventName="Guilds & Leisures | Hardlopen @ Vestingloop!",
+                    Date=DateTime.Parse("2020-06-07"),VisitorLimit=50,
+                    Description="Vanuit de vliegensvlugge Hardloop Guild hebben we weer een mooie run op het program staan! " +
+                    "Op 7 juni wordt in ’s Hertogenbosch de vestingloop gelopen. Bij deze run zijn de afstanden 5-10-15 km beschikbaar dus minder of meer ervaren mensen kunnen meelopen. " +
+                    "Inschrijven voor de Vestingloop kan op eigen gelegenheid via http://www.vestingloop.nl. Kosten? Inschrijving periode 1: t/m zaterdag 29 februari 2020 " +
+                    "Inschrijving periode 2: t/m zaterdag 6 juni 2020 5 km inschrijving periode 1 € 15,45 10 km inschrijving periode 1 € 7,45 15 km inschrijving periode " +
+                    "1 € 19,45 5 km inschrijving periode 2 € 17,45 10 km inschrijving periode 2 € 19,45 15 km inschrijving periode 2 € 21,45 Team Rockstars zorgt voor een – " +
+                    "stevig – ontbijt en de gear! Doe je mee? Meld je dan hieronder aan zodat we samen kunnen starten!",
+                    Location="Lekkerbeetjesstraat8,'s-Hertogenbosch",
+                    Email="shout@teamrockstars.nl",ImageSrc="Hardlopen.jpg", EventType = "Recreation", ForEmployees=EventGroup.Public},
+
+                new Event{EventName="Pizzasessie IT Rockstar Kevin Hagenaars | Van Oud naar Cloud",
+                    Date=DateTime.Parse("2020-10-08"),VisitorLimit=50,
+                    Description="Ja hoor IT Rockstar Kevin klimt het podium op met zijn sessie “Van Oud naar Cloud”. In chapter Upper South wordt deze sessie gegeven, en wel op 8 oktober bij Team Rockstars IT HQ in ‘s-Hertogenbosch. " +
+                    "Programma 17.00 – 18.00 Welkom & Drinks 18.00 – 18.30 Diner 18.30 – 20.15 Van Oud naar Cloud 20.15 – 21.00 Borrel The Talk Van oud naar cloud. Bedrijfskritische (maatwerk)software toekomstbestendig maken is voor veel bedrijven een grote en risicovolle stap. " +
+                    "Om koploper te blijven ontkom je er niet aan om deze stap te nemen. In deze sessie neemt IT Rockstar Kevin je mee in het proces, techniek en de voordelen van het ombouwen van een 20 jaar oude stand alone-data intermediair naar een moderne architectuur en RESTful API in Azure.",
+                    Location="Lekkerbeetjesstraat8,'s-Hertogenbosch",
+                    Email="shout@teamrockstars.nl",ImageSrc="KevinHagenaars.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+
+                 new Event{EventName="Team Rockstars IT @ Future Tech",
+                    Date=DateTime.Parse("2020-06-24"),VisitorLimit=50,
+                    Description="Ja hoor IT Rockstar Kevin klimt het podium op met zijn sessie “Van Oud naar Cloud”. In chapter Upper South wordt deze sessie gegeven, en wel op 8 oktober bij Team Rockstars IT HQ in ‘s-Hertogenbosch. " +
+                    "Programma 17.00 – 18.00 Welkom & Drinks 18.00 – 18.30 Diner 18.30 – 20.15 Van Oud naar Cloud 20.15 – 21.00 Borrel The Talk Van oud naar cloud. Bedrijfskritische (maatwerk)software toekomstbestendig maken is voor veel bedrijven een grote en risicovolle stap. " +
+                    "Om koploper te blijven ontkom je er niet aan om deze stap te nemen. In deze sessie neemt IT Rockstar Kevin je mee in het proces, techniek en de voordelen van het ombouwen van een 20 jaar oude stand alone-data intermediair naar een moderne architectuur en RESTful API in Azure.",
+                    Location="Jaarbeursplein,Utrecht",
+                    Email="shout@teamrockstars.nl",ImageSrc="Teamitup-FutureTech.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
 
                 new Event{EventName="Pizzasessie IT Rockstar Sven Haster | Four easy steps to migrate to JPMS",
                     Date=DateTime.Parse("2020-04-15"),VisitorLimit=40,
@@ -50,7 +70,14 @@ namespace EventPlanner.Data
                     Description="n chapter Upper South hebben we IT Rockstar gepland staan op 22 April voor een supervette sessie: “Digitalisering verandert de wereld, ook op zee”. " +
                     "Catchy titel, nietwaar? Inschrijven voor zijn sessie doe je hier! Het event vindt plaats op Team Rockstars IT HQ in ‘s-Hertogenbosch!",
                     Location="DenBosch,Lekkerbeetjesstraat5",
-                    Email="shout@teamrockstars.nl",ImageSrc="BartKardol.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="BartKardolBreed.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+
+                new Event{EventName="Bordspellenavond!",
+                    Date=DateTime.Parse("2020-05-03"),VisitorLimit=50,
+                    Description="Ja hoor!! We zetten onverminderd door met de mega-succesvolle bordspellenavond… " +
+                        "Neem je spellen mee, en je partner, vriend of zus. Eet je mee? Laat dit dan even weten aan onze ultieme spelleider Sven Klaassen Bos!",
+                    Location="Eindhoven,Rachelsmolen1",
+                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType = "Recreation", ForEmployees=EventGroup.RockstarsEmployees},
             };
             foreach (Event e in events)
             {
@@ -158,12 +185,12 @@ namespace EventPlanner.Data
            {
                 new Categorie
                 {
-                    CategorieName="Educational", Info="Leren"
+                    CategorieName="Educational", Info="Bij deze evenementen kan je wat meer leren over technische dingen."
                 },
 
                 new Categorie
                 {
-                    CategorieName="Recreation", Info="recreatie"
+                    CategorieName="Recreation", Info="Bij deze evenementen hebben we plezier."
                 }
            };
             foreach (Categorie categorie in categories)
