@@ -278,6 +278,7 @@ namespace EventPlanner.Controllers
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.EventType = model.EventType;
                 realmodel.Email = model.Email;
+                realmodel.ForEmployees = model.ForEmployees;
 
                 db.Events.Add(realmodel);
                 db.SaveChanges();
