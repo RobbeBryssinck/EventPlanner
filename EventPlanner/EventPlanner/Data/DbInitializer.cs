@@ -70,7 +70,7 @@ namespace EventPlanner.Data
                     Description="n chapter Upper South hebben we IT Rockstar gepland staan op 22 April voor een supervette sessie: “Digitalisering verandert de wereld, ook op zee”. " +
                     "Catchy titel, nietwaar? Inschrijven voor zijn sessie doe je hier! Het event vindt plaats op Team Rockstars IT HQ in ‘s-Hertogenbosch!",
                     Location="DenBosch,Lekkerbeetjesstraat5",
-                    Email="shout@teamrockstars.nl",ImageSrc="BartKardol.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="BartKardolBreed.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
 
                 new Event{EventName="Bordspellenavond!",
                     Date=DateTime.Parse("2020-05-03"),VisitorLimit=50,
