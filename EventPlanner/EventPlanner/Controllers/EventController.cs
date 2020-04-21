@@ -275,8 +275,12 @@ namespace EventPlanner.Controllers
 
         public IActionResult CategoryPage(string category)
         {
-            
-            return View(db.Events.Where(s => s.EventType == category && s.Date > DateTime.Now).ToList());
+            CategoryEventsViewModel model = new CategoryEventsViewModel();
+            model.Events = db.Events.Where(s => s.EventType == category && s.Date > DateTime.Now).ToList();
+            List<Categorie> categories = db.Categories.Where(s => s.CategorieName == category).ToList();
+            model.CategoryInfo = categories[0].Info;
+            model.CategoryName = categories[0].CategorieName;
+            return View(model);
         }
 
 
