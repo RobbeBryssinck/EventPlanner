@@ -1,27 +1,29 @@
 ﻿@model Event
 <div class="rounded container EventsBorder">
     <div class="row">
-        @if (Model.Date > DateTime.Now)
-        {
-            <div class="col"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
-        }
-        else
-        {
-            <div class="col"><h4><a href='@string.Format("/Event/ArchivedEvent?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
-        }
-    </div>
+        <div class="row">
+            @if (Model.Date > DateTime.Now)
+            {
+                <div class="col"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
+            }
+            else
+            {
+                <div class="col"><h4><a href='@string.Format("/Event/ArchivedEvent?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
+            }
+        </div>
 
-    <div class="row">
-        <div class="col-12"><h6>@Model.Date</h6> </div>
-    </div>
+        <div class="row">
+            <div class="col-12"><h6>@Model.Date</h6> </div>
+        </div>
 
-    <div class="row">
-        <div class="col-sm-12"><h7>@Model.Location</h7><br /><br /></div>
-    </div>
+        <div class="row">
+            <div class="col-sm-12"><h7>@Model.Location</h7><br /><br /></div>
+        </div>
 
-    <div class="row">
-        <div class="col-sm-12 col-md-3"><img class="rounded" style="max-width: 66%" src="~/Images/@Model.ImageSrc" /></div>
-        <div class="col-sm-9 col-md-9"><h8>@Model.Description</h8></div>
+        <div class="row">
+            <div class="col-sm-12 col-md-3"><img class="rounded" style="max-width: 66%" src="~/Images/@Model.ImageSrc" /></div>
+            <div class="col-sm-9 col-md-9"><h8>@Model.Description</h8></div>
+        </div>
     </div>
 </div>
 <br />

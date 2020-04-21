@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Event>
+@{
+    ViewData["Title"] = "CategoryPage";
+}
+
+<h1>Evenement</h1>
+<br />
+
+@foreach (var item in Model)
+{
+    <partial name="_EventTemplatePartial" model="item" />
+}
+
