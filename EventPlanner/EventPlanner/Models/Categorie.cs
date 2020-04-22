@@ -12,9 +12,11 @@ namespace EventPlanner.Models
         public int CategorieId { get; set; }
 
         [Required]
+        [Display(Name ="Categorie naam")]
         public string CategorieName { get; set; }
 
         [Required]
+        [Display(Name = "Beschrijving")]
         public string Info { get; set; }
 
 
