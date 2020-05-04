@@ -1,4 +1,4 @@
-.iframe-container {
+﻿.iframe-container {
     position: relative;
     width: 100%;
 }
@@ -139,17 +139,57 @@ footer {
         background-color: #fcca03;
         border-color: #fcc203;
     }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    height: 100vh;
+}
+
+#login .container #login-row #login-column #login-box {
+    margin-top: 40%;
+    max-width: 600px;
+    height: 320px;
+    border: 1px solid black;
+    background-color: #EAEAEA;
+}
+
+    #login .container #login-row #login-column #login-box #login-form {
+        padding: 20px;
+    }
+
+        #login .container #login-row #login-column #login-box #login-form #login-link {
+            margin-top: -20px;
+        }
+
+.text-info {
+    color: black !important;
+}
+
+a.text-info:hover, a.text-info:focus {
+    color: grey;
+}
+
 .btn-login {
     color: black;
     background-color: #fcd703;
     border-color: #fcca03;
 }
 
-.btn-login:hover {
+    .btn-login:hover {
         color: black;
         background-color: #fcca03;
         border-color: #fcc203;
     }
-.card {
-    border: none;
+
+.btn-feedback {
+    color: white;
+    background-color: forestgreen;
+    border-color: forestgreen;
 }
+
+    .btn-feedback:hover {
+        color: white;
+        background-color: green;
+        border-color: green;
+    }

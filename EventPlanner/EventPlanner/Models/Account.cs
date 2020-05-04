@@ -10,7 +10,7 @@ namespace EventPlanner.Models
     {
         [Key]
         public int AccountId { get; set; }
-
+        
         [Required]
         [Display(Name = "Gebruikersnaam")]
         public string UserName { get; set; }
