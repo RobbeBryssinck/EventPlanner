@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using EventPlanner.Data;
 using EventPlanner.Models;
+using EventPlanner.ViewModels;
 
 namespace EventPlanner.Controllers
 {
@@ -29,7 +30,16 @@ namespace EventPlanner.Controllers
         public IActionResult CoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
-            return View(coaches[0]);
+            Coach coach = coaches[0];
+            CoachViewModel model = new CoachViewModel()
+            {
+                CoachId = coach.CoachId,
+                Name = coach.Name,
+                Info = coach.Info,
+                Email = coach.Email,
+                ImageSrc = coach.ImageSrc
+            };
+            return View(model);
         }
 
         public IActionResult AddCoach()
@@ -73,7 +83,13 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteCoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
-            return View(coaches[0]);
+            Coach coach = coaches[0];
+            CoachDeleteViewModel model = new CoachDeleteViewModel()
+            {
+                CoachId = coach.CoachId,
+                Name = coach.Name
+            };
+            return View(model);
         }
 
         public IActionResult DeleteCoach(int coachID)
