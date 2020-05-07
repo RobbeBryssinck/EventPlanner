@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace EventPlanner.Data
 {
-    public class EventPlannerContext : DbContext
+    public class EventPlannerContext : IdentityDbContext
     {
         public EventPlannerContext(DbContextOptions<EventPlannerContext> options)
             : base(options)
@@ -23,6 +24,7 @@ namespace EventPlanner.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Event>().ToTable("Event");
             modelBuilder.Entity<Account>().ToTable("Account");
             modelBuilder.Entity<Coach>().ToTable("Coach");
