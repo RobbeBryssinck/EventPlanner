@@ -8,6 +8,8 @@ namespace EventPlanner.ViewModels
 {
     public class CategoriesViewModel
     {
+        [Key]
+        public int CategorieId { get; set; }
         public List<Categorie> Categories { get; set; }
     }
 }
