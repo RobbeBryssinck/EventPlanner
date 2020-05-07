@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EventPlanner.Data;
 using EventPlanner.Models;
+using EventPlanner.ViewModels;
 
 namespace EventPlanner.Controllers
 {
@@ -43,6 +44,18 @@ namespace EventPlanner.Controllers
         }
 
         public IActionResult RegisterPage()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel model)
         {
             return View();
         }
