@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Event>
+﻿@model HomeIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 
@@ -124,7 +124,7 @@
     <!--- Three Column Section -->
     <div class="container">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Events)
             {
                 <div class="card-wrapper col-lg-4 col-md-6 col-xs-12">
                     <div class="card">
