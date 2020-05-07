@@ -267,7 +267,15 @@ namespace EventPlanner.Controllers
 
         public IActionResult Categories()
         {
-            return View(db.Categories.ToList());
+            List<Categorie> categories = db.Categories.ToList();
+
+            CategoriesViewModel model = new CategoriesViewModel();
+            model.Categories = new List<Categorie>();
+            foreach (Categorie category in categories)
+            {
+                model.Categories.Add(category);
+            }
+            return View(model);
         }
 
         public IActionResult CategoryPage(string category)
