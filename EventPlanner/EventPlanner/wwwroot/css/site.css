@@ -139,13 +139,6 @@ footer {
         background-color: #fcca03;
         border-color: #fcc203;
     }
-body {
-    margin: 0;
-    padding: 0;
-    background-color: white;
-    height: 100vh;
-}
-
 #login .container #login-row #login-column #login-box {
     margin-top: 40%;
     max-width: 600px;

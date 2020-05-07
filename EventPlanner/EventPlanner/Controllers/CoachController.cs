@@ -44,7 +44,7 @@ namespace EventPlanner.Controllers
 
             if (ModelState.IsValid)
             {
-                var uploads = Path.Combine(_environment.WebRootPath, "Images");
+                var uploads = Path.Combine(_environment.WebRootPath, "Images/Coaches");
                 foreach (var file in model.files)
                 {
                     realmodel.ImageSrc = file.FileName;

@@ -157,7 +157,7 @@ namespace EventPlanner.Controllers
             Event realmodel = new Event();
             if (ModelState.IsValid)
             {
-                var uploads = Path.Combine(_environment.WebRootPath, "Images");
+                var uploads = Path.Combine(_environment.WebRootPath, "Images/Events");
                 if (model.files != null)
                 {
                     foreach (var file in model.files)
@@ -226,7 +226,7 @@ namespace EventPlanner.Controllers
             Event realmodel = new Event();
             if (ModelState.IsValid)
             {
-                var uploads = Path.Combine(_environment.WebRootPath, "Images");
+                var uploads = Path.Combine(_environment.WebRootPath, "Images/Events");
                 if (model.files != null)
                 {
                     foreach (var file in model.files)
