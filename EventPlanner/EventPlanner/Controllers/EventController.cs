@@ -55,7 +55,6 @@ namespace EventPlanner.Controllers
 
         public IActionResult EventCategories()
         {
-
             return View();
         }
 
@@ -114,7 +113,12 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteFeedbackPage(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
-            return View(ratings[0]);
+            FeedbackDeleteViewModel model = new FeedbackDeleteViewModel()
+            {
+                RatingId = ratings[0].RatingId,
+                RatingTitle = ratings[0].RatingTitle
+            };
+            return View(model);
         }
 
         public IActionResult DeleteFeedback(int ratingID)
@@ -267,7 +271,15 @@ namespace EventPlanner.Controllers
 
         public IActionResult Categories()
         {
-            return View(db.Categories.ToList());
+            List<Categorie> categories = db.Categories.ToList();
+
+            CategoriesViewModel model = new CategoriesViewModel();
+            model.Categories = new List<Categorie>();
+            foreach (Categorie category in categories)
+            {
+                model.Categories.Add(category);
+            }
+            return View(model);
         }
 
         public IActionResult CategoryPage(string category)
@@ -300,28 +312,14 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventNotFound");
             }
 
-            return View(events);
+            EventsViewModel model = new EventsViewModel()
+            {
+                Events = events
+            };
+
+            return View(model);
         }
 
-        public IActionResult Educational()
-        {
-            List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
-            if (events.Count == 0)
-            {
-                return RedirectToAction("EventNotFound");
-            }
-            return View(events);
-        }
-
-        public IActionResult Recreation()
-        {
-            List<Event> events = db.Events.Where(s => s.EventType == "Recreation" && s.Date > DateTime.Now).ToList();
-            if (events.Count == 0)
-            {
-                return RedirectToAction("EventNotFound");
-            }
-            return View(events);
-        }
         public IActionResult EventArchive()
         {
             List<Event> events = db.Events.Where(s => s.Date < DateTime.Now).ToList();
@@ -329,14 +327,24 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
-            return View(events);
+
+            EventArchiveViewModel model = new EventArchiveViewModel()
+            {
+                Events = events
+            };
+
+            return View(model);
         }
 
         [HttpGet]
         public IActionResult EventsForEmployees()
         {
             List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
-            return View(events);
+            EventsForEmployeesViewModel model = new EventsForEmployeesViewModel()
+            {
+                Events = events
+            };
+            return View(model);
         }
 
         [HttpGet]
@@ -375,7 +383,12 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteEventPage(int EventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
-            return View(events[0]);
+            EventDeleteViewModel model = new EventDeleteViewModel()
+            {
+                EventId = events[0].EventId,
+                EventName = events[0].EventName
+            };
+            return View(model);
         }
 
         public IActionResult DeleteEvent(int EventId)
