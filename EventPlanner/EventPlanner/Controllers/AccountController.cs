@@ -6,16 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventPlanner.Controllers
 {
     public class AccountController : Controller
     {
-        private EventPlannerContext db;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public AccountController(EventPlannerContext db)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
-            this.db = db;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         public IActionResult LoginPage()
@@ -43,21 +47,40 @@ namespace EventPlanner.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult RegisterPage()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
+            return View(new RegisterViewModel());
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> RegisterPage(RegisterViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser { UserName = model.Username, Email = model.Email };
+                var result = await userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: true);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View(new RegisterViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
