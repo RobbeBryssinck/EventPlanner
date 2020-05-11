@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EventPlanner.Models.Event>
+
+@{
+    Layout = "_Layout";
+}
+<p>
+    <a asp-area="" asp-controller="Event" asp-action="CreateEvent">Maak een nieuw evenement aan!</a>
+</p>
+<table class="table table-striped table-bordered table-sm "
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EventName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageSrc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EventType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Visitors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ForEmployees)
+        </th>
+        <th>
+            Opties
+        </th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div style="height:100px;overflow:auto;">@Html.DisplayFor(modelItem => item.EventName)</div>
+                </td>
+
+                <td>
+                    <img style="max-height: 100px; max-width: auto; " src="~/Images/Events/@Html.DisplayFor(modelItem => item.ImageSrc)" alt="@Html.DisplayFor(modelItem => item.ImageSrc).ToString()">
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Visitors)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ForEmployees)
+                </td>
+                <td>
+                   
+                    <a href='@string.Format("/Event/DeleteEventPage?eventID={0}", item.EventId)'>Delete</a> |
+                    <a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)'>Details</a> |
+                    <a href='@string.Format("/Event/ChangeEventPage?eventID={0}", item.EventId)'>Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
