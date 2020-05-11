@@ -1,0 +1,13 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "Verwijder account";
+}
+
+<div class="container">
+    <div class="row">
+        <p>Weet je zeker dat je het account wilt verwijderen?</p>
+    </div>
+    <div class="row">
+        <a href='@string.Format("/Account/AccountDelete?accountID={0}", Model.AccountId)' class="btn btn-danger">Verwijder account</a>
+    </div>
+</div>

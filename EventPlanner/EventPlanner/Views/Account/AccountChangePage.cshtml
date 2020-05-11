@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="ChangeAccountPage">
+        <form asp-action="AccountChangePage">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AccountId" />
             <div class="form-group">
@@ -20,7 +20,7 @@
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Role" type ="hidden" class="form-control" />
+                <input asp-for="Role" type="hidden" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
@@ -28,13 +28,19 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="FirstName" type ="hidden" class="form-control" />
+                <input asp-for="FirstName" type="hidden" class="form-control" />
             </div>
             <div class="form-group">
-                <input asp-for="MiddleName" type ="hidden" class="form-control" />
+                <input asp-for="MiddleName" type="hidden" class="form-control" />
             </div>
             <div class="form-group">
-                <input asp-for="LastName" type ="hidden" class="form-control" />
+                <input asp-for="LastName" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="ZipCode" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="HouseNumber" type="hidden" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -42,7 +48,7 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="DateOfBirth" type ="hidden" class="form-control" />
+                <input asp-for="DateOfBirth" type="hidden" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

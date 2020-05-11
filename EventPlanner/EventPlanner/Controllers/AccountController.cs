@@ -55,7 +55,7 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        public IActionResult ChangeAccountPage (int accountID)
+        public IActionResult AccountChangePage (int accountID)
         {
             List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
             Account model = accounts[0];
@@ -64,13 +64,41 @@ namespace EventPlanner.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangeAccountPage(Account model)
+        public IActionResult AccountChangePage(Account model)
         {
             List<Account> accounts = db.Accounts.Where(x => x.AccountId == model.AccountId).ToList();
             Account account = accounts[0];
-            db.Entry(account).CurrentValues.SetValues(model);
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(account).CurrentValues.SetValues(model);
+                db.SaveChanges();
+                return RedirectToAction("AccountPage", new { model.AccountId });
+            }
+
+            else
+                return View("AccountChangeFailed");
+        }
+
+        public IActionResult AccountDeletePage(int accountID)
+        {
+            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
+            Account model = accounts[0];
+
+            return View(model);
+        }
+
+        public IActionResult AccountDelete(int accountID)
+        {
+            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
+            db.Accounts.Remove(accounts[0]);
             db.SaveChanges();
-            return RedirectToAction("AccountPage", new { model.AccountId });
+            return RedirectToAction("AccountDeleteComplete");
+        }
+
+        public IActionResult AccountDeleteComplete()
+        {
+            return View();
         }
     }
 }

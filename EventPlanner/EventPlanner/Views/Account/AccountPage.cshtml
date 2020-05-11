@@ -56,6 +56,7 @@
     </dl>
 </div>
 <div>
-    <a href='@string.Format("/Account/ChangeAccountPage?AccountId={0}", Model.AccountId)' class="btn btn-primary">Wijzig gegevens</a>
-    <a asp-action="Index">Back to List</a>
+    <a href='@string.Format("/Account/AccountChangePage?AccountID={0}", Model.AccountId)' class="btn btn-primary">Wijzig gegevens</a>
+    <p></p>
+    <a href='@string.Format("/Account/AccountDeletePage?AccountID={0}", Model.AccountId)' class="btn btn-danger">Verwijder account</a>
 </div>
