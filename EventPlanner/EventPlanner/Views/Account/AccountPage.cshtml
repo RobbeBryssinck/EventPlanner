@@ -1,0 +1,61 @@
+﻿@model EventPlanner.Models.Account
+
+@{
+    ViewData["Title"] = "AccountPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AccountPage</h1>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a href='@string.Format("/Account/ChangeAccountPage?AccountId={0}", Model.AccountId)' class="btn btn-primary">Wijzig gegevens</a>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -46,5 +46,31 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+
+        public IActionResult AccountPage (int accountID)
+        {
+            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
+            Account model = accounts[0];
+
+            return View(model);
+        }
+
+        public IActionResult ChangeAccountPage (int accountID)
+        {
+            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
+            Account model = accounts[0];
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeAccountPage(Account model)
+        {
+            List<Account> accounts = db.Accounts.Where(x => x.AccountId == model.AccountId).ToList();
+            Account account = accounts[0];
+            db.Entry(account).CurrentValues.SetValues(model);
+            db.SaveChanges();
+            return RedirectToAction("AccountPage", new { model.AccountId });
+        }
     }
 }
