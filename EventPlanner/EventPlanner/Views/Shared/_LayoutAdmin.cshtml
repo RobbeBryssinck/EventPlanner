@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v6.0"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <title>@ViewData["Title"] - EventPlanner</title>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <br />
+            <nav class="navbar navbar-light bg-lignt navbar-expand-sm" style="padding: 1px; ">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/Images/Logo/Logo.png" alt="Logo" style="width:60px;">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse my-toggler" id="collapsibleNavbar">
+                    <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminEventPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                       onMouseOut="this.style.color='#000'"> Evenementen </a>
+                    <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminCoachPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                       onMouseOut="this.style.color='#000'"> Coaches </a>
+                    <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminAccountPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                       onMouseOut="this.style.color='#000'"> Accounts </a>
+                    <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminCategoryPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                       onMouseOut="this.style.color='#000'"> Categorie </a>
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="LoginPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                               onMouseOut="this.style.color='#000'"> Login </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <hr />
+            <br>
+
+            @RenderBody()
+</body>
+</html>

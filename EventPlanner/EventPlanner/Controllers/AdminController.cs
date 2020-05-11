@@ -27,33 +27,19 @@ namespace EventPlanner.Controllers
 
         public IActionResult AdminAccountPage()
         {
-            return View();
+            return View(db.Accounts.ToList());
         }
         public IActionResult AdminCoachPage()
         {
-            return View();
+            return View(db.Coaches.ToList());
         }
-
-        public IActionResult AdminEventPage(string id)
+        public IActionResult AdminEventPage()
         {
-            //TODO: change List to IEnumerable or IReadOnly?
-            List<Event> events = new List<Event>();
-
-            if (!String.IsNullOrEmpty(id))
-            {
-                events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
-            }
-            else
-            {
-                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
-            }
-
-            if (events.Count == 0)
-            {
-                return RedirectToAction("EventNotFound");
-            }
-
-            return View(events);
+            return View(db.Events.ToList());
+        }
+        public IActionResult AdminCategoryPage()
+        {
+            return View(db.Categories.ToList());
         }
     }
 }
