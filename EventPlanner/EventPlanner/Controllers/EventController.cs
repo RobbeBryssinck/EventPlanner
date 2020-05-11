@@ -281,14 +281,17 @@ namespace EventPlanner.Controllers
             return View(db.Categories.ToList());
         }
 
-        public IActionResult CategoryPage(string category)
+        public IActionResult CategoryPage(int CategoryID)
         {
-            CategoryEventsViewModel model = new CategoryEventsViewModel();
-            model.Events = db.Events.Where(s => s.EventType == category && s.Date > DateTime.Now).ToList();
-            List<Categorie> categories = db.Categories.Where(s => s.CategorieName == category).ToList();
-            model.CategoryInfo = categories[0].Info;
-            model.CategoryName = categories[0].CategorieName;
-            return View(model);
+            List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
+            Categorie model = categories[0];
+            model.Events = db.Events.Where(s => s.Date > DateTime.Now).ToList();
+            CategoryEventsViewModel realmodel = new CategoryEventsViewModel();
+            realmodel.CategoryId = model.CategorieId;
+            realmodel.CategoryInfo = model.Info;
+            realmodel.CategoryName = model.CategorieName;
+            realmodel.Events = model.Events;
+            return View(realmodel);
         }
 
 
