@@ -72,7 +72,7 @@ namespace EventPlanner.Controllers
             else
                 return View("CategoryFailed");
         }
-        public IActionResult DeleteCategoryPage(int CategoryID)
+        public IActionResult CategoryDeletePage(int CategoryID)
         {
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
             return View(categories[0]);

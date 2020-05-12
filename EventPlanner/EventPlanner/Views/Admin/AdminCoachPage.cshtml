@@ -32,7 +32,7 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    <a href='@string.Format("/Coach/DeleteCoachPage?coachID={0}", item.CoachId)'>Delete</a> |
+                    <a href='@string.Format("/Coach/CoachDeletePage?coachID={0}", item.CoachId)'>Delete</a> |
                     <a href='@string.Format("/Coach/Coachpage?coachID={0}", item.CoachId)'>Details</a> |
                     <a href='@string.Format("/Coach/ChangeCoachPage?coachID={0}", item.CoachId)'>Edit</a>
                 </td>

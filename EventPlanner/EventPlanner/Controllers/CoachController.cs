@@ -80,7 +80,7 @@ namespace EventPlanner.Controllers
                 return View("CoachAddFail");
         }
 
-        public IActionResult DeleteCoachPage(int coachID)
+        public IActionResult CoachDeletePage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
             Coach coach = coaches[0];
@@ -97,10 +97,10 @@ namespace EventPlanner.Controllers
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
             db.Coaches.Remove(coaches[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteCoachComplete");
+            return RedirectToAction("CoachDeleteComplete");
         }
 
-        public IActionResult DeleteCoachComplete()
+        public IActionResult CoachDeleteComplete()
         {
             return View();
         }
