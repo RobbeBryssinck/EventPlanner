@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
 {
-    public class EventController : Controller
+    public class EventController : Controller 
     {
 
         private EventPlannerContext db;
@@ -71,6 +72,18 @@ namespace EventPlanner.Controllers
 
             else
                 return View("CategorieFailed");
+        }
+        public IActionResult DeleteCategoryPage(int CategoryID)
+        {
+            List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
+            return View(categories[0]);
+        }
+        public IActionResult DeleteCategory(int CategoryID)
+        {
+            List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
+            db.Categories.Remove(categories[0]);
+            db.SaveChanges();
+            return Content("Category Deleted");
         }
 
         public IActionResult EventFeedbackPage(int eventID)
@@ -221,8 +234,6 @@ namespace EventPlanner.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEvent(EventViewModel model)
         {
-
-
             Event realmodel = new Event();
             if (ModelState.IsValid)
             {
@@ -232,7 +243,7 @@ namespace EventPlanner.Controllers
                     foreach (var file in model.files)
                     {
                         realmodel.ImageSrc = file.FileName;
-                        if (file.Length < 1 * 1024 * 1024)
+                        if (file.Length > 20970000)
                         {
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
@@ -387,6 +398,11 @@ namespace EventPlanner.Controllers
         }
 
         public IActionResult DeleteEventComplete()
+        {
+            return View();
+        }
+
+        public IActionResult CategoryChange()
         {
             return View();
         }

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<EventPlanner.Models.Categorie>
+
+@{
+    Layout = "_LayoutAdmin";
+}
+<p>
+    <a asp-area="" asp-controller="Event" asp-action="EventCategories">Maak een nieuwe categorie aan!</a>
+</p>
+<table class="table table-striped table-bordered table-sm ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategorieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info)
+            </th>
+            <th>
+                Opties
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategorieName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info)
+            </td>
+            <td>
+                <a href='@string.Format("/Event/CategoryChange?Category={0}", item.CategorieId)'>Edit</a>  |
+                <a href='@string.Format("/Event/CategoryPage?Category={0}", item.CategorieName)'>Details</a>  |
+                <a href='@string.Format("/Event/DeleteCategoryPage?CategoryId={0}", item.CategorieId)'>Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
