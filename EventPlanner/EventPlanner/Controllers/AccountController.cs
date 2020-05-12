@@ -82,5 +82,11 @@ namespace EventPlanner.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        public IActionResult Test()
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
