@@ -247,7 +247,7 @@ namespace EventPlanner.Controllers
                     foreach (var file in model.files)
                     {
                         realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 20970000)
+                        if (file.Length > 0)
                         {
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
