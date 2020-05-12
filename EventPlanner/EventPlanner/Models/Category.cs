@@ -9,6 +9,7 @@ namespace EventPlanner.Models
     public class Categorie
     {
         [Key]
+        [Required]
         public int CategorieId { get; set; }
 
         [Required]
@@ -18,7 +19,6 @@ namespace EventPlanner.Models
         [Required]
         [Display(Name = "Beschrijving")]
         public string Info { get; set; }
-
-
+        public List<Event> Events { get; set; }
     }
 }
