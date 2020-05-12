@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private EventPlannerContext db;
@@ -26,25 +27,21 @@ namespace EventPlanner.Controllers
             this._environment = environment;
         }
 
-        [Authorize]
         public IActionResult AdminAccountPage()
         {
             return View(db.Accounts.ToList());
         }
 
-        [Authorize]
         public IActionResult AdminCoachPage()
         {
             return View(db.Coaches.ToList());
         }
 
-        [Authorize]
         public IActionResult AdminEventPage()
         {
             return View(db.Events.ToList());
         }
 
-        [Authorize]
         public IActionResult AdminCategoryPage()
         {
             return View(db.Categories.ToList());
