@@ -13,6 +13,7 @@ namespace EventPlanner.Controllers
 {
     public class AccountController : Controller
     {
+        private EventPlannerContext db;
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
 
