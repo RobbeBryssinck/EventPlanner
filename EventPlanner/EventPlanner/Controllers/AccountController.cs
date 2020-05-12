@@ -22,21 +22,6 @@ namespace EventPlanner.Controllers
             this.signInManager = signInManager;
         }
 
-        public IActionResult LoginPage()
-        {
-            return View(new LoginViewModel());
-        }
-
-        [HttpPost]
-        public IActionResult Login(LoginViewModel model)
-        {
-            // login logic
-            if (model.Username == "succeed")
-                return RedirectToAction("LoginSucceeded");
-            else
-                return RedirectToAction("LoginFailed");
-        }
-
         public IActionResult LoginSucceeded()
         {
             return View();
@@ -69,23 +54,42 @@ namespace EventPlanner.Controllers
 
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            return View(new RegisterViewModel());
+            return View(model);
         }
+
+        [HttpGet]
+        public IActionResult LoginPage()
+        {
+            return View(new LoginViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LoginPage(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt");
+            }
+
+            return View(model);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public IActionResult Test()
-        {
             return RedirectToAction("Index", "Home");
         }
     }
