@@ -13,6 +13,8 @@
                     <form id="CreateEvent-form" class="form" asp-action="AddCoach" enctype="multipart/form-data">
                         <h1>Coach informatie</h1>
                         <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="CoachId" />
                         <div class="form-group">
                             <label asp-for="Name" class="control-label"></label>
                             <input asp-for="Name" class="form-control" placeholder="Coach naam.." />
