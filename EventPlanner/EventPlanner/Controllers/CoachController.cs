@@ -138,7 +138,7 @@ namespace EventPlanner.Controllers
                 }
                 realmodel.Email = model.Email;
 
-
+                
                 List<Coach> coaches = db.Coaches.Where(x => x.CoachId == model.CoachId).ToList();
                 Coach oldCoach = coaches[0];
                 db.Entry(oldCoach).CurrentValues.SetValues(realmodel);
