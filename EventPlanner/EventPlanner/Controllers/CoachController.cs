@@ -29,7 +29,14 @@ namespace EventPlanner.Controllers
         public IActionResult CoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
-            return View(coaches[0]);
+            if (coaches.Count > 0)
+            {
+                return View(coaches[0]);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult AddCoach()

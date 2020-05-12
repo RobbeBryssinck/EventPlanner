@@ -30,6 +30,7 @@ namespace EventPlanner.Controllers
         public IActionResult EventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            if(events.Count > 0){
             Event model = events[0];
             EventViewModel realmodel = new EventViewModel();
 
@@ -46,6 +47,10 @@ namespace EventPlanner.Controllers
             realmodel.Visitors = Participants;
 
             return View(realmodel);
+        }
+        else{
+                return View("PageNotFoundError");
+        }
         }
 
         public IActionResult EventSuccessPage(Event model)
@@ -115,13 +120,20 @@ namespace EventPlanner.Controllers
         {
             RatingEventViewModel ratingEventViewModel = new RatingEventViewModel();
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            Event currentEvent = events[0];
+            if (events.Count > 0)
+            {
+                Event currentEvent = events[0];
 
-            List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
+                List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
 
-            ratingEventViewModel.Event = currentEvent;
-            ratingEventViewModel.Ratings = ratings;
-            return View(ratingEventViewModel);
+                ratingEventViewModel.Event = currentEvent;
+                ratingEventViewModel.Ratings = ratings;
+                return View(ratingEventViewModel);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult DeleteFeedbackPage(int ratingID)
