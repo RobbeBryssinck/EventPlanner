@@ -123,7 +123,7 @@ namespace EventPlanner.Controllers
             return View(ratingEventViewModel);
         }
 
-        public IActionResult DeleteFeedbackPage(int ratingID)
+        public IActionResult EventDeleteFeedbackPage(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
             EventFeedbackDeleteViewModel model = new EventFeedbackDeleteViewModel()
@@ -227,11 +227,11 @@ namespace EventPlanner.Controllers
             {
                 db.Ratings.Add(rating);
                 db.SaveChanges();
-                return View("FeedbackSubmitted");
+                return View("EventFeedbackSubmitted");
             }
 
             else
-                return View("FeedbackCreateFail");
+                return View("EventFeedbackCreateFail");
         }
 
 
@@ -388,7 +388,7 @@ namespace EventPlanner.Controllers
             db.Registrations.Add(registration);
             db.SaveChanges();
 
-            return View("RegistrationSucceeded");
+            return View("EventRegistrationSucceeded");
         }
 
         public IActionResult EventDeletePage(int EventId)
