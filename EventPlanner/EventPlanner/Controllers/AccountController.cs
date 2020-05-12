@@ -22,16 +22,6 @@ namespace EventPlanner.Controllers
             this.signInManager = signInManager;
         }
 
-        public IActionResult LoginSucceeded()
-        {
-            return View();
-        }
-
-        public IActionResult LoginFailed()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult Register()
         {
