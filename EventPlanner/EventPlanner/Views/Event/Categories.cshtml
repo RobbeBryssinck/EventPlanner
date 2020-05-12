@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Categorie>
+﻿@model CategoriesViewModel
 @{
     ViewData["Title"] = "Categories";
 }
@@ -19,7 +19,7 @@
     <input class="form-control" id="myInput" type="text" placeholder="Zoek een categorie..">
     <br>
     <ul class="list-group" id="myList">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Categories)
         {
             <li class="list-group-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { category = item.CategorieName })</li>
         }
