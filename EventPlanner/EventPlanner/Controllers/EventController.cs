@@ -98,9 +98,9 @@ namespace EventPlanner.Controllers
             return View();
         }
 
-        public IActionResult ArchivedEvent(int eventID)
+        public IActionResult EventArchived(int eventID)
         {
-            RatingEventViewModel ratingEventViewModel = new RatingEventViewModel();
+            EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
             Event currentEvent = events[0];
 
