@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,23 +26,28 @@ namespace EventPlanner.Controllers
             this._environment = environment;
         }
 
+        [Authorize]
         public IActionResult AdminAccountPage()
         {
             return View(db.Accounts.ToList());
         }
+
+        [Authorize]
         public IActionResult AdminCoachPage()
         {
             return View(db.Coaches.ToList());
         }
+
+        [Authorize]
         public IActionResult AdminEventPage()
         {
             return View(db.Events.ToList());
         }
+
+        [Authorize]
         public IActionResult AdminCategoryPage()
         {
             return View(db.Categories.ToList());
         }
-
-
     }
 }

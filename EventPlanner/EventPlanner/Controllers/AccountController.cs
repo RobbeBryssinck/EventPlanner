@@ -33,13 +33,13 @@ namespace EventPlanner.Controllers
         }
 
         [HttpGet]
-        public IActionResult RegisterPage()
+        public IActionResult Register()
         {
             return View(new RegisterViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterPage(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -62,13 +62,13 @@ namespace EventPlanner.Controllers
         }
 
         [HttpGet]
-        public IActionResult LoginPage()
+        public IActionResult Login()
         {
             return View(new LoginViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginPage(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
