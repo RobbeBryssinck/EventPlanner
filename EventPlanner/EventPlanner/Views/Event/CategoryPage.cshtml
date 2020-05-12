@@ -5,6 +5,8 @@
 
 <h1>@Model.CategoryName</h1>
 <p>@Model.CategoryInfo</p>
+<a href='@string.Format("/Event/DeleteCategoryPage?CategoryId={0}", Model.CategoryId)' class="btn btn-danger">Verwijder Categorie</a>
+<br />
 <br />
 
 @foreach (var item in Model.Events)
