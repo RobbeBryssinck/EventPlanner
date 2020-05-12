@@ -391,7 +391,7 @@ namespace EventPlanner.Controllers
             return View("RegistrationSucceeded");
         }
 
-        public IActionResult DeleteEventPage(int EventId)
+        public IActionResult EventDeletePage(int EventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
             EventDeleteViewModel model = new EventDeleteViewModel()
@@ -407,10 +407,10 @@ namespace EventPlanner.Controllers
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
             db.Events.Remove(events[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteEventComplete");
+            return RedirectToAction("EventDeleteComplete");
         }
 
-        public IActionResult DeleteEventComplete()
+        public IActionResult EventDeleteComplete()
         {
             return View();
         }
