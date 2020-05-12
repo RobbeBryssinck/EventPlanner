@@ -66,11 +66,11 @@ namespace EventPlanner.Controllers
             {
                 db.Categories.Add(model);
                 db.SaveChanges();
-                return View("CategorieCreated");
+                return View("CategoryCreated");
             }
 
             else
-                return View("CategorieFailed");
+                return View("CategoryFailed");
         }
         public IActionResult DeleteCategoryPage(int CategoryID)
         {
