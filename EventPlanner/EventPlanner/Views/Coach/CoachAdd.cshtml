@@ -1,16 +1,16 @@
-﻿@model AddCoachViewModel
+﻿@model CoachAddViewModel
 
 @{
     ViewData["Title"] = "Coach toevoegen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="CreateEvent">
+<div id="EventCreate">
     <div class="container">
-        <div id="CreateEvent-row" class="row justify-content-center align-items-center">
-            <div id="CreateEvent-column" class="col-md-6">
-                <div id="CreateEvent-box" class="col-md-12">
-                    <form id="CreateEvent-form" class="form" asp-action="AddCoach" enctype="multipart/form-data">
+        <div id="EventCreate-row" class="row justify-content-center align-items-center">
+            <div id="EventCreate-column" class="col-md-6">
+                <div id="EventCreate-box" class="col-md-12">
+                    <form id="EventCreate-form" class="form" asp-action="CoachAdd" enctype="multipart/form-data">
                         <h1>Evenement informatie</h1>
                         <hr />
                         <div class="form-group">

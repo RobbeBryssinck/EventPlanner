@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class AddCoachViewModel
+    public class CoachAddViewModel
     {
         [Key]
         public int CoachId { get; set; }

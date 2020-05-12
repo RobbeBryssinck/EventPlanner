@@ -93,7 +93,7 @@ namespace EventPlanner.Controllers
             return View(rating);
         }
 
-        public IActionResult CreateEvent()
+        public IActionResult EventCreate()
         {
             EventViewModel model = new EventViewModel();
             model.Categories = db.Categories.ToList();
@@ -236,7 +236,7 @@ namespace EventPlanner.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateEvent(EventViewModel model)
+        public async Task<IActionResult> EventCreate(EventViewModel model)
         {
             Event realmodel = new Event();
             if (ModelState.IsValid)
