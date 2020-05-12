@@ -104,5 +104,67 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+
+        public IActionResult ChangeCoachPage(int coachID)
+        {
+            List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
+            Coach model = coaches[0];
+            AddCoachViewModel realmodel = new AddCoachViewModel();
+
+            realmodel.CoachId = model.CoachId;
+            realmodel.Name = model.Name;
+            realmodel.Info = model.Info;
+            realmodel.Email = model.Email;
+            realmodel.ImageSrc = model.ImageSrc;
+
+
+            return View(realmodel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeCoahPage(AddCoachViewModel model)
+        {
+            Coach realmodel = new Coach();
+            if (ModelState.IsValid)
+            {
+                var uploads = Path.Combine(_environment.WebRootPath, "Images/Coaches");
+                if (model.files != null)
+                {
+                    foreach (var file in model.files)
+                    {
+                        realmodel.ImageSrc = file.FileName;
+                        if (file.Length > 0)
+                        {
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
+                        }
+                    }
+                }
+
+                realmodel.CoachId = model.CoachId;
+                realmodel.Name = model.Name;
+                realmodel.Info = model.Info;
+                realmodel.Email = model.Email;
+                realmodel.ImageSrc = model.ImageSrc;
+                if (model.files == null)
+                {
+                    realmodel.ImageSrc = model.ImageSrc;
+                }
+                realmodel.Email = model.Email;
+
+                
+                List<Coach> coaches = db.Coaches.Where(x => x.CoachId == model.CoachId).ToList();
+                Coach oldCoach = coaches[0];
+                db.Entry(oldCoach).CurrentValues.SetValues(realmodel);
+                db.SaveChanges();
+                return RedirectToAction("CoachPage", new { realmodel.CoachId });
+            }
+            else
+            {
+                return View("ChangeCoachFail");
+            }
+        }
     }
 }
