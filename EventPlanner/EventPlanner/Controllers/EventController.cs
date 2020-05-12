@@ -401,5 +401,10 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+
+        public IActionResult CategoryChange()
+        {
+            return View();
+        }
     }
 }

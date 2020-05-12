@@ -41,5 +41,7 @@ namespace EventPlanner.Controllers
         {
             return View(db.Categories.ToList());
         }
+
+
     }
 }

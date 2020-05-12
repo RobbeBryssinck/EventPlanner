@@ -30,9 +30,9 @@
                 @Html.DisplayFor(modelItem => item.Info)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CategorieId">Edit</a> |
-                <a href='@string.Format("/Event/CategoryPage?categorieID={0}", item.CategorieId)'>Details</a>  |
-                <a href='@string.Format("/Event/DeleteCategoriePage?categorieID={0}", item.CategorieId)'>Delete</a> 
+                <a href='@string.Format("/Event/CategoryChange?Category={0}", item.CategorieId)'>Edit</a>  |
+                <a href='@string.Format("/Event/CategoryPage?Category={0}", item.CategorieName)'>Details</a>  |
+                <a href='@string.Format("/Event/DeleteCategoryPage?CategoryId={0}", item.CategorieId)'>Delete</a>
             </td>
         </tr>
 }
