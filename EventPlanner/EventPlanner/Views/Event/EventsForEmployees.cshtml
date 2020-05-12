@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Event>
+﻿@model EventsForEmployeesViewModel
 @{
     ViewData["Title"] = "Events Rockstars";
 }
 
 <h1>Evenementen voor Rockstars</h1>
 <br />
-@foreach (var item in Model)
+@foreach (var item in Model.Events)
 {
   <partial name="_EventTemplatePartial" model="item" />
 }

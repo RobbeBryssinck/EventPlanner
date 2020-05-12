@@ -9,7 +9,7 @@ namespace EventPlanner.Models
     public class Rating
     {
         [Key]
-       [Required]
+        [Required]
         public int RatingId { get; set; }
         [Required]
         public int EventId { get; set; }
@@ -20,7 +20,7 @@ namespace EventPlanner.Models
         [Required]
         public string RatingTitle { get; set; }
 
-        [Display (Name = "Commentaar")]
+        [Display(Name = "Commentaar")]
         [Required]
         public string Comment { get; set; }
 
