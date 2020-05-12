@@ -126,7 +126,7 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteFeedbackPage(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
-            FeedbackDeleteViewModel model = new FeedbackDeleteViewModel()
+            EventFeedbackDeleteViewModel model = new EventFeedbackDeleteViewModel()
             {
                 RatingId = ratings[0].RatingId,
                 RatingTitle = ratings[0].RatingTitle
@@ -139,10 +139,10 @@ namespace EventPlanner.Controllers
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
             db.Ratings.Remove(ratings[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteFeedbackComplete");
+            return RedirectToAction("EventDeleteFeedbackComplete");
         }
 
-        public IActionResult DeleteFeedbackComplete()
+        public IActionResult EventDeleteFeedbackComplete()
         {
             return View();
         }
