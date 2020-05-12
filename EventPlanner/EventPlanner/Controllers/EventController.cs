@@ -147,7 +147,7 @@ namespace EventPlanner.Controllers
             return View();
         }
 
-        public IActionResult ChangeEventPage(int eventID)
+        public IActionResult EventChangePage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
             Event model = events[0];
@@ -169,7 +169,7 @@ namespace EventPlanner.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeEventPage(EventViewModel model)
+        public async Task<IActionResult> EventChangePage(EventViewModel model)
         {
             Event realmodel = new Event();
             if (ModelState.IsValid)
