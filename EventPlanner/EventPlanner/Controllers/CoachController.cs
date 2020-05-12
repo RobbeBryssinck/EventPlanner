@@ -147,7 +147,7 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                return View("AddCoachFail");
+                return View("ChangeCoachFail");
             }
         }
     }
