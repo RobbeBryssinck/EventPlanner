@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.ViewModels
 {
-    public class FeedbackDeleteViewModel
+    public class EventFeedbackDeleteViewModel
     {
         public int RatingId { get; set; }
         public string RatingTitle { get; set; }

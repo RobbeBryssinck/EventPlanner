@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class ArchivedEventPageViewModel
+    public class EventArchivedPageViewModel
     {
         [Key]
         public int RatingId { get; set; }

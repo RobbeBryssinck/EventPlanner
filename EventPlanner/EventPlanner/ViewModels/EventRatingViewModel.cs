@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class RatingEventViewModel
+    public class EventRatingViewModel
     {
         public Event Event { get; set; }
 
