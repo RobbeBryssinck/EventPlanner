@@ -42,13 +42,13 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        public IActionResult AddCoach()
+        public IActionResult CoachAdd()
         {
-            return View(new AddCoachViewModel());
+            return View(new CoachAddViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCoach(AddCoachViewModel model)
+        public async Task<IActionResult> CoachAdd(CoachAddViewModel model)
         {
             Coach realmodel = new Coach();
 
@@ -74,13 +74,13 @@ namespace EventPlanner.Controllers
 
                 db.Coaches.Add(realmodel);
                 db.SaveChanges();
-                return View("AddCoachSuccess");
+                return View("CoachAddSucces");
             }
             else
-                return View("AddCoachFail");
+                return View("CoachAddFail");
         }
 
-        public IActionResult DeleteCoachPage(int coachID)
+        public IActionResult CoachDeletePage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
             Coach coach = coaches[0];
@@ -97,10 +97,10 @@ namespace EventPlanner.Controllers
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
             db.Coaches.Remove(coaches[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteCoachComplete");
+            return RedirectToAction("CoachDeleteComplete");
         }
 
-        public IActionResult DeleteCoachComplete()
+        public IActionResult CoachDeleteComplete()
         {
             return View();
         }
