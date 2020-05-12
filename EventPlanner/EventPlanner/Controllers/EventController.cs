@@ -381,6 +381,7 @@ namespace EventPlanner.Controllers
             Registration registration = new Registration();
             List<Account> accounts = db.Accounts.Where(x => x.UserName == model.Username).ToList();
             Account account = accounts[0];
+            //test commit
 
             registration.AccountId = account.AccountId;
             registration.EventId = model.EventId;
