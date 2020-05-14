@@ -19,8 +19,8 @@ namespace EventPlanner.Models
 
         [Required]
         [Display(Name = "Datum")]
-        [Range(typeof(DateTime), "15/05/2020", "31/12/2100",
-            ErrorMessage = "Ingevoerde datum moet tussen 15/05/2020 en 31/12/2100 zijn")]
+        [Range(typeof(DateTime), "14/05/2020", "31/12/2100",
+            ErrorMessage = "Ingevoerde datum moet tussen 14/05/2020 en 31/12/2100 zijn")]
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Stel een bezoekers limiet in 0-1000")]
