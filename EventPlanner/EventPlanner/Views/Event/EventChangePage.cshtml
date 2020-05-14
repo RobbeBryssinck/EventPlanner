@@ -52,14 +52,14 @@
                             <span asp-validation-for="files" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="EventType" class="control-label"></label>
-                            <select asp-for="EventType" class="form-control" placeholder="Eventtype..">
+                            <label asp-for="CategoryId" class="control-label"></label>
+                            <select asp-for="CategoryId" class="form-control" placeholder="Eventtype..">
                                 @foreach (var item in Model.Categories)
                                 {
-                                    <option value="@item.CategorieName">@item.CategorieName</option>
+                                    <option value="@item.CategorieId">@item.CategorieName</option>
                                 }
                             </select>
-                            <span asp-validation-for="EventType" class="text-danger"></span>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="ForEmployees" class="control-label"></label>
@@ -67,7 +67,7 @@
                             <span asp-validation-for="ForEmployees" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Werk bij" class="btn btn-primary" />
+                            <input type="submit" value="Werk bij" class="btn btn-Create" />
                         </div>
                         <div>
                             <a asp-action="Events">Back to List</a>

@@ -105,6 +105,14 @@ footer {
     max-width: 600px;
     padding: 20px;
 }
+#CreateSuccessRegristration .container {
+    background-color: #EAEAEA;
+    border: 1px solid black;
+    height: 200px;
+    margin-top: 5%;
+    max-width: 750px;
+    padding: 20px;
+}
 
 .btn-continue {
     background-color: #fcd703;
