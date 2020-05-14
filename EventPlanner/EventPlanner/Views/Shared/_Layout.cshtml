@@ -59,9 +59,7 @@
                                 <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                                    onMouseOut="this.style.color='#000'"> @User.Identity.Name </a>
                                 <div class="dropdown-menu">
-                                    <form method="post" asp-controller="Account" asp-action="AccountPage">
-                                        <button class="dropdown-item"> Gebruikerspagina </button>
-                                    </form>
+                                        <button href=" https://localhost:44399/Account/AccountPage?accountID=1"class="dropdown-item"> Gebruikerspagina </button>
                                     <form method="post" asp-controller="Account" asp-action="Logout">
                                         <button class="dropdown-item"> Uitloggen </button>
                                     </form>
