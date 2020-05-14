@@ -10,21 +10,24 @@ using EventPlanner.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
 {
-    public class EventController : Controller 
+    public class EventController : Controller
     {
 
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
+        private readonly long _fileSizeLimit;
 
 
-        public EventController(EventPlannerContext db, IWebHostEnvironment environment)
+        public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
         {
             this.db = db;
             this._environment = environment;
+            _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
         public IActionResult EventPage(int eventID)
@@ -246,13 +249,17 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 0)
+                        if (file.Length > 0 && file.Length < _fileSizeLimit)
                         {
+                            realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
                                 await file.CopyToAsync(fileStream);
                             }
+                        }
+                        else
+                        {
+                            return View("EventCreateFail");
                         }
                     }
                 }
@@ -388,7 +395,7 @@ namespace EventPlanner.Controllers
 
             db.Registrations.Add(registration);
             db.SaveChanges();
-       
+
             return View("EventRegistrationSucceeded");
         }
 
@@ -439,7 +446,7 @@ namespace EventPlanner.Controllers
                 Categorie oldCategory = categories[0];
                 db.Entry(oldCategory).CurrentValues.SetValues(realmodel);
                 db.SaveChanges();
-                return RedirectToAction("AdminCategoryPage","Admin");
+                return RedirectToAction("AdminCategoryPage", "Admin");
             }
             else
             {
