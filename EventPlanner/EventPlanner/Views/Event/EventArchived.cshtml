@@ -1,0 +1,115 @@
+﻿@model EventRatingViewModel
+@{
+    ViewData["Title"] = "EventPage";
+    <style>
+
+        .btn-feedback {
+            color: white;
+            background-color: forestgreen;
+            border-color: forestgreen;
+        }
+
+            .btn-feedback:hover {
+                color: white;
+                background-color: green;
+                border-color: green;
+            }
+    </style>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <b class="text-dark">@Html.ActionLink("Terug naar evenementen", "Events", "Event")</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>@Model.Event.EventName</h1>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-4">
+            <img class="rounded img-fluid" style="max-width: 90%" src=~/Images/Events/@Model.Event.ImageSrc alt="@Model.Event.ImageSrc.ToString()">
+        </div>
+        <div class="col-6">
+            <h5 class="card-title">@Model.Event.Date.ToString("g")</h5>
+            <p class="card-text">@Model.Event.Description</p>
+        </div>
+        <div class="col-2">
+            <div class="archived-card">
+                <h5 class="social-card-title">Deel dit evenement</h5>
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="I just joined an event, check it out!" data-show-count="false">Tweet</a>
+                <div class="fb-share-button" data-href="https://localhost:44399/Event/EventPage?eventID=@Model.Event.EventId" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Delen</a></div>
+                <p> </p>
+                <a class="text-warning font-weight-bold">Dit evenement is afgelopen</a>
+                <p> </p>
+                <hr />
+                <br />
+                <a href='@string.Format("/Event/EventFeedbackPage?EventId={0}", Model.Event.EventId)' class="btn btn-feedback">Geef feedback</a>
+                <p> </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12"><i class="fa fa-map-marker" aria-hidden="true"></i><b class="text-primary">@Model.Event.Location</b></div>
+    <iframe class="iframe-container" frameborder="1" scrolling="no" marginheight="0" marginwidth="0" width="700" height="440"
+            src="https://maps.google.com/maps?hl=nl&q=@Model.Event.Location&ie=UTF8&t=m&z=15&iwloc=B&output=embed"></iframe>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Feedback</h1>
+            @foreach (var item in Model.Ratings)
+            {
+                int caseswitch = item.StarRating;
+                switch (caseswitch)
+                {
+                    case 1:
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a> <img src="~/Images/Stars/1-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                    case 2:
+
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a><img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                    case 3:
+
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a> <img src="~/Images/Stars/3-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                    case 4:
+
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a> <img src="~/Images/Stars/4-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                    case 5:
+
+                        <p style="font-weight:bold;">
+                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                            </a> <img src="~/Images/Stars/5-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                        </p>
+                        break;
+                }
+                <p>Commentaar: @item.Comment</p>
+                <hr />
+            }
+        </div>
+    </div>
+</div>

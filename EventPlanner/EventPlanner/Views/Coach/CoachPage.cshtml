@@ -1,4 +1,4 @@
-﻿@model Coach
+﻿@model CoachViewModel
 @{
     ViewData["Title"] = "Coach";
 }
@@ -18,7 +18,7 @@
         <div class="col-4">
             <img class="rounded img-fluid" style="max-width: 90%" src=~/Images/Coaches/@Model.ImageSrc alt="@Model.ImageSrc.ToString()">
         </div>
-        <div class="col-6">
+        <div class="col-8">
             <p>@Model.Info</p>
             <div class="row">
                 <div class="col-3">

@@ -5,56 +5,36 @@
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="~/css/site.css" rel="stylesheet" />
-    <style>
-        #login .container #login-row #login-column #login-box {
-            margin-top: 40%;
-            max-width: 600px;
-            height: 320px;
-            border: 1px solid black;
-            background-color: #EAEAEA;
-        }
-
-            #login .container #login-row #login-column #login-box #login-form {
-                padding: 20px;
-            }
-        .text-info {
-            color: black !important;
-        }
-
-        a.text-info:hover, a.text-info:focus {
-            color: grey;
-        }
-
-    </style>
-</head>
-<body>
-    <div id="login">
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6 col-sm-12">
-                    <div id="login-box" class="col-md-12 col-sm-12">
-                        <form id="login-form" class="form" asp-action="Login" method="post">
-                            <h3 class="text-center text-info">Login</h3>
-                            <div class="form-group">
-                                <label asp-for="Username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" asp-for="Username" class="form-control">
-                            </div>
-                            <label asp-for="Password">Password:</label><br>
-                            <input type="password" name="password" id="password show_hide_password" asp-for="Password" class="form-control">
-                            <br />
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-login btn-md" value="submit">
-                                <a class="text-info text-right" asp-area="" asp-controller="Account" asp-action="RegisterPage">Heeft u nog geen account? Register hier!</a>
-                            </div>
-                        </form>
+<div class="container">
+    <div id="login-row" class="row justify-content-center align-items-center">
+        <div id="login-column" class="col-md-6 col-sm-12">
+            <div id="login-box" class="col-md-12 col-sm-12">
+                <form id="login-form" class="form" method="post">
+                    <h3 class="text-center text-info">Login</h3>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Username" class="text-info">Username:</label><br>
+                        <input asp-for="Username" class="form-control">
+                        <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
-                </div>
+                    <label asp-for="Password">Password:</label><br>
+                    <input asp-for="Password" class="form-control">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <br />
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-login btn-md" value="submit">
+                        <a class="text-info text-right" asp-area="" asp-controller="Account" asp-action="RegisterPage">Heeft u nog geen account? Register hier!</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>

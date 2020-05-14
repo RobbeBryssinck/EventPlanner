@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class RatingEventViewModel
+    public class HomeIndexViewModel
     {
-        public Event Event { get; set; }
-
-        public List<Rating> Ratings { get; set; }
+        public IEnumerable<Event> Events { get; set; }
     }
 }

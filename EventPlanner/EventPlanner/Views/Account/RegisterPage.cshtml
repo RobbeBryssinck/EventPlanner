@@ -1,129 +1,118 @@
-﻿@{
+﻿@model RegisterViewModel
+
+@{
     ViewData["Title"] = "RegisterPage";
     Layout = "_Layout";
 }
 
 
-    <style>
-        #register .container #register-row #register-column #register-box {
-            margin-top: 8%;
-            max-width: 600px;
-            height: 660px;
-            border: 1px solid black;
-            background-color: #EAEAEA;
+<style>
+    #register .container #register-row #register-column #register-box {
+        margin-top: 8%;
+        max-width: 600px;
+        height: 660px;
+        border: 1px solid black;
+        background-color: #EAEAEA;
+    }
+
+        #register .container #register-row #register-column #register-box #register-form {
+            padding: 20px;
         }
 
-            #register .container #register-row #register-column #register-box #register-form {
-                padding: 20px;
+            #register .container #register-row #register-column #register-box #register-form #register-link {
+                margin-top: -85px;
             }
 
-                #register .container #register-row #register-column #register-box #register-form #register-link {
-                    margin-top: -85px;
-                }
+    .text-info {
+        color: black !important;
+    }
 
-        .text-info {
-            color: black !important;
-        }
+    a.text-info:hover, a.text-info:focus {
+        color: grey !important;
+    }
 
-        a.text-info:hover, a.text-info:focus {
-            color: grey !important;
-        }
+    .btn-register {
+        color: black;
+        background-color: #fcd703;
+        border-color: #fcca03;
+    }
 
-        .btn-register {
+        .btn-register:hover {
             color: black;
-            background-color: #fcd703;
-            border-color: #fcca03;
+            background-color: #fcca03;
+            border-color: #fcc203;
         }
+</style>
+<div id="register">
+    <div class="container">
+        <div id="register-row" class="row justify-content-center align-items-center">
+            <div id="register-column" class="col-md-6">
+                <div id="register-box" class="col-md-12">
+                    <form id="register-form" class="form" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <h3 class="text-center text-info">Aanmelden</h3>
 
-            .btn-register:hover {
-                color: black;
-                background-color: #fcca03;
-                border-color: #fcc203;
-            }
-    </style>
-    <div id="register">
-        <div class="container">
-            <div id="register-row" class="row justify-content-center align-items-center">
-                <div id="register-column" class="col-md-6">
-                    <div id="register-box" class="col-md-12">
-                        <form id="register-form" class="form" action="" method="post">
-                            <h3 class="text-center text-info">Aanmelden</h3>
+                        <div class="form-group">
+                            <label asp-for="Username" class="text-info">Gebruikersnaam:</label><br>
+                            <input asp-for="Username" id="Username" class="form-control input-sm">
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="text-info">Gebruikersnaam:</label><br>
-                                <input type="Username" name="Username" id="Username" class="form-control input-sm">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-info">Voornaam:</label><br>
-                                        <input type="text" name="first_name" id="first_name" class="form-control input-sm">
-                                    </div>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-info">Tussenvoegsels:</label><br>
-                                        <input type="text" name="middel_name" id="middel_name" class="form-control input-sm">
-                                    </div>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <div class="form-group">
-                                        <label class="text-info">Achternaam:</label><br>
-                                        <input type="text" name="last_name" id="last_name" class="form-control input-sm">
-                                    </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="FirstName" class="text-info">Voornaam:</label><br>
+                                    <input asp-for="FirstName" id="first_name" class="form-control input-sm">
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="text-info">Postcode:</label><br>
-                                        <input type="text" name="zip_code" id="zip_code" class="form-control input-sm">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="text-info">Straatnaam:</label><br>
-                                        <input type="text" name="street_name" id="street_name" class="form-control input-sm">
-                                    </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="text-info">Achternaam:</label><br>
+                                    <input asp-for="LastName" id="last_name" class="form-control input-sm">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="text-info">Email:</label><br>
-                                <input type="email" name="email" id="email" class="form-control input-sm">
-                            </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="text-info">Email:</label><br>
+                            <input asp-for="Email" id="email" class="form-control input-sm">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="text-info">Geboortedatum:</label><br>
-                                <input type="date" id="birthDate" class="form-control">
-                            </div>
+                        <div class="form-group">
+                            <label asp-for="DateOfBirth" class="text-info">Geboortedatum:</label><br>
+                            <input asp-for="DateOfBirth" id="birthDate" class="form-control">
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="text-info">Wachtwoord:</label><br>
-                                        <input type="password" name="password" id="password" class="form-control input-sm">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="text-info">Herhaal wachtwoord:</label><br>
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm">
-                                    </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Password" class="text-info">Wachtwoord:</label><br>
+                                    <input asp-for="Password" id="password" class="form-control input-sm">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                             </div>
-                            <br />
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-register btn-md" value="submit">
-                                <a class="text-info text-right" asp-area="" asp-controller="Account" asp-action="LoginPage">Heeft u al een account? Log hier in!</a>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="ConfirmPassword" class="text-info">Herhaal wachtwoord:</label><br>
+                                    <input asp-for="ConfirmPassword" id="password_confirmation" class="form-control input-sm">
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-register btn-md" value="submit">
+                            <a class="text-info text-right" asp-area="" asp-controller="Account" asp-action="LoginPage">Heeft u al een account? Log hier in!</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <br />
 <br />

@@ -1,4 +1,4 @@
-﻿@model EventPlanner.Models.EventViewModel
+﻿@model EventViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +8,7 @@
         <div id="ChangeEvent-row" class="row justify-content-center align-items-center">
             <div id="ChangeEvent-column" class="col-md-6">
                 <div id="ChangeEvent-box" class="col-md-12">
-                    <form id="ChangeEvent-form" class="form" asp-action="ChangeEventPage" enctype="multipart/form-data">
+                    <form id="ChangeEvent-form" class="form" asp-action="EventChangePage" enctype="multipart/form-data">
                         <h1>Evenement informatie</h1>
                         <hr />
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>

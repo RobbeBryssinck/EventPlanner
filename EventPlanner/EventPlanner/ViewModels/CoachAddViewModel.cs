@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class AddCoachViewModel
+    public class CoachAddViewModel
     {
         [Key]
         public int CoachId { get; set; }
@@ -28,5 +28,7 @@ namespace EventPlanner.Models
         [Required]
         [Display(Name = "Foto")]
         public ICollection<IFormFile> files { get; set; }
+
+        public string ImageSrc { get; set; }
     }
 }

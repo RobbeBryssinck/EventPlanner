@@ -56,7 +56,6 @@ namespace EventPlanner.Controllers
 
         public IActionResult EventCategories()
         {
-
             return View();
         }
 
@@ -67,13 +66,13 @@ namespace EventPlanner.Controllers
             {
                 db.Categories.Add(model);
                 db.SaveChanges();
-                return View("CategorieCreated");
+                return View("CategoryCreated");
             }
 
             else
-                return View("CategorieFailed");
+                return View("CategoryFailed");
         }
-        public IActionResult DeleteCategoryPage(int CategoryID)
+        public IActionResult CategoryDeletePage(int CategoryID)
         {
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
             return View(categories[0]);
@@ -94,7 +93,7 @@ namespace EventPlanner.Controllers
             return View(rating);
         }
 
-        public IActionResult CreateEvent()
+        public IActionResult EventCreate()
         {
             EventViewModel model = new EventViewModel();
             model.Categories = db.Categories.ToList();
@@ -111,9 +110,9 @@ namespace EventPlanner.Controllers
             return View();
         }
 
-        public IActionResult ArchivedEvent(int eventID)
+        public IActionResult EventArchived(int eventID)
         {
-            RatingEventViewModel ratingEventViewModel = new RatingEventViewModel();
+            EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
             Event currentEvent = events[0];
 
@@ -124,10 +123,15 @@ namespace EventPlanner.Controllers
             return View(ratingEventViewModel);
         }
 
-        public IActionResult DeleteFeedbackPage(int ratingID)
+        public IActionResult EventDeleteFeedbackPage(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
-            return View(ratings[0]);
+            EventFeedbackDeleteViewModel model = new EventFeedbackDeleteViewModel()
+            {
+                RatingId = ratings[0].RatingId,
+                RatingTitle = ratings[0].RatingTitle
+            };
+            return View(model);
         }
 
         public IActionResult DeleteFeedback(int ratingID)
@@ -135,15 +139,15 @@ namespace EventPlanner.Controllers
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
             db.Ratings.Remove(ratings[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteFeedbackComplete");
+            return RedirectToAction("EventDeleteFeedbackComplete");
         }
 
-        public IActionResult DeleteFeedbackComplete()
+        public IActionResult EventDeleteFeedbackComplete()
         {
             return View();
         }
 
-        public IActionResult ChangeEventPage(int eventID)
+        public IActionResult EventChangePage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
             Event model = events[0];
@@ -165,7 +169,7 @@ namespace EventPlanner.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeEventPage(EventViewModel model)
+        public async Task<IActionResult> EventChangePage(EventViewModel model)
         {
             Event realmodel = new Event();
             if (ModelState.IsValid)
@@ -223,16 +227,16 @@ namespace EventPlanner.Controllers
             {
                 db.Ratings.Add(rating);
                 db.SaveChanges();
-                return View("FeedbackSubmitted");
+                return View("EventFeedbackSubmitted");
             }
 
             else
-                return View("FeedbackCreateFail");
+                return View("EventFeedbackCreateFail");
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateEvent(EventViewModel model)
+        public async Task<IActionResult> EventCreate(EventViewModel model)
         {
             Event realmodel = new Event();
             if (ModelState.IsValid)
@@ -243,7 +247,7 @@ namespace EventPlanner.Controllers
                     foreach (var file in model.files)
                     {
                         realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 20970000)
+                        if (file.Length > 0)
                         {
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
@@ -278,7 +282,15 @@ namespace EventPlanner.Controllers
 
         public IActionResult Categories()
         {
-            return View(db.Categories.ToList());
+            List<Categorie> categories = db.Categories.ToList();
+
+            CategoriesViewModel model = new CategoriesViewModel();
+            model.Categories = new List<Categorie>();
+            foreach (Categorie category in categories)
+            {
+                model.Categories.Add(category);
+            }
+            return View(model);
         }
 
         public IActionResult CategoryPage(string category)
@@ -311,28 +323,14 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventNotFound");
             }
 
-            return View(events);
+            EventsViewModel model = new EventsViewModel()
+            {
+                Events = events
+            };
+
+            return View(model);
         }
 
-        public IActionResult Educational()
-        {
-            List<Event> events = db.Events.Where(s => s.EventType == "Educational" && s.Date > DateTime.Now).ToList();
-            if (events.Count == 0)
-            {
-                return RedirectToAction("EventNotFound");
-            }
-            return View(events);
-        }
-
-        public IActionResult Recreation()
-        {
-            List<Event> events = db.Events.Where(s => s.EventType == "Recreation" && s.Date > DateTime.Now).ToList();
-            if (events.Count == 0)
-            {
-                return RedirectToAction("EventNotFound");
-            }
-            return View(events);
-        }
         public IActionResult EventArchive()
         {
             List<Event> events = db.Events.Where(s => s.Date < DateTime.Now).ToList();
@@ -340,14 +338,24 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
-            return View(events);
+
+            EventArchiveViewModel model = new EventArchiveViewModel()
+            {
+                Events = events
+            };
+
+            return View(model);
         }
 
         [HttpGet]
         public IActionResult EventsForEmployees()
         {
             List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
-            return View(events);
+            EventsForEmployeesViewModel model = new EventsForEmployeesViewModel()
+            {
+                Events = events
+            };
+            return View(model);
         }
 
         [HttpGet]
@@ -373,6 +381,7 @@ namespace EventPlanner.Controllers
             Registration registration = new Registration();
             List<Account> accounts = db.Accounts.Where(x => x.UserName == model.Username).ToList();
             Account account = accounts[0];
+            //test commit
 
             registration.AccountId = account.AccountId;
             registration.EventId = model.EventId;
@@ -380,13 +389,18 @@ namespace EventPlanner.Controllers
             db.Registrations.Add(registration);
             db.SaveChanges();
 
-            return View("RegistrationSucceeded");
+            return View("EventRegistrationSucceeded");
         }
 
-        public IActionResult DeleteEventPage(int EventId)
+        public IActionResult EventDeletePage(int EventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
-            return View(events[0]);
+            EventDeleteViewModel model = new EventDeleteViewModel()
+            {
+                EventId = events[0].EventId,
+                EventName = events[0].EventName
+            };
+            return View(model);
         }
 
         public IActionResult DeleteEvent(int EventId)
@@ -394,10 +408,10 @@ namespace EventPlanner.Controllers
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
             db.Events.Remove(events[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteEventComplete");
+            return RedirectToAction("EventDeleteComplete");
         }
 
-        public IActionResult DeleteEventComplete()
+        public IActionResult EventDeleteComplete()
         {
             return View();
         }
