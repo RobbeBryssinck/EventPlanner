@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    public class EventViewModel
+    public class EventChangePageViewModel 
     {
         [Key]
         public int EventId { get; set; }

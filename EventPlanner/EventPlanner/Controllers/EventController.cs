@@ -151,7 +151,7 @@ namespace EventPlanner.Controllers
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
             Event model = events[0];
-            EventViewModel realmodel = new EventViewModel();
+            EventChangePageViewModel realmodel = new EventChangePageViewModel();
             realmodel.Categories = db.Categories.ToList();
 
             realmodel.EventId = model.EventId;
@@ -169,7 +169,7 @@ namespace EventPlanner.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EventChangePage(EventViewModel model)
+        public async Task<IActionResult> EventChangePage(EventChangePageViewModel model)
         {
             Event realmodel = new Event();
             if (ModelState.IsValid)
@@ -277,7 +277,7 @@ namespace EventPlanner.Controllers
             }
 
             else
-                return View("EventCreateFail");
+                return View(model);
         }
 
         public IActionResult Categories()
