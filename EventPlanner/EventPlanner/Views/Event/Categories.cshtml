@@ -21,7 +21,7 @@
     <ul class="list-group" id="myList">
         @foreach (var item in Model.Categories)
         {
-            <li class="list-group-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { category = item.CategorieName })</li>
+            <li class="list-group-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { CategoryId = item.CategorieId })</li>
         }
     </ul>
 </div>

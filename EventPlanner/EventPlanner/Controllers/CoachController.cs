@@ -147,7 +147,6 @@ namespace EventPlanner.Controllers
                 realmodel.Name = model.Name;
                 realmodel.Info = model.Info;
                 realmodel.Email = model.Email;
-                realmodel.ImageSrc = model.ImageSrc;
                 if (model.files == null)
                 {
                     realmodel.ImageSrc = model.ImageSrc;
