@@ -12,7 +12,7 @@ namespace EventPlanner.Models
         [Key]
         public int EventId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voer de naam van het evenement in")]
         [StringLength(250)]
         [Display(Name = "Evenement naam")]
         public string EventName { get; set; }
@@ -21,20 +21,20 @@ namespace EventPlanner.Models
         [Display(Name = "Datum")]
         public DateTime Date { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Stel een bezoekers limiet in 0-1000")]
         [Display(Name = "Bezoeker limiet")]
         [Range(1, 10000)]
         public int VisitorLimit { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voer een beschrijving in van het evenement")]
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voer geldige locatie in van het evenement")]
         [Display(Name = "Locatie")]
         public string Location { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voer een geldig emailadres in")]
         [Display(Name = "Email")]
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please use a valid e-mailadress")]
         public string Email { get; set; }
@@ -45,7 +45,7 @@ namespace EventPlanner.Models
         public string EventType { get; set; }
         public int Visitors { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Upload een foto voor het evenement")]
         [Display(Name = "Foto")]
         public ICollection<IFormFile> files { get; set; }
 

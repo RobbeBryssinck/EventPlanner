@@ -28,6 +28,7 @@ namespace EventPlanner.Models
 
         [Required]
         [Display(Name = "Beschrijving")]
+        
         public string Description { get; set; }
 
         [Required]
