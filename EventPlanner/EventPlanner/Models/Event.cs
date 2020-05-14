@@ -44,10 +44,11 @@ namespace EventPlanner.Models
         [Display(Name = "Evenement type")]
         public string EventType { get; set; }
 
+        [Display(Name = "Bezoekers")]
         public int Visitors { get; set; }
 
         [Required]
-        [Display(Name = "Voor medewerkers")]
+        [Display(Name = "Voor wie")]
         public EventGroup ForEmployees { get; set; }
     }
 }
