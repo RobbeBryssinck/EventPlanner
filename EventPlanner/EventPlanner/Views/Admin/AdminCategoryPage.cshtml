@@ -31,8 +31,8 @@
                 @Html.DisplayFor(modelItem => item.Info)
             </td>
             <td>
-                <a href='@string.Format("/Event/CategoryChange?Category={0}", item.CategorieId)'>Wijzig</a>  |
-                <a href='@string.Format("/Event/CategoryPage?Category={0}", item.CategorieName)'>Details</a>  |
+                <a href='@string.Format("/Event/CategoryChangePage?CategoryID={0}", item.CategorieId)'>Wijzig</a>  |
+                <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>Details</a>  |
                 <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
             </td>
         </tr>

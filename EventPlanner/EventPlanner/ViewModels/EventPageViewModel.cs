@@ -39,10 +39,9 @@ namespace EventPlanner.Models
         public string Email { get; set; }
 
         public string ImageSrc { get; set; }
-
         [Required]
-        [Display(Name = "Evenement type")]
-        public EventType EventType { get; set; }
+        [Display(Name = "Categorie Type")]
+        public int CategoryId { get; set; }
         public int Visitors { get; set; }
     }
 }
