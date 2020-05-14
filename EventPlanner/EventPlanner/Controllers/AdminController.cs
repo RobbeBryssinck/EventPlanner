@@ -17,7 +17,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private EventPlannerContext db;
