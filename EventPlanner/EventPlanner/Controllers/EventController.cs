@@ -82,7 +82,7 @@ namespace EventPlanner.Controllers
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
             db.Categories.Remove(categories[0]);
             db.SaveChanges();
-            return Content("Category Deleted");
+            return View("CategoryDeleted");
         }
 
         public IActionResult EventFeedbackPage(int eventID)

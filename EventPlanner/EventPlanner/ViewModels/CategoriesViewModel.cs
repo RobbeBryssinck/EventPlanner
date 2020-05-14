@@ -10,6 +10,7 @@ namespace EventPlanner.ViewModels
     {
         [Key]
         public int CategorieId { get; set; }
+        public string CategorieName { get; set; }
         public List<Categorie> Categories { get; set; }
     }
 }
