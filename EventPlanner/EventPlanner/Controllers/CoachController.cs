@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace EventPlanner.Controllers
 {
@@ -15,11 +16,13 @@ namespace EventPlanner.Controllers
     {
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
+        private readonly long _fileSizeLimit;
 
-        public CoachController(EventPlannerContext db, IWebHostEnvironment environment)
+        public CoachController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
         {
             this.db = db;
             this._environment = environment;
+            _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
         public IActionResult Coaches()
@@ -55,17 +58,26 @@ namespace EventPlanner.Controllers
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images/Coaches");
-                foreach (var file in model.files)
+                if (model.files != null)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    foreach (var file in model.files)
                     {
-                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        if (file.Length > 0 && file.Length < _fileSizeLimit)
                         {
-                            await file.CopyToAsync(fileStream);
+                            realmodel.ImageSrc = file.FileName;
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
+                        }
+                        else
+                        {
+                            return View("CoachAddFail");
                         }
                     }
                 }
+       
+
 
                 realmodel.CoachId = model.CoachId;
                 realmodel.Name = model.Name;
@@ -132,16 +144,21 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 0)
+                        if (file.Length > 0 && file.Length < _fileSizeLimit)
                         {
+                            realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
                                 await file.CopyToAsync(fileStream);
                             }
                         }
+                        else
+                        {
+                            return View("ChangeCoachFail");
+                        }
                     }
                 }
+            
 
                 realmodel.CoachId = model.CoachId;
                 realmodel.Name = model.Name;
