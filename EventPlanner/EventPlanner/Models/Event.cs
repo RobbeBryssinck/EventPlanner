@@ -39,7 +39,7 @@ namespace EventPlanner.Models
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please use a valid e-mailadress")]
         public string Email { get; set; }
         public string ImageSrc { get; set; }
-        public int CategoyId { get; set; }
+        public int CategoryId { get; set; }
         public int Visitors { get; set; }
 
         [Required]
