@@ -388,7 +388,7 @@ namespace EventPlanner.Controllers
 
             db.Registrations.Add(registration);
             db.SaveChanges();
-
+       
             return View("EventRegistrationSucceeded");
         }
 
