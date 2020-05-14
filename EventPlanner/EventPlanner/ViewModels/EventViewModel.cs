@@ -23,7 +23,7 @@ namespace EventPlanner.Models
 
         [Required(ErrorMessage = "Stel een bezoekers limiet in 0-1000")]
         [Display(Name = "Bezoeker limiet")]
-        [Range(1, 10000)]
+        [Range(1, 10000, ErrorMessage = "Stel een bezoekers limiet in 0-1000")]
         public int VisitorLimit { get; set; }
 
         [Required(ErrorMessage = "Voer een beschrijving in van het evenement")]
