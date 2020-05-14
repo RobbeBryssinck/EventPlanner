@@ -43,7 +43,7 @@ namespace EventPlanner.Models
         public int Visitors { get; set; }
 
         [Required]
-        [Display(Name = "Voor medewerkers")]
+        [Display(Name = "Voor wie")]
         public EventGroup ForEmployees { get; set; }
     }
 }
