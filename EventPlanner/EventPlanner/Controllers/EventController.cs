@@ -14,7 +14,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
 {
-    public class EventController : Controller 
+    public class EventController : Controller
     {
 
         private EventPlannerContext db;
@@ -242,24 +242,18 @@ namespace EventPlanner.Controllers
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images/Events");
-                if (model.files != null)
+                foreach (var file in model.files)
                 {
-                    foreach (var file in model.files)
+                    realmodel.ImageSrc = file.FileName;
+                    if (file.Length > 0)
                     {
-                        realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 0)
+                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                         {
-                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                            {
-                                await file.CopyToAsync(fileStream);
-                            }
+                            await file.CopyToAsync(fileStream);
                         }
                     }
                 }
-                else
-                {
-                    return View("EventCreateFail");
-                }
+
 
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
@@ -277,7 +271,11 @@ namespace EventPlanner.Controllers
             }
 
             else
+            {
+                model.Categories = db.Categories.ToList();
                 return View(model);
+            }
+                
         }
 
         public IActionResult Categories()
