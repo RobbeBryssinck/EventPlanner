@@ -44,7 +44,7 @@ namespace EventPlanner.Controllers
             realmodel.VisitorLimit = model.VisitorLimit;
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
-            realmodel.CategoryId = model.CategoyId;
+            realmodel.CategoryId = model.CategoryId;
             realmodel.Email = model.Email;
             realmodel.Visitors = Participants;
 
@@ -164,7 +164,7 @@ namespace EventPlanner.Controllers
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
             realmodel.ImageSrc = model.ImageSrc;
-            realmodel.CategoryId = model.CategoyId;
+            realmodel.CategoryId = model.CategoryId;
             realmodel.Email = model.Email;
 
 
@@ -207,7 +207,7 @@ namespace EventPlanner.Controllers
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
-                realmodel.CategoyId = model.CategoryId;
+                realmodel.CategoryId = model.CategoryId;
                 realmodel.ForEmployees = model.ForEmployees;
                 if (model.files == null)
                 {
@@ -282,7 +282,7 @@ namespace EventPlanner.Controllers
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
-                realmodel.CategoyId = model.CategoryId;
+                realmodel.CategoryId = model.CategoryId;
                 realmodel.Email = model.Email;
                 realmodel.ForEmployees = model.ForEmployees;
 
@@ -311,7 +311,7 @@ namespace EventPlanner.Controllers
         public IActionResult CategoryPage(int CategoryID)
         {
             CategoryEventsViewModel model = new CategoryEventsViewModel();
-            model.Events = db.Events.Where(s => s.CategoyId == CategoryID && s.Date > DateTime.Now).ToList();
+            model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now).ToList();
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
             model.CategoryInfo = categories[0].Info;
             model.CategoryName = categories[0].CategorieName;
