@@ -28,7 +28,7 @@ namespace EventPlanner.Data
                     "1 € 19,45 5 km inschrijving periode 2 € 17,45 10 km inschrijving periode 2 € 19,45 15 km inschrijving periode 2 € 21,45 Team Rockstars zorgt voor een – " +
                     "stevig – ontbijt en de gear! Doe je mee? Meld je dan hieronder aan zodat we samen kunnen starten!",
                     Location="Lekkerbeetjesstraat8,'s-Hertogenbosch",
-                    Email="shout@teamrockstars.nl",ImageSrc="Hardlopen.jpg", EventType = "Recreation", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="Hardlopen.jpg", CategoyId = 1, ForEmployees=EventGroup.Public},
 
                 new Event{EventName="Pizzasessie IT Rockstar Kevin Hagenaars | Van Oud naar Cloud",
                     Date=DateTime.Parse("2020-10-08"),VisitorLimit=50,
@@ -36,7 +36,7 @@ namespace EventPlanner.Data
                     "Programma 17.00 – 18.00 Welkom & Drinks 18.00 – 18.30 Diner 18.30 – 20.15 Van Oud naar Cloud 20.15 – 21.00 Borrel The Talk Van oud naar cloud. Bedrijfskritische (maatwerk)software toekomstbestendig maken is voor veel bedrijven een grote en risicovolle stap. " +
                     "Om koploper te blijven ontkom je er niet aan om deze stap te nemen. In deze sessie neemt IT Rockstar Kevin je mee in het proces, techniek en de voordelen van het ombouwen van een 20 jaar oude stand alone-data intermediair naar een moderne architectuur en RESTful API in Azure.",
                     Location="Lekkerbeetjesstraat8,'s-Hertogenbosch",
-                    Email="shout@teamrockstars.nl",ImageSrc="KevinHagenaars.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="KevinHagenaars.jpg", CategoyId = 1, ForEmployees=EventGroup.Public},
 
                  new Event{EventName="Team Rockstars IT @ Future Tech",
                     Date=DateTime.Parse("2020-06-24"),VisitorLimit=50,
@@ -44,7 +44,7 @@ namespace EventPlanner.Data
                     "Programma 17.00 – 18.00 Welkom & Drinks 18.00 – 18.30 Diner 18.30 – 20.15 Van Oud naar Cloud 20.15 – 21.00 Borrel The Talk Van oud naar cloud. Bedrijfskritische (maatwerk)software toekomstbestendig maken is voor veel bedrijven een grote en risicovolle stap. " +
                     "Om koploper te blijven ontkom je er niet aan om deze stap te nemen. In deze sessie neemt IT Rockstar Kevin je mee in het proces, techniek en de voordelen van het ombouwen van een 20 jaar oude stand alone-data intermediair naar een moderne architectuur en RESTful API in Azure.",
                     Location="Jaarbeursplein,Utrecht",
-                    Email="shout@teamrockstars.nl",ImageSrc="Teamitup-FutureTech.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="Teamitup-FutureTech.jpg", CategoyId = 1, ForEmployees=EventGroup.Public},
 
                 new Event{EventName="Pizzasessie IT Rockstar Sven Haster | Four easy steps to migrate to JPMS",
                     Date=DateTime.Parse("2020-04-15"),VisitorLimit=40,
@@ -53,7 +53,7 @@ namespace EventPlanner.Data
                         "Jigsaw genoemd. Voor veel ontwikkelaars is dit nog een abstract en ondoorzichtig geheel en dit is dan ook dé reden dat veel projecten nog op Java 8 zitten. " +
                         "In deze presentatie laat IT Rockstar Sven vier simpele stappen zien om je project JPMS compliant te maken en naar Java 9+ te migreren.",
                     Location="Apeldoorn,Laanvandemensenrechten362",
-                    Email="shout@teamrockstars.nl",ImageSrc="SvenHaster.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="SvenHaster.jpg", CategoyId = 1, ForEmployees=EventGroup.Public},
 
                 new Event{EventName="IT Rockstar Christiaan Nieuwlaat | Modulaire Software Ontwikkeling – Chapter Lower South",
                     Date=DateTime.Parse("2020-04-16"),VisitorLimit=50,
@@ -63,21 +63,21 @@ namespace EventPlanner.Data
                         "gebruik maken van modules als bibliotheken, bijvoorbeeld in de vorm van java 9+ modules. We gaan het hebben over deze verschillende niveaus, waarom we " +
                         "gebruik willen maken van modulaire ontwikkeling en wat de voor- en nadelen hiervan zijn.",
                     Location="Tilburg,Spoorlaan26",
-                    Email="shout@teamrockstars.nl",ImageSrc="ChristiaanNieuwlaat.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="ChristiaanNieuwlaat.jpg", CategoyId = 1, ForEmployees=EventGroup.Public},
 
                 new Event{EventName="Pizzasessie IT Rockstar Bart Kardol | Digitalisering verandert de wereld, ook op zee",
                     Date=DateTime.Parse("2020-04-22"),VisitorLimit=50,
                     Description="n chapter Upper South hebben we IT Rockstar gepland staan op 22 April voor een supervette sessie: “Digitalisering verandert de wereld, ook op zee”. " +
                     "Catchy titel, nietwaar? Inschrijven voor zijn sessie doe je hier! Het event vindt plaats op Team Rockstars IT HQ in ‘s-Hertogenbosch!",
                     Location="DenBosch,Lekkerbeetjesstraat5",
-                    Email="shout@teamrockstars.nl",ImageSrc="BartKardolBreed.jpg", EventType = "Educational", ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="BartKardolBreed.jpg", CategoyId = 1, ForEmployees=EventGroup.Public},
 
                 new Event{EventName="Bordspellenavond!",
                     Date=DateTime.Parse("2020-05-03"),VisitorLimit=50,
                     Description="Ja hoor!! We zetten onverminderd door met de mega-succesvolle bordspellenavond… " +
                         "Neem je spellen mee, en je partner, vriend of zus. Eet je mee? Laat dit dan even weten aan onze ultieme spelleider Sven Klaassen Bos!",
                     Location="Eindhoven,Rachelsmolen1",
-                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", EventType = "Recreation", ForEmployees=EventGroup.RockstarsEmployees},
+                    Email="shout@teamrockstars.nl",ImageSrc="Bordspel.jpg", CategoyId = 1, ForEmployees=EventGroup.RockstarsEmployees},
             };
             foreach (Event e in events)
             {

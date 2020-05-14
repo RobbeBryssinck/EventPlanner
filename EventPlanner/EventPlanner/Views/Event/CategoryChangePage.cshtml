@@ -1,4 +1,4 @@
-﻿@model EventPlanner.Models.Categorie
+﻿@model CategoriesViewModel
 
 @{
     Layout = "_Layout";
@@ -17,7 +17,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CategoryChange">
+        <form asp-action="ChangeCategory">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CategorieId" />
             <div class="form-group">
