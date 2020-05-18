@@ -45,8 +45,11 @@
                     </ul>
                     <a class="nav-link" asp-area="" asp-controller="Coach" asp-action="Coaches" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                        onMouseOut="this.style.color='#000'"> Coaches </a>
+                    @if (User.IsInRole("Admin"))
+                    {
                     <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminEventPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                        onMouseOut="this.style.color='#000'"> Admin </a>
+                    }
                     <ul class="navbar-nav ml-auto">
                         @if (signInManager.IsSignedIn(User))
                         {
