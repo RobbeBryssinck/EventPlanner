@@ -17,6 +17,7 @@ namespace EventPlanner.Controllers
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
         private readonly long _fileSizeLimit;
+        private string[] permittedExtensions = { ".png", ".jpg", ".jpeg" };
 
         public CoachController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
         {
@@ -69,7 +70,8 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        if (file.Length > 0 && file.Length < _fileSizeLimit)
+                        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                        if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                         {
                             realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
@@ -151,7 +153,8 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        if (file.Length > 0 && file.Length < _fileSizeLimit)
+                        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                        if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                         {
                             realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))

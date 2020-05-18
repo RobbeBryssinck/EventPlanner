@@ -21,6 +21,7 @@ namespace EventPlanner.Controllers
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
         private readonly long _fileSizeLimit;
+        private string[] permittedExtensions = { ".png", ".jpg", ".jpeg" };
 
 
         public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
@@ -195,7 +196,8 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        if (file.Length > 0 && file.Length < _fileSizeLimit)
+                        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                        if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                         {
                             realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
@@ -267,7 +269,8 @@ namespace EventPlanner.Controllers
                 var uploads = Path.Combine(_environment.WebRootPath, "Images/Events");
                 foreach (var file in model.files)
                 {
-                    if (file.Length > 0 && file.Length < _fileSizeLimit)
+                    var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                    if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                     {
                         realmodel.ImageSrc = file.FileName;
                         using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
@@ -355,7 +358,11 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
-
+            foreach(var models in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == models.EventId).Count();
+                models.Visitors = Participants;
+            }
             EventsViewModel model = new EventsViewModel()
             {
                 Events = events
