@@ -1,0 +1,51 @@
+﻿@model CoachAddViewModel
+
+@{
+    ViewData["Title"] = "Coach wijzigen";
+    Layout = "_LayoutAdmin";
+}
+
+<div id="CreateEvent">
+    <div class="container">
+        <div id="CreateEvent-row" class="row justify-content-center align-items-center">
+            <div id="CreateEvent-column" class="col-md-6">
+                <div id="CreateEvent-box" class="col-md-12">
+                    <form id="CreateEvent-form" class="form" asp-action="ChangeCoachPage" enctype="multipart/form-data">
+                        <h1>Coach informatie</h1>
+                        <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="CoachId" />
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" placeholder="Coach naam.." />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Info" class="control-label"></label>
+                            <textarea asp-for="Info" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Beschrijving.."></textarea>
+                            <span asp-validation-for="Info" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="Email.." />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="ImageSrc" type="hidden" value="@Model.ImageSrc" class="form-control" />
+                            <span asp-validation-for="ImageSrc" class="text-danger"></span>
+                            <label asp-for="files" class="control-label"></label>
+                            <br />
+                            <input asp-for="files" type="file" name="files" multiple />
+                            <span asp-validation-for="files" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Werk bij" class="btn btn-Create" />
+                        </div>
+                        <a asp-action="Coaches">Alle coaches</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

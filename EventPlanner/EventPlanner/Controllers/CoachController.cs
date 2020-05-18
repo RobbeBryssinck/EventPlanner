@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using EventPlanner.Data;
 using EventPlanner.Models;
+using EventPlanner.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace EventPlanner.Controllers
 {
@@ -14,11 +16,13 @@ namespace EventPlanner.Controllers
     {
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
+        private readonly long _fileSizeLimit;
 
-        public CoachController(EventPlannerContext db, IWebHostEnvironment environment)
+        public CoachController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
         {
             this.db = db;
             this._environment = environment;
+            _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
         public IActionResult Coaches()
@@ -31,7 +35,16 @@ namespace EventPlanner.Controllers
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
             if (coaches.Count > 0)
             {
-                return View(coaches[0]);
+                Coach coach = coaches[0];
+                CoachViewModel model = new CoachViewModel()
+                {
+                    CoachId = coach.CoachId,
+                    Name = coach.Name,
+                    Info = coach.Info,
+                    Email = coach.Email,
+                    ImageSrc = coach.ImageSrc
+                };
+                return View(model);
             }
             else
             {
@@ -39,30 +52,39 @@ namespace EventPlanner.Controllers
             }
         }
 
-        public IActionResult AddCoach()
+        public IActionResult CoachAdd()
         {
-            return View(new AddCoachViewModel());
+            return View(new CoachAddViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCoach(AddCoachViewModel model)
+        public async Task<IActionResult> CoachAdd(CoachAddViewModel model)
         {
             Coach realmodel = new Coach();
 
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images/Coaches");
-                foreach (var file in model.files)
+                if (model.files != null)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    foreach (var file in model.files)
                     {
-                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        if (file.Length > 0 && file.Length < _fileSizeLimit)
                         {
-                            await file.CopyToAsync(fileStream);
+                            realmodel.ImageSrc = file.FileName;
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
+                        }
+                        else
+                        {
+                            return View("CoachAddFail");
                         }
                     }
                 }
+
+
 
                 realmodel.CoachId = model.CoachId;
                 realmodel.Name = model.Name;
@@ -71,16 +93,22 @@ namespace EventPlanner.Controllers
 
                 db.Coaches.Add(realmodel);
                 db.SaveChanges();
-                return View("AddCoachSuccess");
+                return View("CoachAddSucces");
             }
             else
-                return View("AddCoachFail");
+                return View("CoachAddFail");
         }
 
-        public IActionResult DeleteCoachPage(int coachID)
+        public IActionResult CoachDeletePage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
-            return View(coaches[0]);
+            Coach coach = coaches[0];
+            CoachDeleteViewModel model = new CoachDeleteViewModel()
+            {
+                CoachId = coach.CoachId,
+                Name = coach.Name
+            };
+            return View(model);
         }
 
         public IActionResult DeleteCoach(int coachID)
@@ -88,12 +116,78 @@ namespace EventPlanner.Controllers
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
             db.Coaches.Remove(coaches[0]);
             db.SaveChanges();
-            return RedirectToAction("DeleteCoachComplete");
+            return RedirectToAction("CoachDeleteComplete");
         }
 
-        public IActionResult DeleteCoachComplete()
+        public IActionResult CoachDeleteComplete()
         {
             return View();
+        }
+
+        public IActionResult ChangeCoachPage(int coachID)
+        {
+            List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
+            Coach model = coaches[0];
+            CoachAddViewModel realmodel = new CoachAddViewModel();
+
+            realmodel.CoachId = model.CoachId;
+            realmodel.Name = model.Name;
+            realmodel.Info = model.Info;
+            realmodel.Email = model.Email;
+            realmodel.ImageSrc = model.ImageSrc;
+
+
+            return View(realmodel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeCoachPage(CoachAddViewModel model)
+        {
+            Coach realmodel = new Coach();
+            if (ModelState.IsValid)
+            {
+                var uploads = Path.Combine(_environment.WebRootPath, "Images/Coaches");
+                if (model.files != null)
+                {
+                    foreach (var file in model.files)
+                    {
+                        if (file.Length > 0 && file.Length < _fileSizeLimit)
+                        {
+                            realmodel.ImageSrc = file.FileName;
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
+                        }
+                        else
+                        {
+                            return View("ChangeCoachFail");
+                        }
+                    }
+                }
+
+
+                realmodel.CoachId = model.CoachId;
+                realmodel.Name = model.Name;
+                realmodel.Info = model.Info;
+                realmodel.Email = model.Email;
+                if (model.files == null)
+                {
+                    realmodel.ImageSrc = model.ImageSrc;
+                }
+                realmodel.Email = model.Email;
+
+
+                List<Coach> coaches = db.Coaches.Where(x => x.CoachId == model.CoachId).ToList();
+                Coach oldCoach = coaches[0];
+                db.Entry(oldCoach).CurrentValues.SetValues(realmodel);
+                db.SaveChanges();
+                return RedirectToAction("CoachPage", new { realmodel.CoachId });
+            }
+            else
+            {
+                return View("ChangeCoachFail");
+            }
         }
     }
 }

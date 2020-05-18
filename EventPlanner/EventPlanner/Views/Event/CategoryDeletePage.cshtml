@@ -1,0 +1,17 @@
+﻿@model Categorie
+@{
+    ViewData["Title"] = "Verwijder Categorie";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container">
+    <div class="row">
+        <h1>Verwijder Categorie: <i>@Model.CategorieName</i></h1>
+    </div>
+    <div class="row">
+        <p>Weet je zeker dat je <i>@Model.CategorieName</i> als category wil verwijderen?</p>
+    </div>
+    <div class="row">
+        <a href='@string.Format("/Event/DeleteCategory?CategoryId={0}", Model.CategorieId)' class="btn btn-danger">Verwijder Categorie</a>
+    </div>
+</div>

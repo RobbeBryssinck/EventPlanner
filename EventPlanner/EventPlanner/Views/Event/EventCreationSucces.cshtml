@@ -1,14 +1,12 @@
-﻿@model Event
-
-@{
+﻿@{
     ViewData["Title"] = "Add Images";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_LayoutAdmin";
 }
 
 <div id="CreateSuccess">
     <div class="container">
         <h2 class="text-md-left"> Evenement succesvol aangemaakt!</h2>
         <br />
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Ga door</a>
+        <a asp-area="" asp-controller="Event" asp-action="Events" class="btn btn-outline-primary">Ga door</a>
     </div>
 </div>

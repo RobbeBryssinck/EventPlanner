@@ -1,0 +1,17 @@
+﻿@model EventFeedbackDeleteViewModel
+@{
+    ViewData["Title"] = "Verwijder coach";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container">
+    <div class="row">
+        <h1>Verwijder feedback: <i>@Model.RatingTitle</i></h1>
+    </div>
+    <div class="row">
+        <p>Weet je zeker dat je <i>@Model.RatingTitle</i> als feedback wilt verwijderen?</p>
+    </div>
+    <div class="row">
+        <a href='@string.Format("/Event/DeleteFeedback?ratingID={0}", Model.RatingId)' class="btn btn-danger">Verwijder feedback</a>
+    </div>
+</div>
