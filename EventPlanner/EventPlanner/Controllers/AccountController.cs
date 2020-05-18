@@ -136,12 +136,31 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        public IActionResult AccountDelete(int accountID)
+        public async Task<IActionResult> AccountDelete(string accountID)
         {
-            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
-            db.Accounts.Remove(accounts[0]);
-            db.SaveChanges();
-            return RedirectToAction("AccountDeleteComplete");
+            var user = await userManager.FindByIdAsync(accountID);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {accountID} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                var result = await userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("AdminAccountPage");
+                }
+
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("AdminAccountPage");
+            }
         }
 
         public IActionResult AccountDeleteComplete()

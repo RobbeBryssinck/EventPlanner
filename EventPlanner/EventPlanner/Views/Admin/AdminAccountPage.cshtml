@@ -79,9 +79,11 @@
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>
             <td>
-                <a href='@string.Format("/Account/AccountChangePage?AccountID={0}", item.AccountId)' >Wijzig gegevens</a>
-                <p></p>
-                <form asp-action="AccountDelete"></form>
+                <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="@item.AccountId">
+                    <a asp-controller="Account" asp-action="AccountChangePage"
+                       asp-route-id="@item.AccountId" class="btn btn-primary">Edit</a>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </td>
         </tr>
 }
