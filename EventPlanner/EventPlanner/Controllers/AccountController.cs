@@ -17,8 +17,9 @@ namespace EventPlanner.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, EventPlannerContext db)
         {
+            this.db = db;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -94,14 +95,14 @@ namespace EventPlanner.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult AccountPage (int accountID)
+        public IActionResult AccountPage (string accountID)
         {
-            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
-            Account model = accounts[0];
+            var accounts = db.Users.Where(x => x.Id == accountID).ToList();
+            IdentityUser model = accounts[0];
 
             return View(model);
         }
-
+        
         public IActionResult AccountChangePage (int accountID)
         {
             List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
@@ -147,7 +148,5 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
-
-  
     }
 }

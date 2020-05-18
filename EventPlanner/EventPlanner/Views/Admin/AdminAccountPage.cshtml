@@ -79,9 +79,9 @@
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>
             <td>
-                <a href='@string.Format("/Account/AccountChangePage?AccountID={0}", item.AccountId)' class="btn btn-primary">Wijzig gegevens</a>
+                <a href='@string.Format("/Account/AccountChangePage?AccountID={0}", item.AccountId)' >Wijzig gegevens</a>
                 <p></p>
-                <a href='@string.Format("/Account/AccountDeletePage?AccountID={0}", item.AccountId)' class="btn btn-danger">Verwijder account</a>
+                <form asp-action="AccountDelete"></form>
             </td>
         </tr>
 }
