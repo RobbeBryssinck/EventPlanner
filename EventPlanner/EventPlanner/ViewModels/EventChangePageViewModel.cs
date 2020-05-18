@@ -12,18 +12,21 @@ namespace EventPlanner.Models
         [Key]
         public int EventId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voer de naam van het evenement in")]
         [StringLength(250)]
         [Display(Name = "Evenement naam")]
         public string EventName { get; set; }
 
         [Required]
         [Display(Name = "Datum")]
+        [Range(typeof(DateTime), "14/05/2020", "31/12/2100",
+            ErrorMessage = "Ingevoerde datum moet tussen 14/05/2020 en 31/12/2100 zijn")]
         public DateTime Date { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Stel een bezoekers limiet in 0-1000")]
         [Display(Name = "Bezoeker limiet")]
-        [Range(1, 10000)]
+        [Range(1, 10000, ErrorMessage = "Stel een bezoekers limiet in 0-1000")]
+        
         public int VisitorLimit { get; set; }
 
         [Required]
@@ -31,11 +34,11 @@ namespace EventPlanner.Models
         
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voer geldige locatie in van het evenement")]
         [Display(Name = "Locatie")]
         public string Location { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voer een geldig emailadres in")]
         [Display(Name = "Email")]
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please use a valid e-mailadress")]
         public string Email { get; set; }

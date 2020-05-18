@@ -238,7 +238,9 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                return View("EventChangeFail");
+                model.Categories = db.Categories.ToList();
+
+                return View(model);
             }
         }
 
