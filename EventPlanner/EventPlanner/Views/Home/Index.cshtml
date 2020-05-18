@@ -2,6 +2,108 @@
 @{
     ViewData["Title"] = "Home Page";
     <link href="~/css/site.css" rel="stylesheet" />
+    <style>
+        .card-wrapper {
+    margin-bottom: 30px;
+}
+
+.card-image .card .card-img-wrapper {
+    height: 100%;
+}
+
+.card-image .card .card-body {
+    display: none;
+}
+
+.card-image-title-description .card .card-img-wrapper {
+    max-height: 160px;
+}
+
+.card-image-title-description .card {
+    min-height: 300px;
+    position: relative;
+}
+
+    .card-image-title-description .card .card-body {
+        height: auto;
+        margin-bottom: -70px;
+        position: relative;
+        top: 0;
+    }
+
+    .card-image-title-description .card:hover .card-body {
+        top: -70px;
+    }
+
+    .card-image-title-description .card .card-body .card-title {
+        margin-bottom: .75rem;
+    }
+
+.card {
+    display: inline-block;
+    height: 100%;
+    min-height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+    .card:hover {
+        box-shadow: 8px 12px 31px -10px #ab98ab;
+    }
+
+.card-img-wrapper {
+    align-items: center;
+    display: flex;
+    height: 50%;
+    justify-content: center;
+    overflow: hidden;
+}
+
+    .card-img-wrapper img {
+        transition: 1.5s ease;
+    }
+
+.card:hover .card-img-wrapper img {
+    transform: scale(1.15);
+}
+
+.card-body .card-title {
+    margin-bottom: calc(50% + 20px);
+    transition: 1.5s ease;
+}
+
+.card:hover .card-body .card-title {
+    margin-bottom: .75rem;
+}
+
+.card-body {
+    background-color: #fff;
+    bottom: 0;
+    height: 50%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    transition: 1.5s ease;
+}
+
+.card-content {
+    height: auto;
+    left: 0;
+    overflow: hidden;
+    right: 0;
+    transition: 1.5s ease;
+    width: 100%;
+}
+
+.card:hover .card-body {
+    height: 80%;
+}
+
+.card:hover .card-content {
+    bottom: 0;
+}
+
+    </style>
 }
 
 <body>

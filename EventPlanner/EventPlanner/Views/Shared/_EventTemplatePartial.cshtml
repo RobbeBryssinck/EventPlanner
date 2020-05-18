@@ -3,7 +3,8 @@
     <div class="row">
         @if (Model.Date > DateTime.Now)
         {
-            <div class="col-12"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
+            <div class="col-10"><h4><a href='@string.Format("/Event/EventPage?eventID={0}", Model.EventId)'>@Model.EventName</a></h4><br /></div>
+            <div class="col-2"><h6> @(Model.VisitorLimit - Model.Visitors) Vrije plaatsen</h6> </div>
         }
         else
         {

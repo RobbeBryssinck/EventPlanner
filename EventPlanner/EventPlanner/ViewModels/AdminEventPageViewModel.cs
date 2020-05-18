@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.ViewModels
 {
-    public class CategoriesViewModel
+    public class AdminEventPageViewModel
     {
-        [Key]
-        public int CategorieId { get; set; }
-        public string CategorieName { get; set; }
+        public List<Event> Events { get; set; }
         public List<Categorie> Categories { get; set; }
-        public string Info { get; set; }
+
     }
 }

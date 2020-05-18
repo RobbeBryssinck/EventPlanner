@@ -1,51 +1,26 @@
-﻿@model IEnumerable<EventPlanner.Models.Account>
+﻿@model AdminAccountPageViewModel
 
 @{
     Layout = "_LayoutAdmin";
 }
 <h1>Accounts</h1>
 <p>
-    <a asp-area="" asp-controller="Account" asp-action="RegisterPage">Maak een nieuwe account aan!</a>
+    <a asp-area="" asp-controller="Account" asp-action="RegisterPage">Maak een nieuw account aan</a>
 </p>
 <table class="table table-striped table-bordered table-sm " style="max-width:100%">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MiddleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HouseNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
-            <th>
-                Opties
-            </th>
-        </tr>
-    </thead>
+    <tr>
+        <th>
+            Gebruikersnaam
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Opties
+        </th>
+    </tr>
     <tbody>
+<<<<<<< HEAD
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -85,6 +60,20 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
+=======
+@foreach (var item in Model.Users) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Wijzig</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Verwijder</a>
+            </td>
+>>>>>>> master
         </tr>
 }
     </tbody>

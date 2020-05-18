@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace EventPlanner.Controllers
 {
@@ -15,11 +16,14 @@ namespace EventPlanner.Controllers
     {
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
+        private readonly long _fileSizeLimit;
+        private string[] permittedExtensions = { ".png", ".jpg", ".jpeg" };
 
-        public CoachController(EventPlannerContext db, IWebHostEnvironment environment)
+        public CoachController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
         {
             this.db = db;
             this._environment = environment;
+            _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
         public IActionResult Coaches()
@@ -30,16 +34,23 @@ namespace EventPlanner.Controllers
         public IActionResult CoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
-            Coach coach = coaches[0];
-            CoachViewModel model = new CoachViewModel()
+            if (coaches.Count > 0)
             {
-                CoachId = coach.CoachId,
-                Name = coach.Name,
-                Info = coach.Info,
-                Email = coach.Email,
-                ImageSrc = coach.ImageSrc
-            };
-            return View(model);
+                Coach coach = coaches[0];
+                CoachViewModel model = new CoachViewModel()
+                {
+                    CoachId = coach.CoachId,
+                    Name = coach.Name,
+                    Info = coach.Info,
+                    Email = coach.Email,
+                    ImageSrc = coach.ImageSrc
+                };
+                return View(model);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult CoachAdd()
@@ -55,17 +66,27 @@ namespace EventPlanner.Controllers
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images/Coaches");
-                foreach (var file in model.files)
+                if (model.files != null)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    foreach (var file in model.files)
                     {
-                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                        if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                         {
-                            await file.CopyToAsync(fileStream);
+                            realmodel.ImageSrc = file.FileName;
+                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                            }
+                        }
+                        else
+                        {
+                            return View("CoachAddFail");
                         }
                     }
                 }
+
+
 
                 realmodel.CoachId = model.CoachId;
                 realmodel.Name = model.Name;
@@ -132,29 +153,34 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 0)
+                        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                        if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                         {
+                            realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
                                 await file.CopyToAsync(fileStream);
                             }
                         }
+                        else
+                        {
+                            return View("ChangeCoachFail");
+                        }
                     }
                 }
+
 
                 realmodel.CoachId = model.CoachId;
                 realmodel.Name = model.Name;
                 realmodel.Info = model.Info;
                 realmodel.Email = model.Email;
-                realmodel.ImageSrc = model.ImageSrc;
                 if (model.files == null)
                 {
                     realmodel.ImageSrc = model.ImageSrc;
                 }
                 realmodel.Email = model.Email;
 
-                
+
                 List<Coach> coaches = db.Coaches.Where(x => x.CoachId == model.CoachId).ToList();
                 Coach oldCoach = coaches[0];
                 db.Entry(oldCoach).CurrentValues.SetValues(realmodel);

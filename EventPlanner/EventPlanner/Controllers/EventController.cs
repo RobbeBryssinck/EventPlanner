@@ -10,42 +10,53 @@ using EventPlanner.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
 {
-    public class EventController : Controller 
+    public class EventController : Controller
     {
 
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
+        private readonly long _fileSizeLimit;
+        private string[] permittedExtensions = { ".png", ".jpg", ".jpeg" };
 
 
-        public EventController(EventPlannerContext db, IWebHostEnvironment environment)
+        public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
         {
             this.db = db;
             this._environment = environment;
+            _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
         public IActionResult EventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            Event model = events[0];
-            EventViewModel realmodel = new EventViewModel();
+            if (events.Count > 0)
+            {
+                Event model = events[0];
+                EventViewModel realmodel = new EventViewModel();
 
-            var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
-            realmodel.EventId = model.EventId;
-            realmodel.EventName = model.EventName;
-            realmodel.Date = model.Date;
-            realmodel.ImageSrc = model.ImageSrc;
-            realmodel.VisitorLimit = model.VisitorLimit;
-            realmodel.Description = model.Description;
-            realmodel.Location = model.Location;
-            realmodel.CategoryId = model.CategoyId;
-            realmodel.Email = model.Email;
-            realmodel.Visitors = Participants;
+                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+                realmodel.EventId = model.EventId;
+                realmodel.EventName = model.EventName;
+                realmodel.Date = model.Date;
+                realmodel.ImageSrc = model.ImageSrc;
+                realmodel.VisitorLimit = model.VisitorLimit;
+                realmodel.Description = model.Description;
+                realmodel.Location = model.Location;
+                realmodel.CategoryId = model.CategoryId;
+                realmodel.Email = model.Email;
+                realmodel.Visitors = Participants;
 
-            return View(realmodel);
+                return View(realmodel);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult EventSuccessPage(Event model)
@@ -82,7 +93,7 @@ namespace EventPlanner.Controllers
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
             db.Categories.Remove(categories[0]);
             db.SaveChanges();
-            return Content("Category Deleted");
+            return View("CategoryDeleted");
         }
 
         public IActionResult EventFeedbackPage(int eventID)
@@ -114,13 +125,20 @@ namespace EventPlanner.Controllers
         {
             EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            Event currentEvent = events[0];
+            if (events.Count > 0)
+            {
+                Event currentEvent = events[0];
 
-            List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
+                List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
 
-            ratingEventViewModel.Event = currentEvent;
-            ratingEventViewModel.Ratings = ratings;
-            return View(ratingEventViewModel);
+                ratingEventViewModel.Event = currentEvent;
+                ratingEventViewModel.Ratings = ratings;
+                return View(ratingEventViewModel);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult EventDeleteFeedbackPage(int ratingID)
@@ -151,7 +169,7 @@ namespace EventPlanner.Controllers
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
             Event model = events[0];
-            EventViewModel realmodel = new EventViewModel();
+            EventChangePageViewModel realmodel = new EventChangePageViewModel();
             realmodel.Categories = db.Categories.ToList();
 
             realmodel.EventId = model.EventId;
@@ -161,7 +179,6 @@ namespace EventPlanner.Controllers
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
             realmodel.ImageSrc = model.ImageSrc;
-            realmodel.CategoryId = model.CategoyId;
             realmodel.Email = model.Email;
 
 
@@ -169,7 +186,7 @@ namespace EventPlanner.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EventChangePage(EventViewModel model)
+        public async Task<IActionResult> EventChangePage(EventChangePageViewModel model)
         {
             Event realmodel = new Event();
             if (ModelState.IsValid)
@@ -179,15 +196,24 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 0)
+                        var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                        if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                         {
+                            realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
                                 await file.CopyToAsync(fileStream);
                             }
                         }
+                        else
+                        {
+                            return View("EventCreateFail");
+                        }
                     }
+                }
+                else
+                {
+                    return View("EventCreateFail");
                 }
 
                 realmodel.EventId = model.EventId;
@@ -196,7 +222,6 @@ namespace EventPlanner.Controllers
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
-                realmodel.CategoyId = model.CategoryId;
                 realmodel.ForEmployees = model.ForEmployees;
                 if (model.files == null)
                 {
@@ -242,24 +267,28 @@ namespace EventPlanner.Controllers
             if (ModelState.IsValid)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "Images/Events");
-                if (model.files != null)
+                foreach (var file in model.files)
                 {
-                    foreach (var file in model.files)
+                    var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                    if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                     {
                         realmodel.ImageSrc = file.FileName;
+<<<<<<< HEAD
                         if (file.Length > 20970000)
+=======
+                        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+>>>>>>> master
                         {
-                            using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                            {
-                                await file.CopyToAsync(fileStream);
-                            }
+                            await file.CopyToAsync(fileStream);
                         }
                     }
+                    else
+                    {
+                        return View("EventCreateFail");
+                    }
+
                 }
-                else
-                {
-                    return View("EventCreateFail");
-                }
+
 
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
@@ -267,7 +296,7 @@ namespace EventPlanner.Controllers
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
-                realmodel.CategoyId = model.CategoryId;
+                realmodel.CategoryId = model.CategoryId;
                 realmodel.Email = model.Email;
                 realmodel.ForEmployees = model.ForEmployees;
 
@@ -277,7 +306,11 @@ namespace EventPlanner.Controllers
             }
 
             else
-                return View("EventCreateFail");
+            {
+                model.Categories = db.Categories.ToList();
+                return View(model);
+            }
+
         }
 
         public IActionResult Categories()
@@ -296,11 +329,18 @@ namespace EventPlanner.Controllers
         public IActionResult CategoryPage(int CategoryID)
         {
             CategoryEventsViewModel model = new CategoryEventsViewModel();
-            model.Events = db.Events.Where(s => s.CategoyId == CategoryID && s.Date > DateTime.Now).ToList();
+            model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now).ToList();
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
-            model.CategoryInfo = categories[0].Info;
-            model.CategoryName = categories[0].CategorieName;
-            return View(model);
+            if (categories.Count > 0)
+            {
+                model.CategoryInfo = categories[0].Info;
+                model.CategoryName = categories[0].CategorieName;
+                return View(model);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
 
@@ -322,7 +362,11 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
-
+            foreach(var models in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == models.EventId).Count();
+                models.Visitors = Participants;
+            }
             EventsViewModel model = new EventsViewModel()
             {
                 Events = events
@@ -388,7 +432,7 @@ namespace EventPlanner.Controllers
 
             db.Registrations.Add(registration);
             db.SaveChanges();
-       
+
             return View("EventRegistrationSucceeded");
         }
 
@@ -439,7 +483,7 @@ namespace EventPlanner.Controllers
                 Categorie oldCategory = categories[0];
                 db.Entry(oldCategory).CurrentValues.SetValues(realmodel);
                 db.SaveChanges();
-                return RedirectToAction("AdminCategoryPage","Admin");
+                return RedirectToAction("AdminCategoryPage", "Admin");
             }
             else
             {
