@@ -1,4 +1,6 @@
 ﻿using EventPlanner.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,25 @@ namespace EventPlanner.Data
 {
     public static class DbInitializer
     {
+        public static void SeedUsers(UserManager<IdentityUser> userManager)
+        {
+            if (userManager.FindByEmailAsync("admin@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "admin",
+                    Email = "admin@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "rockstarsitadmin").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Admin").Wait();
+                }
+            }
+        }
+
         public static void Initialize(EventPlannerContext context)
         {
             context.Database.EnsureCreated();
