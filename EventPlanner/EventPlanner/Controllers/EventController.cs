@@ -33,22 +33,29 @@ namespace EventPlanner.Controllers
         public IActionResult EventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            Event model = events[0];
-            EventViewModel realmodel = new EventViewModel();
+            if (events.Count > 0)
+            {
+                Event model = events[0];
+                EventViewModel realmodel = new EventViewModel();
 
-            var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
-            realmodel.EventId = model.EventId;
-            realmodel.EventName = model.EventName;
-            realmodel.Date = model.Date;
-            realmodel.ImageSrc = model.ImageSrc;
-            realmodel.VisitorLimit = model.VisitorLimit;
-            realmodel.Description = model.Description;
-            realmodel.Location = model.Location;
-            realmodel.CategoryId = model.CategoryId;
-            realmodel.Email = model.Email;
-            realmodel.Visitors = Participants;
+                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+                realmodel.EventId = model.EventId;
+                realmodel.EventName = model.EventName;
+                realmodel.Date = model.Date;
+                realmodel.ImageSrc = model.ImageSrc;
+                realmodel.VisitorLimit = model.VisitorLimit;
+                realmodel.Description = model.Description;
+                realmodel.Location = model.Location;
+                realmodel.CategoryId = model.CategoryId;
+                realmodel.Email = model.Email;
+                realmodel.Visitors = Participants;
 
-            return View(realmodel);
+                return View(realmodel);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult EventSuccessPage(Event model)
@@ -117,13 +124,20 @@ namespace EventPlanner.Controllers
         {
             EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            Event currentEvent = events[0];
+            if (events.Count > 0)
+            {
+                Event currentEvent = events[0];
 
-            List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
+                List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
 
-            ratingEventViewModel.Event = currentEvent;
-            ratingEventViewModel.Ratings = ratings;
-            return View(ratingEventViewModel);
+                ratingEventViewModel.Event = currentEvent;
+                ratingEventViewModel.Ratings = ratings;
+                return View(ratingEventViewModel);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult EventDeleteFeedbackPage(int ratingID)
@@ -310,9 +324,16 @@ namespace EventPlanner.Controllers
             CategoryEventsViewModel model = new CategoryEventsViewModel();
             model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now).ToList();
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
-            model.CategoryInfo = categories[0].Info;
-            model.CategoryName = categories[0].CategorieName;
-            return View(model);
+            if (categories.Count > 0)
+            {
+                model.CategoryInfo = categories[0].Info;
+                model.CategoryName = categories[0].CategorieName;
+                return View(model);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
 
