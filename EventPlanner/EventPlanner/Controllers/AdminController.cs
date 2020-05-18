@@ -17,21 +17,18 @@ using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private EventPlannerContext db;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<IdentityUser> userManager;
-        private IWebHostEnvironment _environment;
 
-
-        public AdminController(EventPlannerContext db, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, IWebHostEnvironment environment)
+        public AdminController(EventPlannerContext db, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             this.db = db;
             this.roleManager = roleManager;
             this.userManager = userManager;
-            this._environment = environment;
         }
 
         [HttpGet]
