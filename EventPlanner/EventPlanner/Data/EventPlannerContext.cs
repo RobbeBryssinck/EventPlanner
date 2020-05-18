@@ -33,6 +33,8 @@ namespace EventPlanner.Data
             modelBuilder.Entity<Registration>().ToTable("Registration");
             modelBuilder.Entity<Categorie>().ToTable("Categorie");
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Rockstars", NormalizedName = "Rockstars".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Users", NormalizedName = "Users".ToUpper() });
         }
     }
 }

@@ -27,6 +27,38 @@ namespace EventPlanner.Data
                     userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }
+
+            if (userManager.FindByEmailAsync("robbe@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "robbe",
+                    Email = "robbe@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "robbe1").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstars").Wait();
+                }
+            }
+
+            if (userManager.FindByEmailAsync("henk3345@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "henk",
+                    Email = "henk3345@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "henk11").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Users").Wait();
+                }
+            }
         }
 
         public static void Initialize(EventPlannerContext context)
