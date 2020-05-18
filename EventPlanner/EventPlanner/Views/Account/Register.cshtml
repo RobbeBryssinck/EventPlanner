@@ -83,7 +83,7 @@
 
                         <div class="form-group">
                             <label asp-for="DateOfBirth" class="text-info">Geboortedatum:</label><br>
-                            <input asp-for="DateOfBirth" id="birthDate" class="form-control">
+                            <input asp-for="DateOfBirth" id="birthDate" class="form-control" type="date" value="01-01-2020" min="01-01-1900" max="@DateTime.Now">
                             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                         </div>
 
