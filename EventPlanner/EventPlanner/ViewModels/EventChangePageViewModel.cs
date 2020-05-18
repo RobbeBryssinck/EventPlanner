@@ -49,7 +49,6 @@ namespace EventPlanner.Models
         public string EventType { get; set; }
         public int Visitors { get; set; }
 
-        [Required(ErrorMessage = "Upload een foto voor het evenement")]
         [Display(Name = "Foto")]
         public ICollection<IFormFile> files { get; set; }
 
