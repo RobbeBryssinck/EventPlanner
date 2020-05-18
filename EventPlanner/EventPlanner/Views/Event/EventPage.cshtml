@@ -1,4 +1,6 @@
 @model EventViewModel
+@inject SignInManager<IdentityUser> signInManager
+
 @{
     ViewData["Title"] = "EventPage";
 }
@@ -41,9 +43,11 @@
             </div>
             <hr />
             <br />
-            @if (!(Model.VisitorLimit == Model.Visitors))
+            @if (!(Model.VisitorLimit == Model.Visitors) && (signInManager.IsSignedIn(User)))
             {
-                <a href='@string.Format("/Event/EventJoin?EventId={0}", Model.EventId)' class="btn btn-block btn-Create" style="width:100%">Neem deel</a>
+                <form method="post" asp-controller="Event" asp-action="EventJoin" asp-route-userName="@User.Identity.Name" asp-route-eventId="@Model.EventId">
+                    <button class="btn btn-block btn-Create" style="width:100%">Neem deel</button>
+                </form>
             }
             <p> </p>
         </div>

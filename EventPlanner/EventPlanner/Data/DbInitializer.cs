@@ -40,7 +40,7 @@ namespace EventPlanner.Data
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, "Rockstars").Wait();
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
                 }
             }
 
@@ -56,7 +56,7 @@ namespace EventPlanner.Data
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, "Users").Wait();
+                    userManager.AddToRoleAsync(user, "User").Wait();
                 }
             }
         }
@@ -212,25 +212,6 @@ namespace EventPlanner.Data
             foreach (Rating rating in ratings)
             {
                 context.Ratings.Add(rating);
-            }
-            context.SaveChanges();
-
-            var registrations = new Registration[]
-            {
-                new Registration{AccountId=1, EventId=2},
-                new Registration{AccountId=5, EventId=3},
-                new Registration{AccountId=2, EventId=1},
-                new Registration{AccountId=3, EventId=4},
-                new Registration{AccountId=3, EventId=1},
-                new Registration{AccountId=3, EventId=2},
-                new Registration{AccountId=6, EventId=4},
-                new Registration{AccountId=5, EventId=1},
-                new Registration{AccountId=1, EventId=4},
-                new Registration{AccountId=4, EventId=2}
-            };
-            foreach (Registration registration in registrations)
-            {
-                context.Registrations.Add(registration);
             }
             context.SaveChanges();
 
