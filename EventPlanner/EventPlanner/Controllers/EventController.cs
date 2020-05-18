@@ -358,7 +358,11 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
-
+            foreach(var models in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == models.EventId).Count();
+                models.Visitors = Participants;
+            }
             EventsViewModel model = new EventsViewModel()
             {
                 Events = events
