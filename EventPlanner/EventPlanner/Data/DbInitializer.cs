@@ -185,12 +185,12 @@ namespace EventPlanner.Data
            {
                 new Categorie
                 {
-                    CategorieName="Educational", Info="Bij deze evenementen kan je wat meer leren over technische dingen."
+                    CategorieName="Educatief", Info="Bij deze evenementen kan je wat meer leren over technische dingen."
                 },
 
                 new Categorie
                 {
-                    CategorieName="Recreation", Info="Bij deze evenementen hebben we plezier."
+                    CategorieName="Recreatief", Info="Bij deze evenementen hebben we plezier."
                 }
            };
             foreach (Categorie categorie in categories)
