@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace EventPlanner.Data
 {
@@ -31,6 +32,7 @@ namespace EventPlanner.Data
             modelBuilder.Entity<Rating>().ToTable("Rating");
             modelBuilder.Entity<Registration>().ToTable("Registration");
             modelBuilder.Entity<Categorie>().ToTable("Categorie");
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
         }
     }
 }
