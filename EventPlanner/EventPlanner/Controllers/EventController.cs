@@ -161,7 +161,6 @@ namespace EventPlanner.Controllers
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
             realmodel.ImageSrc = model.ImageSrc;
-            realmodel.CategoryId = model.CategoyId;
             realmodel.Email = model.Email;
 
 
@@ -196,7 +195,6 @@ namespace EventPlanner.Controllers
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
-                realmodel.CategoyId = model.CategoryId;
                 realmodel.ForEmployees = model.ForEmployees;
                 if (model.files == null)
                 {
