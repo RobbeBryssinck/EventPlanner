@@ -10,6 +10,7 @@ using EventPlanner.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace EventPlanner.Controllers
@@ -19,12 +20,14 @@ namespace EventPlanner.Controllers
 
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
+        private readonly long _fileSizeLimit;
 
 
-        public EventController(EventPlannerContext db, IWebHostEnvironment environment)
+        public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
         {
             this.db = db;
             this._environment = environment;
+            _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
         public IActionResult EventPage(int eventID)
@@ -41,7 +44,7 @@ namespace EventPlanner.Controllers
             realmodel.VisitorLimit = model.VisitorLimit;
             realmodel.Description = model.Description;
             realmodel.Location = model.Location;
-            realmodel.CategoryId = model.CategoyId;
+            realmodel.CategoryId = model.CategoryId;
             realmodel.Email = model.Email;
             realmodel.Visitors = Participants;
 
@@ -178,15 +181,23 @@ namespace EventPlanner.Controllers
                 {
                     foreach (var file in model.files)
                     {
-                        realmodel.ImageSrc = file.FileName;
-                        if (file.Length > 0)
+                        if (file.Length > 0 && file.Length < _fileSizeLimit)
                         {
+                            realmodel.ImageSrc = file.FileName;
                             using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                             {
                                 await file.CopyToAsync(fileStream);
                             }
                         }
+                        else
+                        {
+                            return View("EventCreateFail");
+                        }
                     }
+                }
+                else
+                {
+                    return View("EventCreateFail");
                 }
 
                 realmodel.EventId = model.EventId;
@@ -242,14 +253,19 @@ namespace EventPlanner.Controllers
                 var uploads = Path.Combine(_environment.WebRootPath, "Images/Events");
                 foreach (var file in model.files)
                 {
-                    realmodel.ImageSrc = file.FileName;
-                    if (file.Length > 0)
+                    if (file.Length > 0 && file.Length < _fileSizeLimit)
                     {
+                        realmodel.ImageSrc = file.FileName;
                         using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                         {
                             await file.CopyToAsync(fileStream);
                         }
                     }
+                    else
+                    {
+                        return View("EventCreateFail");
+                    }
+
                 }
 
 
@@ -259,7 +275,7 @@ namespace EventPlanner.Controllers
                 realmodel.VisitorLimit = model.VisitorLimit;
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
-                realmodel.CategoyId = model.CategoryId;
+                realmodel.CategoryId = model.CategoryId;
                 realmodel.Email = model.Email;
                 realmodel.ForEmployees = model.ForEmployees;
 
@@ -273,7 +289,7 @@ namespace EventPlanner.Controllers
                 model.Categories = db.Categories.ToList();
                 return View(model);
             }
-                
+
         }
 
         public IActionResult Categories()
@@ -292,7 +308,7 @@ namespace EventPlanner.Controllers
         public IActionResult CategoryPage(int CategoryID)
         {
             CategoryEventsViewModel model = new CategoryEventsViewModel();
-            model.Events = db.Events.Where(s => s.CategoyId == CategoryID && s.Date > DateTime.Now).ToList();
+            model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now).ToList();
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
             model.CategoryInfo = categories[0].Info;
             model.CategoryName = categories[0].CategorieName;
@@ -384,7 +400,7 @@ namespace EventPlanner.Controllers
 
             db.Registrations.Add(registration);
             db.SaveChanges();
-       
+
             return View("EventRegistrationSucceeded");
         }
 
@@ -435,7 +451,7 @@ namespace EventPlanner.Controllers
                 Categorie oldCategory = categories[0];
                 db.Entry(oldCategory).CurrentValues.SetValues(realmodel);
                 db.SaveChanges();
-                return RedirectToAction("AdminCategoryPage","Admin");
+                return RedirectToAction("AdminCategoryPage", "Admin");
             }
             else
             {
