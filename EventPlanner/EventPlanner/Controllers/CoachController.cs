@@ -33,16 +33,23 @@ namespace EventPlanner.Controllers
         public IActionResult CoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
-            Coach coach = coaches[0];
-            CoachViewModel model = new CoachViewModel()
+            if (coaches.Count > 0)
             {
-                CoachId = coach.CoachId,
-                Name = coach.Name,
-                Info = coach.Info,
-                Email = coach.Email,
-                ImageSrc = coach.ImageSrc
-            };
-            return View(model);
+                Coach coach = coaches[0];
+                CoachViewModel model = new CoachViewModel()
+                {
+                    CoachId = coach.CoachId,
+                    Name = coach.Name,
+                    Info = coach.Info,
+                    Email = coach.Email,
+                    ImageSrc = coach.ImageSrc
+                };
+                return View(model);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
         }
 
         public IActionResult CoachAdd()
@@ -76,7 +83,7 @@ namespace EventPlanner.Controllers
                         }
                     }
                 }
-       
+
 
 
                 realmodel.CoachId = model.CoachId;
@@ -158,7 +165,7 @@ namespace EventPlanner.Controllers
                         }
                     }
                 }
-            
+
 
                 realmodel.CoachId = model.CoachId;
                 realmodel.Name = model.Name;
@@ -170,7 +177,7 @@ namespace EventPlanner.Controllers
                 }
                 realmodel.Email = model.Email;
 
-                
+
                 List<Coach> coaches = db.Coaches.Where(x => x.CoachId == model.CoachId).ToList();
                 Coach oldCoach = coaches[0];
                 db.Entry(oldCoach).CurrentValues.SetValues(realmodel);
