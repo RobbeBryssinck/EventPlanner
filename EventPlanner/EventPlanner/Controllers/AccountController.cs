@@ -13,11 +13,13 @@ namespace EventPlanner.Controllers
 {
     public class AccountController : Controller
     {
+        private EventPlannerContext db;
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, EventPlannerContext db)
         {
+            this.db = db;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -88,5 +90,32 @@ namespace EventPlanner.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        public async Task<IActionResult> EventRegistered()
+        {
+            EventsViewModel model = new EventsViewModel();
+            List<Event> events = new List<Event>();
+            var user = await userManager.GetUserAsync(User);
+            List<Registration> registrations = db.Registrations.Where(s => s.AccountId == user.Id).ToList();
+
+            foreach (var regristation in registrations)
+            {
+                events.Add(db.Events.Where(s => s.EventId == regristation.EventId).ToList().FirstOrDefault());
+            }
+            if (events.Count == 0)
+
+            {
+                return RedirectToAction("EventNotFound");
+            }
+            foreach (var models in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == models.EventId).Count();
+                models.Visitors = Participants;
+            }
+
+            model.Events = events;
+
+            return View(model);
+        }
+
     }
 }
