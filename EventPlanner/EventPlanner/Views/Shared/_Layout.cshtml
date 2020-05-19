@@ -42,24 +42,27 @@
                             </div>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Event" asp-action="Events" id="navbardrop" data-toggle="dropdown" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
-                               onMouseOut="this.style.color='#000'"> Werknemers </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Event" asp-action="EventsForEmployees"> Evenementen</a>
-                                <a class="dropdown-item" asp-controller="Event" asp-action="EventArchiveForEmployees"> Gearchiveerde Evenementen </a>
-                            </div>
-                        </li>
-                    </ul>
+                    @if (User.IsInRole("Rockstar"))
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Event" asp-action="Events" id="navbardrop" data-toggle="dropdown" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                                   onMouseOut="this.style.color='#000'"> Werknemers </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Event" asp-action="EventsForEmployees"> Evenementen</a>
+                                    <a class="dropdown-item" asp-controller="Event" asp-action="EventArchiveForEmployees"> Gearchiveerde Evenementen </a>
+                                </div>
+                            </li>
+                        </ul>
+                    }
                     <a class="nav-link" asp-area="" asp-controller="Coach" asp-action="Coaches" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                        onMouseOut="this.style.color='#000'"> Coaches </a>
-                    @*TODO
-        @if (User.IsInRole("Admin"))
-        { *@
-                    <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminEventPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
-                       onMouseOut="this.style.color='#000'"> Admin </a>
-                    @*  }*@
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminEventPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                           onMouseOut="this.style.color='#000'"> Admin </a>
+                    }
 
                     <ul class="navbar-nav ml-auto">
                         @if (signInManager.IsSignedIn(User))
