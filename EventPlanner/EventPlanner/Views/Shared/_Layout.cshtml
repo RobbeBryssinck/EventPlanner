@@ -54,7 +54,7 @@
                                 <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                                    onMouseOut="this.style.color='#000'"> @User.Identity.Name </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-controller="Account" asp-action="AccountPage" asp-route-accountID="@signInManager.UserManager.GetUserId(User)"> Gebruikerpagina </a>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="AccountPage"> Gebruikerpagina </a>
                                     <form method="post" asp-controller="Account" asp-action="Logout">
                                         <button class="dropdown-item"> Uitloggen </button>
                                     </form>

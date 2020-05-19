@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using EventPlanner.ViewModels;
 
 namespace EventPlanner.Data
 {
@@ -32,5 +33,7 @@ namespace EventPlanner.Data
             modelBuilder.Entity<Registration>().ToTable("Registration");
             modelBuilder.Entity<Categorie>().ToTable("Categorie");
         }
+
+        public DbSet<EventPlanner.ViewModels.AccountChangeViewModel> AccountChangeViewModel { get; set; }
     }
 }

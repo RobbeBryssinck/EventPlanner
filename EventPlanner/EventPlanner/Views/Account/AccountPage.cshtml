@@ -1,4 +1,4 @@
-﻿@model EventPlanner.Models.Account
+﻿@model IdentityUser
 
 @{
     ViewData["Title"] = "AccountPage";
@@ -18,45 +18,17 @@
             @Html.DisplayFor(model => model.UserName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
     </dl>
 </div>
 <div>
-    <a href='@string.Format("/Account/AccountChangePage?AccountID={0}", Model.AccountId)' class="btn btn-primary">Wijzig gegevens</a>
-    <p></p>
-    <a href='@string.Format("/Account/AccountDeletePage?AccountID={0}", Model.AccountId)' class="btn btn-danger">Verwijder account</a>
+    <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="User">
+        <a asp-controller="Account" asp-action="AccountChangePage"
+           asp-route-id="User" class="btn btn-primary">Wijzig</a>
+        <button type="submit" class="btn btn-danger">Verwijder</button>
+    </form>
 </div>

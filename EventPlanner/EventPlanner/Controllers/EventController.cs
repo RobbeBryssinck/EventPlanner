@@ -273,11 +273,7 @@ namespace EventPlanner.Controllers
                     if (file.Length > 0 && file.Length < _fileSizeLimit && permittedExtensions.Contains(ext))
                     {
                         realmodel.ImageSrc = file.FileName;
-<<<<<<< HEAD
-                        if (file.Length > 20970000)
-=======
                         using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
->>>>>>> master
                         {
                             await file.CopyToAsync(fileStream);
                         }
@@ -362,7 +358,7 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
-            foreach(var models in events)
+            foreach (var models in events)
             {
                 var Participants = db.Registrations.Where(b => b.EventId == models.EventId).Count();
                 models.Visitors = Participants;

@@ -8,6 +8,7 @@ using EventPlanner.Models;
 using EventPlanner.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace EventPlanner.Controllers
 {
@@ -95,37 +96,63 @@ namespace EventPlanner.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult AccountPage (string accountID)
+        public async Task<IActionResult> AccountPage ()
         {
-            var accounts = db.Users.Where(x => x.Id == accountID).ToList();
-            IdentityUser model = accounts[0];
-
-            return View(model);
+            var user = await userManager.GetUserAsync(User);
+            return View(user);
         }
         
-        public IActionResult AccountChangePage (int accountID)
+        public async Task<IActionResult> AccountChangePage(string id)
         {
-            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
-            Account model = accounts[0];
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with id = {id} cannot be found";
+                return View("Error");
+            }
+
+            var model = new AccountChangeViewModel
+            {
+                id = user.Id,
+                Username = user.UserName,
+                Email = user.Email,
+                Password = user.PasswordHash
+            };
 
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult AccountChangePage(Account model)
+        public async Task<IActionResult> AccountChangePage(AccountChangeViewModel model)
         {
-            List<Account> accounts = db.Accounts.Where(x => x.AccountId == model.AccountId).ToList();
-            Account account = accounts[0];
+            var user = await userManager.FindByIdAsync(model.id);
 
-            if (ModelState.IsValid)
+            if (user == null)
             {
-                db.Entry(account).CurrentValues.SetValues(model);
-                db.SaveChanges();
-                return RedirectToAction("AccountPage", new { model.AccountId });
+                ViewBag.ErrorMessage = $"User with id = {model.id} cannot be found";
+                return View("Error");
             }
-
             else
-                return View("AccountChangeFailed");
+            {
+                user.Email = model.Email;
+                user.UserName = model.Username;
+                user.PasswordHash = model.Password;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("AccountPage");
+                }
+
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View(model);
+            }
         }
 
         public IActionResult AccountDeletePage(int accountID)
@@ -136,14 +163,14 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> AccountDelete(string accountID)
+        public async Task<IActionResult> AccountDelete(string Id)
         {
-            var user = await userManager.FindByIdAsync(accountID);
+            var user = await userManager.FindByIdAsync(Id);
 
             if (user == null)
             {
-                ViewBag.ErrorMessage = $"User with Id = {accountID} cannot be found";
-                return View("NotFound");
+                ViewBag.ErrorMessage = $"User with Id = {Id} cannot be found";
+                return View("Error");
             }
             else
             {
@@ -151,7 +178,7 @@ namespace EventPlanner.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("AdminAccountPage");
+                    return RedirectToAction("AdminAccountPage", "Admin");
                 }
 
                 foreach(var error in result.Errors)
@@ -159,7 +186,7 @@ namespace EventPlanner.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
 
-                return View("AdminAccountPage");
+                return View("Error");
             }
         }
 
