@@ -9,6 +9,7 @@ using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.ViewModels;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventPlanner.Controllers
 {
@@ -53,11 +54,13 @@ namespace EventPlanner.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult CoachAdd()
         {
             return View(new CoachAddViewModel());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CoachAdd(CoachAddViewModel model)
         {
@@ -101,6 +104,7 @@ namespace EventPlanner.Controllers
                 return View("CoachAddFail");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult CoachDeletePage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
@@ -113,6 +117,7 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteCoach(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
@@ -121,11 +126,13 @@ namespace EventPlanner.Controllers
             return RedirectToAction("CoachDeleteComplete");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult CoachDeleteComplete()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult ChangeCoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();
@@ -142,6 +149,7 @@ namespace EventPlanner.Controllers
             return View(realmodel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> ChangeCoachPage(CoachAddViewModel model)
         {

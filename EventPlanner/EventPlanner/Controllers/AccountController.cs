@@ -81,8 +81,6 @@ namespace EventPlanner.Controllers
 
             return View(model);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
