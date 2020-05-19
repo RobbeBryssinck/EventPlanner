@@ -25,29 +25,20 @@ namespace EventPlanner.Controllers
             this.signInManager = signInManager;
         }
 
-        public IActionResult LoginSucceeded()
-        {
-            return View();
-        }
-
-        public IActionResult LoginFailed()
-        {
-            return View();
-        }
-
         [HttpGet]
-        public IActionResult RegisterPage()
+        public IActionResult Register()
         {
             return View(new RegisterViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterPage(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = model.Username, Email = model.Email };
                 var result = await userManager.CreateAsync(user, model.Password);
+                userManager.AddToRoleAsync(user, "User").Wait();
 
                 if (result.Succeeded)
                 {
@@ -65,13 +56,13 @@ namespace EventPlanner.Controllers
         }
 
         [HttpGet]
-        public IActionResult LoginPage()
+        public IActionResult Login()
         {
             return View(new LoginViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginPage(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +70,14 @@ namespace EventPlanner.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt");
@@ -87,8 +85,6 @@ namespace EventPlanner.Controllers
 
             return View(model);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

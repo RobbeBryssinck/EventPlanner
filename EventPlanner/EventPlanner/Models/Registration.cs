@@ -9,6 +9,6 @@ namespace EventPlanner.Models
     {
         public int RegistrationId { get; set; }
         public int EventId { get; set; }
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
     }
 }

@@ -39,14 +39,31 @@
                                 <a class="dropdown-item" asp-controller="Event" asp-action="Events"> Alle Evenementen </a>
                                 <a class="dropdown-item" asp-controller="Event" asp-action="Categories"> Categorieën </a>
                                 <a class="dropdown-item" asp-controller="Event" asp-action="EventArchive"> Gearchiveerde Evenementen </a>
-                                <a class="dropdown-item" asp-controller="Event" asp-action="EventsForEmployees"> Voor Rockstars </a>
                             </div>
                         </li>
                     </ul>
+                    @if (User.IsInRole("Rockstar"))
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Event" asp-action="Events" id="navbardrop" data-toggle="dropdown" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                                   onMouseOut="this.style.color='#000'"> Werknemers </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Event" asp-action="EventsForEmployees"> Evenementen</a>
+                                    <a class="dropdown-item" asp-controller="Event" asp-action="EventArchiveForEmployees"> Gearchiveerde Evenementen </a>
+                                </div>
+                            </li>
+                        </ul>
+                    }
                     <a class="nav-link" asp-area="" asp-controller="Coach" asp-action="Coaches" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                        onMouseOut="this.style.color='#000'"> Coaches </a>
-                    <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminEventPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
-                       onMouseOut="this.style.color='#000'"> Admin </a>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="AdminEventPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                           onMouseOut="this.style.color='#000'"> Admin </a>
+                    }
+
                     <ul class="navbar-nav ml-auto">
                         @if (signInManager.IsSignedIn(User))
                         {
@@ -64,11 +81,11 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="RegisterPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                                    onMouseOut="this.style.color='#000'"> Registreer </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="LoginPage" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                                    onMouseOut="this.style.color='#000'"> Login </a>
                             </li>
                         }
@@ -83,6 +100,7 @@
 
         </div>
     </main>
+    <!-- TODO: remove unnecessary br -->
     <br />
     <br />
     <br />

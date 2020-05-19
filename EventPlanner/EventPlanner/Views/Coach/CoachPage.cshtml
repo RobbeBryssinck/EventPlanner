@@ -1,4 +1,5 @@
 ﻿@model CoachViewModel
+@inject SignInManager<IdentityUser> signInManager
 @{
     ViewData["Title"] = "Coach";
 }
@@ -20,10 +21,20 @@
         </div>
         <div class="col-8">
             <p>@Model.Info</p>
-            <div class="row">
-                <div class="col-3">
-                    <a href="mailto: @Model.Email" class="btn btn-login">Email mij!</a>
-            </div>
+            @if ((signInManager.IsSignedIn(User)))
+            {
+                <div class="row">
+                    <div class="col-3">
+                        <a href="mailto: @Model.Email" class="btn btn-login">Email mij!</a>
+                    </div>
+                </div>
+            }
+            @if (!(signInManager.IsSignedIn(User)))
+            {
+                <a class="text-warning font-weight-bold">
+                    Log in om een bericht te sturen
+                </a>
+            }
         </div>
     </div>
 </div>

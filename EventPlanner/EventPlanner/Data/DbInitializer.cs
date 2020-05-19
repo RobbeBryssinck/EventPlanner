@@ -1,4 +1,6 @@
 ﻿using EventPlanner.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,57 @@ namespace EventPlanner.Data
 {
     public static class DbInitializer
     {
+        public static void SeedUsers(UserManager<IdentityUser> userManager)
+        {
+            if (userManager.FindByEmailAsync("admin@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "admin",
+                    Email = "admin@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "rockstarsitadmin").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Admin").Wait();
+                }
+            }
+
+            if (userManager.FindByEmailAsync("robbe@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "robbe",
+                    Email = "robbe@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "robbe1").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+
+            if (userManager.FindByEmailAsync("henk3345@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "henk",
+                    Email = "henk3345@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "henk11").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+            }
+        }
+
         public static void Initialize(EventPlannerContext context)
         {
             context.Database.EnsureCreated();
@@ -159,25 +212,6 @@ namespace EventPlanner.Data
             foreach (Rating rating in ratings)
             {
                 context.Ratings.Add(rating);
-            }
-            context.SaveChanges();
-
-            var registrations = new Registration[]
-            {
-                new Registration{AccountId=1, EventId=2},
-                new Registration{AccountId=5, EventId=3},
-                new Registration{AccountId=2, EventId=1},
-                new Registration{AccountId=3, EventId=4},
-                new Registration{AccountId=3, EventId=1},
-                new Registration{AccountId=3, EventId=2},
-                new Registration{AccountId=6, EventId=4},
-                new Registration{AccountId=5, EventId=1},
-                new Registration{AccountId=1, EventId=4},
-                new Registration{AccountId=4, EventId=2}
-            };
-            foreach (Registration registration in registrations)
-            {
-                context.Registrations.Add(registration);
             }
             context.SaveChanges();
 

@@ -83,7 +83,7 @@
 
                         <div class="form-group">
                             <label asp-for="DateOfBirth" class="text-info">Geboortedatum:</label><br>
-                            <input asp-for="DateOfBirth" id="birthDate" class="form-control">
+                            <input asp-for="DateOfBirth" id="birthDate" class="form-control" type="date" value="01-01-2020" min="01-01-1900" max="@DateTime.Now">
                             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                         </div>
 
@@ -106,7 +106,7 @@
                         <br />
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-register btn-md" value="submit">
-                            <a class="text-info text-right" asp-area="" asp-controller="Account" asp-action="LoginPage">Heeft u al een account? Log hier in!</a>
+                            <a class="text-info text-right" asp-area="" asp-controller="Account" asp-action="Login">Heeft u al een account? Log hier in!</a>
                         </div>
                     </form>
                 </div>

@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+<<<<<<< HEAD
 using EventPlanner.ViewModels;
+=======
+using Microsoft.AspNetCore.Identity;
+>>>>>>> master
 
 namespace EventPlanner.Data
 {
@@ -32,6 +36,9 @@ namespace EventPlanner.Data
             modelBuilder.Entity<Rating>().ToTable("Rating");
             modelBuilder.Entity<Registration>().ToTable("Registration");
             modelBuilder.Entity<Categorie>().ToTable("Categorie");
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Rockstar", NormalizedName = "Rockstar".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "User".ToUpper() });
         }
 
         public DbSet<EventPlanner.ViewModels.AccountChangeViewModel> AccountChangeViewModel { get; set; }

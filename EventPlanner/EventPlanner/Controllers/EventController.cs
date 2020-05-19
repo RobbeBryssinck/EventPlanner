@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -20,14 +22,17 @@ namespace EventPlanner.Controllers
 
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
+        private RoleManager<IdentityRole> roleManager;
+        private UserManager<IdentityUser> userManager;
         private readonly long _fileSizeLimit;
         private string[] permittedExtensions = { ".png", ".jpg", ".jpeg" };
 
-
-        public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config)
+        public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             this.db = db;
             this._environment = environment;
+            this.roleManager = roleManager;
+            this.userManager = userManager;
             _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
@@ -59,17 +64,13 @@ namespace EventPlanner.Controllers
             }
         }
 
-        public IActionResult EventSuccessPage(Event model)
-        {
-
-            return View(model);
-        }
 
         public IActionResult EventCategories()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateCategorie(Categorie model)
         {
@@ -83,11 +84,15 @@ namespace EventPlanner.Controllers
             else
                 return View("CategoryFailed");
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult CategoryDeletePage(int CategoryID)
         {
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
             return View(categories[0]);
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteCategory(int CategoryID)
         {
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
@@ -96,6 +101,7 @@ namespace EventPlanner.Controllers
             return View("CategoryDeleted");
         }
 
+        [Authorize(Roles = "Rockstar, User")]
         public IActionResult EventFeedbackPage(int eventID)
         {
             Rating rating = new Rating();
@@ -104,6 +110,7 @@ namespace EventPlanner.Controllers
             return View(rating);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EventCreate()
         {
             EventViewModel model = new EventViewModel();
@@ -116,6 +123,7 @@ namespace EventPlanner.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EventChangeFail()
         {
             return View();
@@ -141,6 +149,28 @@ namespace EventPlanner.Controllers
             }
         }
 
+        [Authorize(Roles = "Rockstar, User")]
+        public IActionResult EventArchivedForEmployees(int eventID)
+        {
+            EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            if (events.Count > 0)
+            {
+                Event currentEvent = events[0];
+
+                List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
+
+                ratingEventViewModel.Event = currentEvent;
+                ratingEventViewModel.Ratings = ratings;
+                return View(ratingEventViewModel);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
+        }
+
+        [Authorize(Roles = "User")]
         public IActionResult EventDeleteFeedbackPage(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
@@ -152,6 +182,7 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Rockstar, User")]
         public IActionResult DeleteFeedback(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
@@ -160,11 +191,13 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EventDeleteFeedbackComplete");
         }
 
+        [Authorize(Roles = "Rockstar, User")]
         public IActionResult EventDeleteFeedbackComplete()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EventChangePage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
@@ -180,11 +213,13 @@ namespace EventPlanner.Controllers
             realmodel.Location = model.Location;
             realmodel.ImageSrc = model.ImageSrc;
             realmodel.Email = model.Email;
-
+            realmodel.ForEmployees = model.ForEmployees;
+            realmodel.CategoryId = model.CategoryId;
 
             return View(realmodel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EventChangePage(EventChangePageViewModel model)
         {
@@ -207,13 +242,11 @@ namespace EventPlanner.Controllers
                         }
                         else
                         {
-                            return View("EventCreateFail");
+                            model.Categories = db.Categories.ToList();
+                            ModelState.AddModelError("files", "Het bestand is ongeldig");
+                            return View(model);
                         }
                     }
-                }
-                else
-                {
-                    return View("EventCreateFail");
                 }
 
                 realmodel.EventId = model.EventId;
@@ -223,6 +256,7 @@ namespace EventPlanner.Controllers
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.ForEmployees = model.ForEmployees;
+                realmodel.CategoryId = model.CategoryId;
                 if (model.files == null)
                 {
                     realmodel.ImageSrc = model.ImageSrc;
@@ -238,10 +272,13 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                return View("EventChangeFail");
+                model.Categories = db.Categories.ToList();
+
+                return View(model);
             }
         }
 
+        [Authorize(Roles = "Rockstar, User")]
         [HttpPost]
         public IActionResult CreateFeedback(Rating rating, int eventID)
         {
@@ -259,7 +296,7 @@ namespace EventPlanner.Controllers
                 return View("EventFeedbackCreateFail");
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EventCreate(EventViewModel model)
         {
@@ -339,7 +376,6 @@ namespace EventPlanner.Controllers
             }
         }
 
-
         public IActionResult Events(string id)
         {
             //TODO: change List to IEnumerable or IReadOnly?
@@ -373,7 +409,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult EventArchive()
         {
-            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
@@ -387,6 +423,23 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Rockstar")]
+        public IActionResult EventArchiveForEmployees()
+        {
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
+            if (events.Count == 0)
+            {
+                return RedirectToAction("EventNotFound");
+            }
+
+            EventArchiveViewModel model = new EventArchiveViewModel()
+            {
+                Events = events
+            };
+
+            return View(model);
+        }
+        [Authorize(Roles = "Admin, Rockstar")]
         [HttpGet]
         public IActionResult EventsForEmployees()
         {
@@ -398,33 +451,15 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult EventJoin(int eventId)
-        {
-            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
-            Event joinEvent = events[0];
-            EventJoinPageViewModel joinEventViewModel = new EventJoinPageViewModel();
-
-            joinEventViewModel.EventId = joinEvent.EventId;
-            joinEventViewModel.EventName = joinEvent.EventName;
-            joinEventViewModel.Date = joinEvent.Date;
-            joinEventViewModel.VisitorLimit = joinEvent.VisitorLimit;
-            joinEventViewModel.Description = joinEvent.Description;
-            joinEventViewModel.ImageSrc = joinEvent.ImageSrc;
-
-            return View(joinEventViewModel);
-        }
-
+        [Authorize(Roles = "Rockstar, User")]
         [HttpPost]
-        public IActionResult EventJoin(EventJoinPageViewModel model)
+        public async Task<IActionResult> EventJoin(string userName, int eventId)
         {
             Registration registration = new Registration();
-            List<Account> accounts = db.Accounts.Where(x => x.UserName == model.Username).ToList();
-            Account account = accounts[0];
-            //test commit
+            IdentityUser user = await userManager.FindByNameAsync(userName);
 
-            registration.AccountId = account.AccountId;
-            registration.EventId = model.EventId;
+            registration.AccountId = user.Id;
+            registration.EventId = eventId;
 
             db.Registrations.Add(registration);
             db.SaveChanges();
@@ -432,6 +467,7 @@ namespace EventPlanner.Controllers
             return View("EventRegistrationSucceeded");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EventDeletePage(int EventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
@@ -443,6 +479,7 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteEvent(int EventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
@@ -451,10 +488,13 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EventDeleteComplete");
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult EventDeleteComplete()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult CategoryChangePage(int CategoryID)
         {
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
@@ -466,6 +506,8 @@ namespace EventPlanner.Controllers
 
             return View(realmodel);
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult ChangeCategory(CategoriesViewModel model)
         {
             Categorie realmodel = new Categorie();
