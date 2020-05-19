@@ -91,6 +91,7 @@ namespace EventPlanner.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+<<<<<<< HEAD
 
         public async Task<IActionResult> AccountPage ()
         {
@@ -155,10 +156,36 @@ namespace EventPlanner.Controllers
         {
             List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
             Account model = accounts[0];
+=======
+        public async Task<IActionResult> EventRegistered()
+        {
+            EventsViewModel model = new EventsViewModel();
+            List<Event> events = new List<Event>();
+            var user = await userManager.GetUserAsync(User);
+            List<Registration> registrations = db.Registrations.Where(s => s.AccountId == user.Id).ToList();
+
+            foreach (var regristation in registrations)
+            {
+                events.Add(db.Events.Where(s => s.EventId == regristation.EventId).ToList().FirstOrDefault());
+            }
+            if (events.Count == 0)
+
+            {
+                return RedirectToAction("EventNotFound");
+            }
+            foreach (var models in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == models.EventId).Count();
+                models.Visitors = Participants;
+            }
+
+            model.Events = events;
+>>>>>>> a788722b071f62b5516744c6a9f5f91aed989c4a
 
             return View(model);
         }
 
+<<<<<<< HEAD
         public async Task<IActionResult> AccountDelete(string Id)
         {
             var user = await userManager.FindByIdAsync(Id);
@@ -190,5 +217,7 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+=======
+>>>>>>> a788722b071f62b5516744c6a9f5f91aed989c4a
     }
 }
