@@ -150,6 +150,27 @@ namespace EventPlanner.Controllers
         }
 
         [Authorize(Roles = "Rockstar, User")]
+        public IActionResult EventArchivedForEmployees(int eventID)
+        {
+            EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+            if (events.Count > 0)
+            {
+                Event currentEvent = events[0];
+
+                List<Rating> ratings = db.Ratings.Where(x => x.EventId == eventID).ToList();
+
+                ratingEventViewModel.Event = currentEvent;
+                ratingEventViewModel.Ratings = ratings;
+                return View(ratingEventViewModel);
+            }
+            else
+            {
+                return View("PageNotFoundError");
+            }
+        }
+
+        [Authorize(Roles = "User")]
         public IActionResult EventDeleteFeedbackPage(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
@@ -388,7 +409,24 @@ namespace EventPlanner.Controllers
 
         public IActionResult EventArchive()
         {
-            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now).ToList();
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
+            if (events.Count == 0)
+            {
+                return RedirectToAction("EventNotFound");
+            }
+
+            EventArchiveViewModel model = new EventArchiveViewModel()
+            {
+                Events = events
+            };
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Rockstar")]
+        public IActionResult EventArchiveForEmployees()
+        {
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");

@@ -49,6 +49,13 @@
                     <button class="btn btn-block btn-Create" style="width:100%">Neem deel</button>
                 </form>
             }
+
+            @if (!(signInManager.IsSignedIn(User)))
+            {
+                <a class="text-warning font-weight-bold">
+                    Log in om aan dit evenement deel te nemen
+                </a>
+            }
             <p> </p>
         </div>
     </div>
