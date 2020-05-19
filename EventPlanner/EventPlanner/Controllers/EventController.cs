@@ -218,7 +218,8 @@ namespace EventPlanner.Controllers
             realmodel.Location = model.Location;
             realmodel.ImageSrc = model.ImageSrc;
             realmodel.Email = model.Email;
-
+            realmodel.ForEmployees = model.ForEmployees;
+            realmodel.CategoryId = model.CategoryId;
 
             return View(realmodel);
         }
@@ -246,13 +247,11 @@ namespace EventPlanner.Controllers
                         }
                         else
                         {
-                            return View("EventCreateFail");
+                            model.Categories = db.Categories.ToList();
+                            ModelState.AddModelError("files", "Het bestand is ongeldig");
+                            return View(model);
                         }
                     }
-                }
-                else
-                {
-                    return View("EventCreateFail");
                 }
 
                 realmodel.EventId = model.EventId;
@@ -262,6 +261,7 @@ namespace EventPlanner.Controllers
                 realmodel.Description = model.Description;
                 realmodel.Location = model.Location.Replace(" ", String.Empty);
                 realmodel.ForEmployees = model.ForEmployees;
+                realmodel.CategoryId = model.CategoryId;
                 if (model.files == null)
                 {
                     realmodel.ImageSrc = model.ImageSrc;
