@@ -1,4 +1,5 @@
 ﻿@model EventRatingViewModel
+@inject SignInManager<IdentityUser> signInManager
 @{
     ViewData["Title"] = "EventPage";
     <style>
@@ -47,7 +48,16 @@
                 <p> </p>
                 <hr />
                 <br />
-                <a href='@string.Format("/Event/EventFeedbackPage?EventId={0}", Model.Event.EventId)' class="btn btn-feedback">Geef feedback</a>
+                @if ((signInManager.IsSignedIn(User)))
+                {
+                    <a href='@string.Format("/Event/EventFeedbackPage?EventId={0}", Model.Event.EventId)' class="btn btn-feedback">Geef feedback</a>
+                }
+                @if (!(signInManager.IsSignedIn(User)))
+                {
+                    <a class="text-warning font-weight-bold">
+                        Log in om feedback te geven aan dit evenement
+                    </a>
+                }
                 <p> </p>
             </div>
         </div>

@@ -35,6 +35,7 @@ namespace EventPlanner.Controllers
             {
                 var user = new IdentityUser { UserName = model.Username, Email = model.Email };
                 var result = await userManager.CreateAsync(user, model.Password);
+                userManager.AddToRoleAsync(user, "User").Wait();
 
                 if (result.Succeeded)
                 {
@@ -81,8 +82,6 @@ namespace EventPlanner.Controllers
 
             return View(model);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

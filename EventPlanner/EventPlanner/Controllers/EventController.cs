@@ -64,11 +64,6 @@ namespace EventPlanner.Controllers
             }
         }
 
-        // TODO: delete unused method?
-        public IActionResult EventSuccessPage(Event model)
-        {
-            return View(model);
-        }
 
         public IActionResult EventCategories()
         {
@@ -106,7 +101,7 @@ namespace EventPlanner.Controllers
             return View("CategoryDeleted");
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Rockstar, User")]
         public IActionResult EventFeedbackPage(int eventID)
         {
             Rating rating = new Rating();
@@ -154,7 +149,7 @@ namespace EventPlanner.Controllers
             }
         }
 
-        [Authorize(Roles = "Rockstar")]
+        [Authorize(Roles = "Rockstar, User")]
         public IActionResult EventArchivedForEmployees(int eventID)
         {
             EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
@@ -187,7 +182,7 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Rockstar, User")]
         public IActionResult DeleteFeedback(int ratingID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
@@ -196,7 +191,7 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EventDeleteFeedbackComplete");
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Rockstar, User")]
         public IActionResult EventDeleteFeedbackComplete()
         {
             return View();
@@ -283,7 +278,7 @@ namespace EventPlanner.Controllers
             }
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Rockstar, User")]
         [HttpPost]
         public IActionResult CreateFeedback(Rating rating, int eventID)
         {
@@ -444,8 +439,7 @@ namespace EventPlanner.Controllers
 
             return View(model);
         }
-
-        [Authorize(Roles = "Rockstar")]
+        [Authorize(Roles = "Admin, Rockstar")]
         [HttpGet]
         public IActionResult EventsForEmployees()
         {
@@ -457,25 +451,7 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "User")]
-        [HttpGet]
-        public IActionResult EventJoin(int eventId)
-        {
-            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
-            Event joinEvent = events[0];
-            EventJoinPageViewModel joinEventViewModel = new EventJoinPageViewModel();
-
-            joinEventViewModel.EventId = joinEvent.EventId;
-            joinEventViewModel.EventName = joinEvent.EventName;
-            joinEventViewModel.Date = joinEvent.Date;
-            joinEventViewModel.VisitorLimit = joinEvent.VisitorLimit;
-            joinEventViewModel.Description = joinEvent.Description;
-            joinEventViewModel.ImageSrc = joinEvent.ImageSrc;
-
-            return View(joinEventViewModel);
-        }
-
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Rockstar, User")]
         [HttpPost]
         public async Task<IActionResult> EventJoin(string userName, int eventId)
         {
