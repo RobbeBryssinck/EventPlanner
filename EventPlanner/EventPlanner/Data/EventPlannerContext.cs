@@ -5,11 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-<<<<<<< HEAD
 using EventPlanner.ViewModels;
-=======
 using Microsoft.AspNetCore.Identity;
->>>>>>> master
 
 namespace EventPlanner.Data
 {

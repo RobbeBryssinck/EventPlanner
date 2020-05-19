@@ -91,7 +91,6 @@ namespace EventPlanner.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-<<<<<<< HEAD
 
         public async Task<IActionResult> AccountPage ()
         {
@@ -151,12 +150,7 @@ namespace EventPlanner.Controllers
                 return View(model);
             }
         }
-
-        public IActionResult AccountDeletePage(int accountID)
-        {
-            List<Account> accounts = db.Accounts.Where(x => x.AccountId == accountID).ToList();
-            Account model = accounts[0];
-=======
+        
         public async Task<IActionResult> EventRegistered()
         {
             EventsViewModel model = new EventsViewModel();
@@ -180,12 +174,10 @@ namespace EventPlanner.Controllers
             }
 
             model.Events = events;
->>>>>>> a788722b071f62b5516744c6a9f5f91aed989c4a
 
             return View(model);
         }
 
-<<<<<<< HEAD
         public async Task<IActionResult> AccountDelete(string Id)
         {
             var user = await userManager.FindByIdAsync(Id);
@@ -217,7 +209,5 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
-=======
->>>>>>> a788722b071f62b5516744c6a9f5f91aed989c4a
     }
 }
