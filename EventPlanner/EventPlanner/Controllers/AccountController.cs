@@ -144,14 +144,14 @@ namespace EventPlanner.Controllers
                 user.UserName = model.Username;
                 var result = await userManager.UpdateAsync(user);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("AccountPage");
-                }
-
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
+                }
+
+                if (result.Succeeded && resultPassword.Succeeded)
+                {
+                    return RedirectToAction("AccountPage");
                 }
 
                 return View(model);
