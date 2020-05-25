@@ -72,6 +72,7 @@
                                    onMouseOut="this.style.color='#000'"> @User.Identity.Name </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" asp-controller="Account" asp-action="AccountPage"> Gebruikerpagina </a>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="EventRegistered"> Aangemelde evenementen </a>
                                     <form method="post" asp-controller="Account" asp-action="Logout">
                                         <button class="dropdown-item"> Uitloggen </button>
                                     </form>
