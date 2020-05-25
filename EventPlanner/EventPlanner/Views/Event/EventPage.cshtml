@@ -43,10 +43,16 @@
             </div>
             <hr />
             <br />
-            @if (!(Model.VisitorLimit == Model.Visitors) && (signInManager.IsSignedIn(User)))
+            @if (!(Model.VisitorLimit == Model.Visitors) && signInManager.IsSignedIn(User) && Model.Registered == false)
             {
                 <form method="post" asp-controller="Event" asp-action="EventJoin" asp-route-userName="@User.Identity.Name" asp-route-eventId="@Model.EventId">
                     <button class="btn btn-block btn-Create" style="width:100%">Neem deel</button>
+                </form>
+            }
+            @if (signInManager.IsSignedIn(User) && Model.Registered == true)
+            {
+                <form method="post" asp-controller="Event" asp-action="SignOutOfEvent" asp-route-eventId="@Model.EventId">
+                    <button class="btn btn-block btn-danger" style="width:100%">Afmelden</button>
                 </form>
             }
             @if (!(signInManager.IsSignedIn(User)))

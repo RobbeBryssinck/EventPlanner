@@ -36,10 +36,9 @@ namespace EventPlanner.Controllers
             _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
-        public IActionResult EventPage(int eventID)
+        public async Task<IActionResult> EventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            Account account = new Account();
             if (events.Count > 0)
             {
                 Event model = events[0];
@@ -55,6 +54,18 @@ namespace EventPlanner.Controllers
                 realmodel.CategoryId = model.CategoryId;
                 realmodel.Email = model.Email;
                 realmodel.Visitors = Participants;
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    var user = await userManager.GetUserAsync(User);
+                    List<Registration> registrations = db.Registrations.Where(x => x.AccountId == user.Id && x.EventId == eventID).ToList();
+                    if (registrations.Count == 0)
+                        realmodel.Registered = false;
+                    else
+                        realmodel.Registered = true;
+                }
+                else
+                    realmodel.Registered = false;
 
                 return View(realmodel);
             }
@@ -366,12 +377,6 @@ namespace EventPlanner.Controllers
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
             if (categories.Count > 0)
             {
-                foreach (Event e in model.Events)
-                {
-                    var Participants = db.Registrations.Where(b => b.EventId == e.EventId).Count();
-                    e.Visitors = Participants;
-                }
-
                 model.CategoryInfo = categories[0].Info;
                 model.CategoryName = categories[0].CategorieName;
                 return View(model);
@@ -398,7 +403,7 @@ namespace EventPlanner.Controllers
 
             if (events.Count == 0)
             {
-                return RedirectToAction("EventNotFound");
+                return RedirectToAction("EventsNotFound");
             }
             foreach (var models in events)
             {
@@ -533,6 +538,15 @@ namespace EventPlanner.Controllers
             {
                 return Content("Het werkt niet");
             }
+        }
+
+        public async Task<IActionResult> SignOutOfEvent(int eventId)
+        {
+            var user = await userManager.GetUserAsync(User);
+            Registration registration = db.Registrations.Where(x => x.AccountId == user.Id && x.EventId == eventId).FirstOrDefault();
+            db.Registrations.Remove(registration);
+            db.SaveChanges();
+            return RedirectToAction("EventRegistered", "Account");
         }
     }
 }
