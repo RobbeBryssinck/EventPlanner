@@ -165,7 +165,7 @@ namespace EventPlanner.Controllers
             if (events.Count == 0)
 
             {
-                return RedirectToAction("EventNotFound");
+                return View("EventsNotFound");
             }
             foreach (var models in events)
             {
