@@ -39,17 +39,12 @@ namespace EventPlanner.Controllers
         public IActionResult EventPage(int eventID)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            List<Registration> RegisteredEvents = db.Registrations.Where(x => x.EventId == eventID).ToList();
             Account account = new Account();
             if (events.Count > 0)
             {
                 Event model = events[0];
                 EventViewModel realmodel = new EventViewModel();
                 var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
-                //if (db.Registrations.Where(x => x.AccountId == account.AccountId.ToString().Count() != 0))
-                //{
-
-                //}
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
                 realmodel.Date = model.Date;
