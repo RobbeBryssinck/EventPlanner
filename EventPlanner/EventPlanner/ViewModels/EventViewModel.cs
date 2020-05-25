@@ -55,5 +55,6 @@ namespace EventPlanner.Models
         public EventGroup ForEmployees { get; set; }
 
         public List<Categorie> Categories { get; set; }
+        public bool Registered { get; set; }
     }
 }

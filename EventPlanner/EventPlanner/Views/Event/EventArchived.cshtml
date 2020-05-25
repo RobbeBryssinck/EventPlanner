@@ -54,9 +54,7 @@
                 }
                 @if (!(signInManager.IsSignedIn(User)))
                 {
-                    <a class="text-warning font-weight-bold">
-                        Log in om feedback te geven aan dit evenement
-                    </a>
+                    <a href='@string.Format("/Account/Register")' class="btn btn-Create"> Maak een account aan om deel te kunnen nemen</a>
                 }
                 <p> </p>
             </div>
