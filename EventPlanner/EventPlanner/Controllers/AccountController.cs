@@ -92,19 +92,19 @@ namespace EventPlanner.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> AccountPage ()
+        public async Task<IActionResult> AccountPage()
         {
             var user = await userManager.GetUserAsync(User);
             return View(user);
         }
-        
-        public async Task<IActionResult> AccountChangePage(string id)
+
+        public async Task<IActionResult> AccountChangePage()
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await userManager.GetUserAsync(User);
 
             if (user == null)
             {
-                ViewBag.ErrorMessage = $"User with id = {id} cannot be found";
+                ViewBag.ErrorMessage = $"User with id = {user.Id} cannot be found";
                 return View("Error");
             }
 
@@ -131,10 +131,17 @@ namespace EventPlanner.Controllers
             }
             else
             {
+                var resultPassword = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.Password);
+                if (!resultPassword.Succeeded)
+                {
+                    foreach (var error in resultPassword.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+
                 user.Email = model.Email;
                 user.UserName = model.Username;
-                user.PasswordHash = model.Password;
-
                 var result = await userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
@@ -142,7 +149,7 @@ namespace EventPlanner.Controllers
                     return RedirectToAction("AccountPage");
                 }
 
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
@@ -150,7 +157,7 @@ namespace EventPlanner.Controllers
                 return View(model);
             }
         }
-        
+
         public async Task<IActionResult> EventRegistered()
         {
             EventsViewModel model = new EventsViewModel();
@@ -196,7 +203,7 @@ namespace EventPlanner.Controllers
                     return RedirectToAction("AdminAccountPage", "Admin");
                 }
 
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
