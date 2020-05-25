@@ -366,6 +366,12 @@ namespace EventPlanner.Controllers
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
             if (categories.Count > 0)
             {
+                foreach (Event e in model.Events)
+                {
+                    var Participants = db.Registrations.Where(b => b.EventId == e.EventId).Count();
+                    e.Visitors = Participants;
+                }
+
                 model.CategoryInfo = categories[0].Info;
                 model.CategoryName = categories[0].CategorieName;
                 return View(model);
