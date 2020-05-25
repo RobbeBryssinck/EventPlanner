@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using EventPlanner.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace EventPlanner.Data
@@ -36,5 +37,7 @@ namespace EventPlanner.Data
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Rockstar", NormalizedName = "Rockstar".ToUpper() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "User".ToUpper() });
         }
+
+        public DbSet<EventPlanner.ViewModels.AccountChangeViewModel> AccountChangeViewModel { get; set; }
     }
 }

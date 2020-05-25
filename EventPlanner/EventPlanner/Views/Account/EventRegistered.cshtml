@@ -1,0 +1,12 @@
+﻿@model EventsViewModel
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h1>Alle Evenementen</h1>
+<br />
+
+@foreach (var item in Model.Events)
+{
+    <partial name="_EventTemplatePartial" model="item" />
+}

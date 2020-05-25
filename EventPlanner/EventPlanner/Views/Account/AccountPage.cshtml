@@ -1,0 +1,34 @@
+﻿@model IdentityUser
+
+@{
+    ViewData["Title"] = "AccountPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AccountPage</h1>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="User">
+        <a asp-controller="Account" asp-action="AccountChangePage"
+           asp-route-id="User" class="btn btn-primary">Wijzig</a>
+        <button type="submit" class="btn btn-danger">Verwijder</button>
+    </form>
+</div>

@@ -20,19 +20,21 @@
         </th>
     </tr>
     <tbody>
-@foreach (var item in Model.Users) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Wijzig</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Verwijder</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                @foreach (var item in Model.Users)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="@item.Id">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
