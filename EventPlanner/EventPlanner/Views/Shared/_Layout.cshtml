@@ -42,7 +42,7 @@
                             </div>
                         </li>
                     </ul>
-                    @if (User.IsInRole("Rockstar"))
+                    @if (User.IsInRole("Rockstar") || User.IsInRole("Admin"))
                     {
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
