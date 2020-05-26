@@ -461,12 +461,19 @@ namespace EventPlanner.Controllers
         public IActionResult EventsForEmployees()
         {
             List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
+            foreach (var item in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == item.EventId).Count();
+                item.Visitors = Participants;
+            }
+
             EventsForEmployeesViewModel model = new EventsForEmployeesViewModel()
             {
                 Events = events
             };
+
             return View(model);
-        }
+        }                
 
         [Authorize(Roles = "Rockstar, User")]
         [HttpPost]
