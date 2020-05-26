@@ -1,7 +1,7 @@
 ﻿@model CreateRoleViewModel
 
 @{
-    ViewData["Title"] = "Create new role";
+    ViewData["Title"] = "Maak nieuwe rol aan";
     Layout = "_LayoutAdmin";
 }
 
@@ -52,7 +52,7 @@
                     <h3 class="text-center text-info">Rol aanmaken</h3>
 
                     <div class="form-group">
-                        <label asp-for="RoleName" class="text-info">Gebruikersnaam:</label><br>
+                        <label asp-for="RoleName" class="text-info">Naam:</label><br>
                         <input asp-for="RoleName" id="Username" class="form-control input-sm">
                         <span asp-validation-for="RoleName" class="text-danger"></span>
                     </div>

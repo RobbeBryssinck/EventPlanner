@@ -1,24 +1,24 @@
 ﻿@model IdentityUser
 
 @{
-    ViewData["Title"] = "AccountPage";
+    ViewData["Title"] = "Account Pagina";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AccountPage</h1>
+<h1>Gebruikerpagina</h1>
 
 <div>
     <h4>Account</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
+            Gebruikersnaam
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)

@@ -4,9 +4,6 @@
     Layout = "_LayoutAdmin";
 }
 <h1>Accounts</h1>
-<p>
-    <a asp-area="" asp-controller="Account" asp-action="RegisterPage">Maak een nieuw account aan</a>
-</p>
 <table class="table table-striped table-bordered table-sm " style="max-width:100%">
     <tr>
         <th>
@@ -31,7 +28,7 @@
                     </td>
                     <td>
                         <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="@item.Id">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">Verwijder</button>
                         </form>
                     </td>
                 </tr>
