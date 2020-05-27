@@ -289,7 +289,7 @@ namespace EventPlanner.Data
             var events = new Event[]
             {
                 new Event{EventName="Guilds & Leisures | Hardlopen @ Vestingloop!",
-                    Date=DateTime.Parse("2020-06-07"),VisitorLimit=50,
+                    Date=DateTime.Parse("2020-07-07"),VisitorLimit=50,
                     Description="Vanuit de vliegensvlugge Hardloop Guild hebben we weer een mooie run op het program staan! " +
                     "Op 7 juni wordt in ’s Hertogenbosch de vestingloop gelopen. Bij deze run zijn de afstanden 5-10-15 km beschikbaar dus minder of meer ervaren mensen kunnen meelopen. " +
                     "Inschrijven voor de Vestingloop kan op eigen gelegenheid via http://www.vestingloop.nl. Kosten? Inschrijving periode 1: t/m zaterdag 29 februari 2020 " +
@@ -297,7 +297,7 @@ namespace EventPlanner.Data
                     "1 € 19,45 5 km inschrijving periode 2 € 17,45 10 km inschrijving periode 2 € 19,45 15 km inschrijving periode 2 € 21,45 Team Rockstars zorgt voor een – " +
                     "stevig – ontbijt en de gear! Doe je mee? Meld je dan hieronder aan zodat we samen kunnen starten!",
                     Location="Lekkerbeetjesstraat8,'s-Hertogenbosch",
-                    Email="shout@teamrockstars.nl",ImageSrc="Hardlopen.jpg", CategoryId = 1, ForEmployees=EventGroup.Public},
+                    Email="shout@teamrockstars.nl",ImageSrc="Hardlopen.jpg", CategoryId = 1, ForEmployees=EventGroup.RockstarsEmployees},
 
                 new Event{EventName="Pizzasessie IT Rockstar Kevin Hagenaars | Van Oud naar Cloud",
                     Date=DateTime.Parse("2020-10-08"),VisitorLimit=50,
@@ -330,7 +330,7 @@ namespace EventPlanner.Data
                    
 
                 new Event{EventName="Pizzasessie IT Rockstar Sven Haster | Four easy steps to migrate to JPMS",
-                    Date=DateTime.Parse("2020-04-15"),VisitorLimit=40,
+                    Date=DateTime.Parse("2020-07-15"),VisitorLimit=40,
                     Description="Vanuit Chapter East introduceren wij IT Rockstar Sven Haster!! Op 15 April aanstaande zal hij zijn sessie “Four easy steps " +
                         "to migrate to JPMS” geven in Jules Verne in Apeldoorn. Hier wil je bij zijn! Java 9 introduceerde het Java module system, ook wel project " +
                         "Jigsaw genoemd. Voor veel ontwikkelaars is dit nog een abstract en ondoorzichtig geheel en dit is dan ook dé reden dat veel projecten nog op Java 8 zitten. " +
@@ -349,7 +349,7 @@ namespace EventPlanner.Data
                     Email="shout@teamrockstars.nl",ImageSrc="ChristiaanNieuwlaat.jpg", CategoryId = 1, ForEmployees=EventGroup.Public},
 
                 new Event{EventName="Pizzasessie IT Rockstar Bart Kardol | Digitalisering verandert de wereld, ook op zee",
-                    Date=DateTime.Parse("2020-04-22"),VisitorLimit=50,
+                    Date=DateTime.Parse("2020-09-22"),VisitorLimit=50,
                     Description="n chapter Upper South hebben we IT Rockstar gepland staan op 22 April voor een supervette sessie: “Digitalisering verandert de wereld, ook op zee”. " +
                     "Catchy titel, nietwaar? Inschrijven voor zijn sessie doe je hier! Het event vindt plaats op Team Rockstars IT HQ in ‘s-Hertogenbosch!",
                     Location="DenBosch,Lekkerbeetjesstraat5",
