@@ -58,7 +58,223 @@ namespace EventPlanner.Data
                 {
                     userManager.AddToRoleAsync(user, "User").Wait();
                 }
+
             }
+            if (userManager.FindByEmailAsync("robbe2000@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "robbe",
+                    Email = "robbe2000@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "robbe11").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("dennydevito@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "denny",
+                    Email = "dennydevito@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "denny12").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("finn568@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "finn",
+                    Email = "finn5680@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "finn2020").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("lars2000@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "lars",
+                    Email = "lars2000@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "lars156").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+
+            }
+            if (userManager.FindByEmailAsync("dennis808@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "dennis",
+                    Email = "dennis808@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "dennis808").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+
+            }
+            if (userManager.FindByEmailAsync("dylan53@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "dylan",
+                    Email = "dylan53@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "dylan556").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+
+            }
+            if (userManager.FindByEmailAsync("bob85@gmail.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "bob",
+                    Email = "bob85@gmail.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "bob5623").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "User").Wait();
+                }
+
+            }
+            if (userManager.FindByEmailAsync("david@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "david",
+                    Email = "david@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "david1").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("luca@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "luca",
+                    Email = "luca@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "luca090").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("tijmen@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "tijmen",
+                    Email = "tijmen@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "tijmen569").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("peter@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "peter",
+                    Email = "peter@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "peter785").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("john@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "john",
+                    Email = "john@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "john567").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("gerard@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "gerard",
+                    Email = "gerard@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "gerard572").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+            if (userManager.FindByEmailAsync("petra@rockstarsit.nl").Result == null)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "petra",
+                    Email = "petra@rockstarsit.nl",
+                };
+
+                IdentityResult result = userManager.CreateAsync(user, "petra56").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, "Rockstar").Wait();
+                }
+            }
+
         }
 
         public static void Initialize(EventPlannerContext context)
