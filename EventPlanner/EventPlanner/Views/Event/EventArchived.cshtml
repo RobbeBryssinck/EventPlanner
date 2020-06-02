@@ -72,9 +72,14 @@
             <h1>Feedback</h1>
             @foreach (var item in Model.Ratings)
             {
+                @if (signInManager.UserManager.GetUserId() == "@item.UserId")
+                {
+
+                }
                 int caseswitch = item.StarRating;
                 switch (caseswitch)
                 {
+           
                     case 1:
                         <p style="font-weight:bold;">
                             <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
