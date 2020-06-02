@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200512150337_Extend_IdentityUser.cs" />
-    <Compile Remove="Migrations\20200512150337_Extend_IdentityUser.Designer.cs" />
+    <Compile Remove="Migrations\20200512150337_Extend_ApplicationUser.cs" />
+    <Compile Remove="Migrations\20200512150337_Extend_ApplicationUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

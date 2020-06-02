@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EventPlanner.Data
 {
-    public class EventPlannerContext : IdentityDbContext
+    public class EventPlannerContext : IdentityDbContext<ApplicationUser>
     {
         public EventPlannerContext(DbContextOptions<EventPlannerContext> options)
             : base(options)
@@ -18,7 +18,6 @@ namespace EventPlanner.Data
         }
 
         public DbSet<Event> Events { get; set; }
-        public DbSet<Account> Accounts { get; set; }
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Registration> Registrations { get; set; }
@@ -28,7 +27,6 @@ namespace EventPlanner.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Event>().ToTable("Event");
-            modelBuilder.Entity<Account>().ToTable("Account");
             modelBuilder.Entity<Coach>().ToTable("Coach");
             modelBuilder.Entity<Rating>().ToTable("Rating");
             modelBuilder.Entity<Registration>().ToTable("Registration");
@@ -37,7 +35,5 @@ namespace EventPlanner.Data
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Rockstar", NormalizedName = "Rockstar".ToUpper() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "User".ToUpper() });
         }
-
-        public DbSet<EventPlanner.ViewModels.AccountChangeViewModel> AccountChangeViewModel { get; set; }
     }
 }

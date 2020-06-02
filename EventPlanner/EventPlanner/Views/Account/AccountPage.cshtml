@@ -1,4 +1,4 @@
-﻿@model IdentityUser
+﻿@model ApplicationUser
 
 @{
     ViewData["Title"] = "Account Pagina";
@@ -11,17 +11,35 @@
     <h4>Account</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Gebruikersnaam
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UserName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Email
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Voornaam
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            Achternaam
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            Geboortedatum
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
         </dd>
     </dl>
 </div>

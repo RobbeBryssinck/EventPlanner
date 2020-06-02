@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Data;
 using Microsoft.AspNetCore.Identity;
+using EventPlanner.Models;
 
 namespace EventPlanner
 {
@@ -30,7 +31,7 @@ namespace EventPlanner
 
             services.AddDbContext<EventPlannerContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -42,7 +43,7 @@ namespace EventPlanner
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<ApplicationUser> userManager)
         {
             if (env.IsDevelopment())
             {

@@ -23,11 +23,11 @@ namespace EventPlanner.Controllers
         private EventPlannerContext db;
         private IWebHostEnvironment _environment;
         private RoleManager<IdentityRole> roleManager;
-        private UserManager<IdentityUser> userManager;
+        private UserManager<ApplicationUser> userManager;
         private readonly long _fileSizeLimit;
         private string[] permittedExtensions = { ".png", ".jpg", ".jpeg" };
 
-        public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public EventController(EventPlannerContext db, IWebHostEnvironment environment, IConfiguration config, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             this.db = db;
             this._environment = environment;
@@ -480,7 +480,7 @@ namespace EventPlanner.Controllers
         public async Task<IActionResult> EventJoin(string userName, int eventId)
         {
             Registration registration = new Registration();
-            IdentityUser user = await userManager.FindByNameAsync(userName);
+            ApplicationUser user = await userManager.FindByNameAsync(userName);
 
             registration.AccountId = user.Id;
             registration.EventId = eventId;

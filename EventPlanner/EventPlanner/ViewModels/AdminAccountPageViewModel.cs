@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventPlanner.Models;
 
 namespace EventPlanner.ViewModels
 {
     public class AdminAccountPageViewModel
     {
-        public List<IdentityUser> Users { get; set; }
+        public List<ApplicationUser> Users { get; set; }
     }
 }

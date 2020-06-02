@@ -22,9 +22,9 @@ namespace EventPlanner.Controllers
     {
         private EventPlannerContext db;
         private readonly RoleManager<IdentityRole> roleManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public AdminController(EventPlannerContext db, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public AdminController(EventPlannerContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             this.db = db;
             this.roleManager = roleManager;

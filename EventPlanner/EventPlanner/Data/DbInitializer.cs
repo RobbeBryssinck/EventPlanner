@@ -10,14 +10,17 @@ namespace EventPlanner.Data
 {
     public static class DbInitializer
     {
-        public static void SeedUsers(UserManager<IdentityUser> userManager)
+        public static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
             if (userManager.FindByEmailAsync("admin@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "admin",
                     Email = "admin@rockstarsit.nl",
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "rockstarsitadmin").Result;
@@ -30,10 +33,13 @@ namespace EventPlanner.Data
 
             if (userManager.FindByEmailAsync("jeroen@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "jeroen",
                     Email = "jeroen@rockstarsit.nl",
+                    FirstName = "Jeroen",
+                    LastName = "de Deken",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "jeroen1").Result;
@@ -46,10 +52,13 @@ namespace EventPlanner.Data
 
             if (userManager.FindByEmailAsync("henk3345@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "henk",
                     Email = "henk3345@gmail.nl",
+                    FirstName = "Henk",
+                    LastName = "de Vries",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "henk11").Result;
@@ -62,10 +71,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("robbe2000@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "robbe",
                     Email = "robbe2000@gmail.nl",
+                    FirstName = "Robbe",
+                    LastName = "Bryssinck",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "robbe11").Result;
@@ -77,10 +89,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("dennydevito@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "denny",
                     Email = "dennydevito@gmail.nl",
+                    FirstName = "Denny",
+                    LastName = "Cox",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "denny12").Result;
@@ -92,10 +107,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("finn568@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "finn",
                     Email = "finn5680@gmail.nl",
+                    FirstName = "Finn",
+                    LastName = "van den Broek",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "finn2020").Result;
@@ -107,10 +125,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("lars2000@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "lars",
                     Email = "lars2000@gmail.nl",
+                    FirstName = "Lars",
+                    LastName = "van den Brandt",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "lars156").Result;
@@ -123,10 +144,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("dennis808@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "dennis",
                     Email = "dennis808@gmail.nl",
+                    FirstName = "Dennis",
+                    LastName = "Cools",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "dennis808").Result;
@@ -139,10 +163,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("dylan53@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "dylan",
                     Email = "dylan53@gmail.nl",
+                    FirstName = "Dylan",
+                    LastName = "Aarts",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "dylan556").Result;
@@ -155,10 +182,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("bob85@gmail.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "bob",
                     Email = "bob85@gmail.nl",
+                    FirstName = "Bob",
+                    LastName = "van de Ven",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "bob5623").Result;
@@ -171,10 +201,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("david@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "david",
                     Email = "david@rockstarsit.nl",
+                    FirstName = "David",
+                    LastName = "Chang",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "david1").Result;
@@ -186,10 +219,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("luca@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "luca",
                     Email = "luca@rockstarsit.nl",
+                    FirstName = "Luca",
+                    LastName = "Bullens",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "luca090").Result;
@@ -201,10 +237,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("tijmen@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "tijmen",
                     Email = "tijmen@rockstarsit.nl",
+                    FirstName = "Tijmen",
+                    LastName = "Coenders",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "tijmen569").Result;
@@ -216,10 +255,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("peter@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "peter",
                     Email = "peter@rockstarsit.nl",
+                    FirstName = "Peter",
+                    LastName = "Pannenkoek",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "peter785").Result;
@@ -231,10 +273,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("john@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "john",
                     Email = "john@rockstarsit.nl",
+                    FirstName = "John",
+                    LastName = "Johnson",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "john567").Result;
@@ -246,10 +291,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("gerard@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "gerard",
                     Email = "gerard@rockstarsit.nl",
+                    FirstName = "Gerard",
+                    LastName = "de Vries",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "gerard572").Result;
@@ -261,10 +309,13 @@ namespace EventPlanner.Data
             }
             if (userManager.FindByEmailAsync("petra@rockstarsit.nl").Result == null)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = "petra",
                     Email = "petra@rockstarsit.nl",
+                    FirstName = "Petra",
+                    LastName = "de Vries",
+                    DateOfBirth = DateTime.Parse("1970-01-01"),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "petra56").Result;
@@ -365,25 +416,6 @@ namespace EventPlanner.Data
             foreach (Event e in events)
             {
                 context.Events.Add(e);
-            }
-            context.SaveChanges();
-
-            var accounts = new Account[]
-            {
-                new Account{UserName="admin", Role="Administrator",
-                    Password="admin", FirstName="John", LastName="Doe", ZipCode="1234AB", HouseNumber=12, Email="john.doe@gmail.com", DateOfBirth=DateTime.Parse("1990-01-01")},
-                new Account{UserName="Henk123", Role="User",
-                    Password="123Henk", FirstName="Henk", LastName="de Blok", ZipCode="4326KJ", HouseNumber=33, Email="henkdeblok@gmail.com", DateOfBirth=DateTime.Parse("1994-11-15")},
-                new Account{UserName="Nancy", Role="User",
-                    Password="Blokkenbouwer5", FirstName="Nancy", LastName="de Wit", ZipCode="6897LM", HouseNumber=5, Email="nancywit@hotmail.com", DateOfBirth=DateTime.Parse("2000-09-02")},
-                new Account{UserName="RoyMoerbeek", Role="User",
-                    Password="StrandGanger", FirstName="Roy", LastName="Moerbeek", ZipCode="7892AF", HouseNumber=89, Email="RoyMoerbeek@gmail.com", DateOfBirth=DateTime.Parse("2001-08-29")},
-                new Account{UserName="Lieke", Role="User",
-                    Password="Wachtwoord", FirstName="Lieke", LastName="Buurman", ZipCode="6845KL", HouseNumber=4, Email="liekebuurman@gmail.com", DateOfBirth=DateTime.Parse("1980-02-15")},
-            };
-            foreach (Account account in accounts)
-            {
-                context.Accounts.Add(account);
             }
             context.SaveChanges();
 

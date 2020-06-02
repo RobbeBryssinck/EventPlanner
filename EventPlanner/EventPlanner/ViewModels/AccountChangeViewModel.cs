@@ -20,6 +20,18 @@ namespace EventPlanner.ViewModels
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Voornaam")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Achternaam")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Geboortedatum")]
+        public DateTime DateOfBirth { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Huidig wachtwoord")]
         public string CurrentPassword { get; set; }

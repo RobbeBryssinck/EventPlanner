@@ -15,10 +15,10 @@ namespace EventPlanner.Controllers
     public class AccountController : Controller
     {
         private EventPlannerContext db;
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, EventPlannerContext db)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, EventPlannerContext db)
         {
             this.db = db;
             this.userManager = userManager;
@@ -36,7 +36,7 @@ namespace EventPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Username, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth};
                 var result = await userManager.CreateAsync(user, model.Password);
                 userManager.AddToRoleAsync(user, "User").Wait();
 
