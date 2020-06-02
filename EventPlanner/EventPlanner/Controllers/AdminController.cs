@@ -253,7 +253,6 @@ namespace EventPlanner.Controllers
             {
                 Coaches = Coaches
             };
-
             return View(model);
         }
 
