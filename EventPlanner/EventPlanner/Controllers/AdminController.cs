@@ -214,7 +214,9 @@ namespace EventPlanner.Controllers
 
         public IActionResult AdminCoachPage()
         {
-            return View(db.Coaches.ToList());
+            AdminCoachPageViewModel model = new AdminCoachPageViewModel();
+            model.Coaches = db.Coaches.ToList();
+            return View(model);
         }
 
         public IActionResult AdminEventPage()
@@ -227,7 +229,10 @@ namespace EventPlanner.Controllers
 
         public IActionResult AdminCategoryPage()
         {
-            return View(db.Categories.ToList());
+            AdminCategoryPageViewModel model = new AdminCategoryPageViewModel();
+            model.Categories = db.Categories.ToList();
+            model.Categories = db.Categories.ToList();
+            return View(model);
         }
     }
 }
