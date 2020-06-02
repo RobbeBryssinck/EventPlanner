@@ -11,16 +11,16 @@
     <h4>Account</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Gebruikersnaam
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UserName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Email
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
     </dl>
@@ -31,4 +31,8 @@
            asp-route-id="User" class="btn btn-primary">Wijzig</a>
         <button type="submit" class="btn btn-danger">Verwijder</button>
     </form>
+</div>
+<br />
+<div>
+    <a asp-action="index" asp-controller="Home">Terug</a>
 </div>
