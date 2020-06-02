@@ -5,20 +5,21 @@
     Layout = "_LayoutAdmin";
 }
 
+
 <form method="post">
     <div class="card">
         <div class="card-header">
             <h2>Voeg gebruikers toe of verwijder ze van deze rol</h2>
         </div>
         <div class="card-body">
-            @for (int i = 0; i < Model.Count; i++)
+            @foreach (var item in Model)
             {
                 <div class="form-check m-1">
-                    <input type="hidden" asp-for="@Model[i].UserId" />
-                    <input type="hidden" asp-for="@Model[i].UserName" />
-                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
-                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
-                        @Model[i].UserName
+                    <input type="hidden" asp-for="@item.UserId" />
+                    <input type="hidden" asp-for="@item.UserName" />
+                    <input asp-for="@item.IsSelected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@item.IsSelected">
+                        @item.UserName
                     </label>
                 </div>
             }

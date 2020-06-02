@@ -205,29 +205,117 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        public IActionResult AdminAccountPage()
+        public IActionResult AdminAccountPage(string id)
         {
-            AdminAccountPageViewModel model = new AdminAccountPageViewModel();
-            model.Users = db.Users.ToList();
+            List<IdentityUser> Users = new List<IdentityUser>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Users = db.Users.Where(s => s.UserName.Contains(id)).ToList();
+            }
+            else
+            {
+                Users = db.Users.ToList();
+            }
+
+            if (Users.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminAccountPageViewModel model = new AdminAccountPageViewModel()
+            {
+                Users = Users
+            };
+
             return View(model);
         }
 
-        public IActionResult AdminCoachPage()
+        public IActionResult AdminCoachPage(string id)
         {
-            return View(db.Coaches.ToList());
+            List<Coach> Coaches = new List<Coach>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Coaches = db.Coaches.Where(s => s.Name.Contains(id)).ToList();
+            }
+            else
+            {
+                Coaches = db.Coaches.ToList();
+            }
+
+            if (Coaches.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminCoachPageViewModel model = new AdminCoachPageViewModel()
+            {
+                Coaches = Coaches
+            };
+
+            return View(model);
         }
 
-        public IActionResult AdminEventPage()
+        public IActionResult AdminEventPage(string id)
         {
-            AdminEventPageViewModel model = new AdminEventPageViewModel();
-            model.Events = db.Events.ToList();
+            List<Event> Events = new List<Event>();
+            List<Categorie> Categories = new List<Categorie>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id)).ToList();
+            }
+            else
+            {
+                Events = db.Events.ToList();
+                Categories = db.Categories.ToList();
+            }
+
+            if (Events.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminEventPageViewModel model = new AdminEventPageViewModel()
+            {
+                Events = Events
+            };
             model.Categories = db.Categories.ToList();
+
             return View(model);
         }
 
-        public IActionResult AdminCategoryPage()
+        public IActionResult AdminCategoryPage(string id)
         {
-            return View(db.Categories.ToList());
+            List<Categorie> Categories = new List<Categorie>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id)).ToList();
+            }
+            else
+            {
+                Categories = db.Categories.ToList();
+            }
+
+            if (Categories.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminCategoryPageViewModel model = new AdminCategoryPageViewModel()
+            {
+                Categories = Categories
+            };
+
+            return View(model);
+        } 
+        public IActionResult EventsNotFound()
+        {
+            return View();
         }
+
     }
 }

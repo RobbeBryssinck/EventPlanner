@@ -7,7 +7,12 @@
 <p>
     <a asp-area="" asp-controller="Event" asp-action="EventCreate">Maak een nieuw evenement aan</a>
 </p>
-<table class="table table-striped table-bordered table-sm ">
+
+<form class="form-inline" asp-action="AdminEventPage" asp-controller="Admin">
+    <input class="form-control mr-sm-" type="text" placeholder="Zoek een evenement" name="id" style="width:350px;">
+</form>
+
+<table class="table table-striped table-bordered table-sm " style="max-width:100%" id="myTable">
     <tr>
         <th>
             Evenement naam
@@ -51,3 +56,4 @@
         }
     </tbody>
 </table>
+

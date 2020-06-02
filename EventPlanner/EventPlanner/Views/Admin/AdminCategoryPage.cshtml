@@ -4,10 +4,9 @@
     Layout = "_LayoutAdmin";
 }
 <h1>Categorieën</h1>
-<p>
-    <a asp-area="" asp-controller="Event" asp-action="EventCategories">Maak een nieuwe categorie aan</a>
-</p>
-<table class="table table-striped table-bordered table-sm ">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Zoek een categorie.." title="Type a category">
+
+<table class="table table-striped table-bordered table-sm " style="max-width:100%" id="myTable">
     <thead>
         <tr>
             <th>
@@ -22,20 +21,42 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategorieName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Info)
-            </td>
-            <td>
-                <a href='@string.Format("/Event/CategoryChangePage?CategoryID={0}", item.CategorieId)'>Wijzig</a>  |
-                <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>Details</a>  |
-                <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategorieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Info)
+                </td>
+                <td>
+                    <a href='@string.Format("/Event/CategoryChangePage?CategoryID={0}", item.CategorieId)'>Wijzig</a>  |
+                    <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>Details</a>  |
+                    <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
