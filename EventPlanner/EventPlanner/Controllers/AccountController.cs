@@ -88,7 +88,7 @@ namespace EventPlanner.Controllers
                     }
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt");
+                ModelState.AddModelError(string.Empty, "Ongeldige inlogpoging");
             }
 
             return View(model);
@@ -220,6 +220,7 @@ namespace EventPlanner.Controllers
 
                 if (result.Succeeded)
                 {
+                    signInManager.SignOutAsync();
                     return RedirectToAction("AccountDeleteComplete", "Account");
                 }
 
