@@ -234,5 +234,9 @@ namespace EventPlanner.Controllers
             model.Categories = db.Categories.ToList();
             return View(model);
         }
+        public IActionResult AccessDenied()
+        {
+            return View("AccessDenied");
+        }
     }
 }

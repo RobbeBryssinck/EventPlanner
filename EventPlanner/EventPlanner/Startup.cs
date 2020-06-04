@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace EventPlanner
 {
@@ -39,6 +40,11 @@ namespace EventPlanner
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 0;
             }).AddEntityFrameworkStores<EventPlannerContext>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
