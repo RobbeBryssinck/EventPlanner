@@ -13,6 +13,8 @@ namespace EventPlanner.Models
         public int RatingId { get; set; }
         [Required]
         public int EventId { get; set; }
+        [Required]
+        public string UserId { get; set; }
         [Display(Name = "Aantal sterren")]
         [Required]
         public int StarRating { get; set; }
