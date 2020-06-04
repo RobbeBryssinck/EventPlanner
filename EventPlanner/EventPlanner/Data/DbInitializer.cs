@@ -12,6 +12,9 @@ namespace EventPlanner.Data
     {
         public static void SeedUsers(UserManager<IdentityUser> userManager)
         {
+            if (userManager.Users.Any())
+                return;
+
             if (userManager.FindByEmailAsync("admin@rockstarsit.nl").Result == null)
             {
                 IdentityUser user = new IdentityUser

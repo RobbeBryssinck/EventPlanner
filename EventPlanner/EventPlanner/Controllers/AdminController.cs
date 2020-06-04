@@ -257,7 +257,7 @@ namespace EventPlanner.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("AccountDeleteComplete", "Admin");
+                    return RedirectToAction("AdminAccountDeleteComplete", "Admin");
                 }
 
                 foreach (var error in result.Errors)
