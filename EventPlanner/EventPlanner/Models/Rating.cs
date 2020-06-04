@@ -14,7 +14,7 @@ namespace EventPlanner.Models
         [Required]
         public int EventId { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [Display(Name = "Aantal sterren")]
         [Required]
         public int StarRating { get; set; }

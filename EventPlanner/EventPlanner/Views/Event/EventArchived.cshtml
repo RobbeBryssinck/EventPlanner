@@ -1,5 +1,6 @@
 ﻿@model EventRatingViewModel
 @inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
 @{
     ViewData["Title"] = "EventPage";
     <style>
@@ -72,56 +73,102 @@
             <h1>Feedback</h1>
             @foreach (var item in Model.Ratings)
             {
-                @if (signInManager.UserManager.GetUserId() == "@item.UserId")
-                {
 
-                }
                 int caseswitch = item.StarRating;
                 switch (caseswitch)
                 {
-           
+
                     case 1:
-                        <p style="font-weight:bold;">
-                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
-                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
-                            </a> <img src="~/Images/Stars/1-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
-                        </p>
+                        @if (@userManager.GetUserId(User) == item.UserId)
+                        {
+
+                            <p style="font-weight:bold;">
+                                <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                    <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                                </a> <img src="~/Images/Stars/1-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
+                        else
+                        {
+                            <p style="font-weight:bold;">
+                                <img src="~/Images/Stars/1-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
                         break;
+
                     case 2:
 
-                        <p style="font-weight:bold;">
-                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
-                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
-                            </a><img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
-                        </p>
+                        @if (@userManager.GetUserId(User) == item.UserId)
+                        {
+
+                            <p style="font-weight:bold;">
+                                <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                    <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                                </a> <img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
+                        else
+                        {
+                            <p style="font-weight:bold;">
+                                <img src="~/Images/Stars/2-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
                         break;
                     case 3:
+                        @if (@userManager.GetUserId(User) == item.UserId)
+                        {
 
-                        <p style="font-weight:bold;">
-                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
-                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
-                            </a> <img src="~/Images/Stars/3-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
-                        </p>
+                            <p style="font-weight:bold;">
+                                <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                    <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                                </a> <img src="~/Images/Stars/3-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
+                        else
+                        {
+                            <p style="font-weight:bold;">
+                                <img src="~/Images/Stars/3-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
                         break;
                     case 4:
+                        @if (@userManager.GetUserId(User) == item.UserId)
+                        {
 
-                        <p style="font-weight:bold;">
-                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
-                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
-                            </a> <img src="~/Images/Stars/4-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
-                        </p>
+                            <p style="font-weight:bold;">
+                                <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                    <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                                </a> <img src="~/Images/Stars/4-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
+                        else
+                        {
+                            <p style="font-weight:bold;">
+                                <img src="~/Images/Stars/4-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
                         break;
                     case 5:
+                        @if (@userManager.GetUserId(User) == item.UserId)
+                        {
 
-                        <p style="font-weight:bold;">
-                            <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
-                                <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
-                            </a> <img src="~/Images/Stars/5-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
-                        </p>
+                            <p style="font-weight:bold;">
+                                <a href='@string.Format("/Event/EventDeleteFeedbackPage?ratingID={0}", item.RatingId)'>
+                                    <img class="rounded img-fluid" style="max-width: 2%" src=~/Images/RedDelButton.jpg alt="Verwijder">
+                                </a> <img src="~/Images/Stars/5-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
+                        else
+                        {
+                            <p style="font-weight:bold;">
+                                <img src="~/Images/Stars/5-star.jpg" alt="Logo" style="width:90px;"> @item.RatingTitle
+                            </p>
+                        }
                         break;
                 }
                 <p>Commentaar: @item.Comment</p>
                 <hr />
+
             }
         </div>
     </div>
