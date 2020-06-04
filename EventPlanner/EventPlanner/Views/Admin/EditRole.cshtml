@@ -5,19 +5,12 @@
     Layout = "_LayoutAdmin";
 }
 
-<h1>Rol aanpassen</h1>
+<h1>Rol</h1>
 
 <form method="post" class="mt-3">
     <div class="form-group row">
-        <label asp-for="Id" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input asp-for="Id" disabled class="form-control">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label asp-for="RoleName" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="RoleName" disabled class="form-control">
+            <h5 class="card-title">@Model.RoleName</h5>
         </div>
     </div>
 

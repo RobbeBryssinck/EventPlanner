@@ -9,20 +9,14 @@
 
 @if (Model.Any())
 {
-    <a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole"
-       asp-controller="Admin">Voeg nieuwe rol toe</a>
-
     foreach (var role in Model)
     {
         <div class="card mb-3">
-            <div class="card-header">
-                Rol Id : @role.Id
-            </div>
             <div class="card-body">
                 <h5 class="card-title">@role.Name</h5>
             </div>
             <div class="card-footer">
-                <a class="btn btn-primary" asp-controller="Admin" asp-action="EditRole" asp-route-id="@role.Id">Aanpassen</a>
+                <a class="btn btn-primary" asp-controller="Admin" asp-action="EditRole" asp-route-id="@role.Id">Toon gebruikers</a>
             </div>
         </div>
     }
@@ -32,15 +26,6 @@ else
     <div class="card">
         <div class="card-header">
             Er zijn nog geen rollen aangemaakt
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">
-                Klik op de onderstaande knop om een rol te maken
-            </h5>
-            <a class="btn btn-primary" style="width:auto"
-               asp-controller="Admin" asp-action="CreateRole">
-                Rol maken
-            </a>
         </div>
     </div>
 }
