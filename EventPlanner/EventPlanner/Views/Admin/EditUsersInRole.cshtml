@@ -5,16 +5,15 @@
     Layout = "_LayoutAdmin";
 }
 
-
+<form class="form-inline" asp-action="EditUsersInRole" asp-controller="Admin" asp-route-roleId="@roleId">
+    <input class="form-control mr-sm-" type="text" placeholder="Zoek een persoon" name="id" style="width:100%;">
+</form>
+<a asp-controller="Admin" asp-action="EditUsersInRole" asp-route-roleId="@roleId">hallo</a>
 <form method="post">
     <div class="card">
         <div class="card-header">
             <h2>Voeg gebruikers toe of verwijder ze van deze rol</h2>
         </div>
-
-        <form class="form-inline" asp-action="EditUserInRole" asp-controller="Admin">
-            <input class="form-control mr-sm-" type="text" placeholder="Zoek een categorie" name="id" style="width:100%;">
-        </form>
 
         <div class="card-body">
             @foreach (var item in Model)
