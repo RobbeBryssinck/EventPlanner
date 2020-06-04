@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EventPlanner.Models.Categorie>
+﻿@model AdminCategoryPageViewModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -11,10 +11,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategorieName)
+                Naam
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Info)
+                Informatie
             </th>
             <th>
                 Opties
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Categories) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CategorieName)

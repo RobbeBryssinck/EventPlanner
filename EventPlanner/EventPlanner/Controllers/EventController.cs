@@ -400,7 +400,7 @@ namespace EventPlanner.Controllers
 
             if (!String.IsNullOrEmpty(id))
             {
-                events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
+                events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
             }
             else
             {
@@ -409,7 +409,7 @@ namespace EventPlanner.Controllers
 
             if (events.Count == 0)
             {
-                return RedirectToAction("EventsNotFound");
+                return RedirectToAction("EventNotFound");
             }
             foreach (var models in events)
             {
