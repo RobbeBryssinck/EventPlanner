@@ -30,7 +30,9 @@
         {
             <tr>
                 <td>
-                    <div style="height:100px;overflow:auto;">@Html.DisplayFor(modelItem => item.EventName)</div>
+                    <a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)'>
+                        <div style="height:100px;overflow:auto;">@Html.DisplayFor(modelItem => item.EventName)</div>
+                    </a>
                 </td>
                 <td>
                     @Model.Categories.Where(x => x.CategorieId == item.CategoryId).FirstOrDefault().CategorieName
@@ -44,7 +46,6 @@
                 <td>
 
                     <a href='@string.Format("/Event/EventDeletePage?eventID={0}", item.EventId)'>Verwijder</a> |
-                    <a href='@string.Format("/Event/EventPage?eventID={0}", item.EventId)'>Details</a> |
                     <a href='@string.Format("/Event/EventChangePage?eventID={0}", item.EventId)'>Wijzig</a>
                 </td>
             </tr>
