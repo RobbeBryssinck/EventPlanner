@@ -11,6 +11,11 @@
         <div class="card-header">
             <h2>Voeg gebruikers toe of verwijder ze van deze rol</h2>
         </div>
+
+        <form class="form-inline" asp-action="EditUserInRole" asp-controller="Admin">
+            <input class="form-control mr-sm-" type="text" placeholder="Zoek een categorie" name="id" style="width:100%;">
+        </form>
+
         <div class="card-body">
             @foreach (var item in Model)
             {

@@ -127,44 +127,6 @@ namespace EventPlanner.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> EditUsersInRole(string roleId)
-        {
-            ViewBag.roleId = roleId;
-
-            var role = await roleManager.FindByIdAsync(roleId);
-
-            if (role == null)
-            {
-                // TODO: implement 404
-                return RedirectToAction("Index", "Home");
-            }
-
-            var model = new List<UserRoleViewModel>();
-
-            foreach (var user in userManager.Users)
-            {
-                var userRoleViewModel = new UserRoleViewModel
-                {
-                    UserId = user.Id,
-                    UserName = user.UserName
-                };
-
-                if (await userManager.IsInRoleAsync(user, role.Name))
-                {
-                    userRoleViewModel.IsSelected = true;
-                }
-                else
-                {
-                    userRoleViewModel.IsSelected = false;
-                }
-
-                model.Add(userRoleViewModel);
-            }
-
-            return View(model);
-        }
-
         [HttpPost]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
@@ -203,6 +165,60 @@ namespace EventPlanner.Controllers
                 }
             }
             return RedirectToAction("EditRole", new { Id = roleId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUsersInRole(string roleId, string id)
+        {
+            ViewBag.roleId = roleId;
+
+            var role = await roleManager.FindByIdAsync(roleId);
+
+            if (role == null)
+            {
+                // TODO: implement 404
+                return RedirectToAction("Index", "Home");
+            }
+
+            List<UserRoleViewModel> model = new List<UserRoleViewModel>();
+
+            IQueryable<IdentityUser> userList = userManager.Users;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                userList = userManager.Users.Where(s => s.UserName.Contains(id));
+            }
+            else
+            {
+                userList = userManager.Users;
+            }
+
+            if(userList.Count() == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            foreach (var user in userList)
+            {
+                UserRoleViewModel userRoleViewModel = new UserRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName
+                };
+
+                if (await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    userRoleViewModel.IsSelected = true;
+                }
+                else
+                {
+                    userRoleViewModel.IsSelected = false;
+                }
+
+                model.Add(userRoleViewModel);
+            }
+
+            return View(model);
         }
 
         public IActionResult AdminAccountPage(string id)
