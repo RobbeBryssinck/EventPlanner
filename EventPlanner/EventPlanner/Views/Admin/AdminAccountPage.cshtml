@@ -17,21 +17,21 @@
         </th>
     </tr>
     <tbody>
-                @foreach (var item in Model.Users)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="@item.Id">
-                            <button type="submit" class="btn btn-danger">Verwijder</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-            </tbody>
-        </table>
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="@item.Id">
+                        <button type="submit" class="btn btn-danger">Verwijder</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
