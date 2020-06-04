@@ -8,30 +8,31 @@ namespace EventPlanner.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Gebruikersnaam is vereist")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Voornaam is vereist")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Achternaam is vereist")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email is vereist")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Geboortedatum is vereist")]
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Wachtwoord is vereist")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password",
-            ErrorMessage = "Password and confirmation password do not match.")]
+            ErrorMessage = "Wachtwoord en bevestiging wachtwoord komen niet overeen!")]
         public string ConfirmPassword { get; set; }
     }
 }

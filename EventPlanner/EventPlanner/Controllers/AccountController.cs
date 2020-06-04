@@ -36,7 +36,15 @@ namespace EventPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth};
+                var user = new ApplicationUser 
+                {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    DateOfBirth = model.DateOfBirth
+                };
+                
                 var result = await userManager.CreateAsync(user, model.Password);
                 userManager.AddToRoleAsync(user, "User").Wait();
 
@@ -113,6 +121,9 @@ namespace EventPlanner.Controllers
                 id = user.Id,
                 Username = user.UserName,
                 Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
                 Password = user.PasswordHash
             };
 
@@ -142,6 +153,9 @@ namespace EventPlanner.Controllers
 
                 user.Email = model.Email;
                 user.UserName = model.Username;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.DateOfBirth = model.DateOfBirth;
                 var result = await userManager.UpdateAsync(user);
 
                 foreach (var error in result.Errors)

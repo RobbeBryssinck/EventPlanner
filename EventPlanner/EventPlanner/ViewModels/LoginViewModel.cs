@@ -8,10 +8,10 @@ namespace EventPlanner.Models
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Gebruikersnaam is vereist")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Wachtwoord is vereist")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

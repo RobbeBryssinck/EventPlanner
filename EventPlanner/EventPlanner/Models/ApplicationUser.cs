@@ -19,6 +19,7 @@ namespace EventPlanner.Models
 
         [Required]
         [Display(Name = "Geboortedatum")]
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
     }
 }
