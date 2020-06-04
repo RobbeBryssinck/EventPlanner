@@ -107,8 +107,8 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteCategory(int CategoryID)
         {
             List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
-            db.Categories.Remove(categories[0]);
-            db.SaveChanges();
+         //   db.Categories.Remove(categories[0]);
+         //   db.SaveChanges();
             return View("CategoryDeleted");
         }
 
@@ -561,5 +561,10 @@ namespace EventPlanner.Controllers
             db.SaveChanges();
             return RedirectToAction("EventRegistered", "Account");
         }
+        public IActionResult EventDeleted()
+        {
+            return View();
+        }
+
     }
 }
