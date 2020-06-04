@@ -438,6 +438,23 @@ namespace EventPlanner.Data
                 context.Coaches.Add(coach);
             }
             context.SaveChanges();
+            var categories = new Categorie[]
+         {
+                new Categorie
+                {
+                    CategorieName="Educatief", Info="Bij deze evenementen kan je wat meer leren over technische dingen."
+                },
+
+                new Categorie
+                {
+                    CategorieName="Recreatief", Info="Bij deze evenementen hebben we plezier."
+                }
+         };
+            foreach (Categorie categorie in categories)
+            {
+                context.Categories.Add(categorie);
+            }
+            context.SaveChanges();
 
             var ratings = new Rating[]
             {
@@ -477,23 +494,7 @@ namespace EventPlanner.Data
             }
             context.SaveChanges();
 
-            var categories = new Categorie[]
-           {
-                new Categorie
-                {
-                    CategorieName="Educatief", Info="Bij deze evenementen kan je wat meer leren over technische dingen."
-                },
-
-                new Categorie
-                {
-                    CategorieName="Recreatief", Info="Bij deze evenementen hebben we plezier."
-                }
-           };
-            foreach (Categorie categorie in categories)
-            {
-                context.Categories.Add(categorie);
-            }
-            context.SaveChanges();
+        
         }
     }
 }
