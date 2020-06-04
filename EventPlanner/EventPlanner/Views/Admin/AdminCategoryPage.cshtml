@@ -22,20 +22,22 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Categories) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategorieName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Info)
-            </td>
-            <td>
-                <a href='@string.Format("/Event/CategoryChangePage?CategoryID={0}", item.CategorieId)'>Wijzig</a>  |
-                <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>Details</a>  |
-                <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>
+                        @Html.DisplayFor(modelItem => item.CategorieName)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Info)
+                </td>
+                <td>
+                    <a href='@string.Format("/Event/CategoryChangePage?CategoryID={0}", item.CategorieId)'>Wijzig</a>  |
+                    <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
