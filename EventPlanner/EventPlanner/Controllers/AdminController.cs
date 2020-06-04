@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -228,6 +229,49 @@ namespace EventPlanner.Controllers
         public IActionResult AdminCategoryPage()
         {
             return View(db.Categories.ToList());
+        }
+
+        public IActionResult AdminAccountDeletePage(string Id)
+        {
+            AccountDeletePageViewModel model = new AccountDeletePageViewModel
+            {
+                Id = Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AccountDelete(string Id)
+        {
+            var user = await userManager.FindByIdAsync(Id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {Id} cannot be found";
+                return View("Error");
+            }
+            else
+            {
+                var result = await userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("AccountDeleteComplete", "Admin");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("Error");
+            }
+        }
+
+        public IActionResult AdminAccountDeleteComplete()
+        {
+            return View();
         }
     }
 }

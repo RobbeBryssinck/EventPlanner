@@ -8,8 +8,8 @@
         <p>Weet je zeker dat je het account wilt verwijderen?</p>
     </div>
     <div class="row">
-        <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-Id="@Model.Id">
-            <a class="btn btn-danger">Verwijder account</a>
+        <form method="post">
+            <a asp-controller="Admin" asp-action="AccountDelete" asp-route-Id="@Model.Id" class="btn btn-danger">Verwijder account</a>
         </form>
     </div>
 </div>

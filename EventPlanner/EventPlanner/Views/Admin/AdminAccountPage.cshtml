@@ -27,7 +27,7 @@
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-id="@item.Id">
+                        <form method="post" asp-controller="Admin" asp-action="AdminAccountDeletePage" asp-route-id="@item.Id">
                             <button type="submit" class="btn btn-danger">Verwijder</button>
                         </form>
                     </td>
