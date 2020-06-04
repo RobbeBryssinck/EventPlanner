@@ -1,7 +1,7 @@
 ﻿@model Rating
-@inject SignInManager<IdentityUser> signInManager
+@inject SignInManager<ApplicationUser> signInManager
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> userManager
+@inject UserManager<ApplicationUser> userManager
 @{
     ViewData["Title"] = "EventFeedbackPage";
 
