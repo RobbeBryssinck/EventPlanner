@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EventPlanner.Models.Coach>
+﻿@model AdminCoachPageViewModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -11,10 +11,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Naam
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
                 Opties
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Coaches)
         {
             <tr>
                 <td>
