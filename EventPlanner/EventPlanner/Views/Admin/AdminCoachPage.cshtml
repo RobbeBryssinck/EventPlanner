@@ -4,10 +4,14 @@
     Layout = "_LayoutAdmin";
 }
 <h1>Coaches</h1>
-    <p>
-        <a asp-area="" asp-controller="Coach" asp-action="CoachAdd">Maak een nieuwe coach aan</a>
-    </p>
-<table class="table table-striped table-bordered table-sm ">
+<p>
+    <a asp-area="" asp-controller="Coach" asp-action="CoachAdd">Maak een nieuwe coach aan</a>
+</p>
+<form class="form-inline" asp-action="AdminCoachPage" asp-controller="Admin">
+    <input class="form-control mr-sm-" type="text" placeholder="Zoek een coach" name="id" style="width:350px;">
+</form>
+
+<table class="table table-striped table-bordered table-sm " style="max-width:100%" id="myTable">
     <thead>
         <tr>
             <th>
@@ -26,14 +30,15 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a href='@string.Format("/Coach/Coachpage?coachID={0}", item.CoachId)'>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
                     <a href='@string.Format("/Coach/CoachDeletePage?coachID={0}", item.CoachId)'>Verwijder</a> |
-                    <a href='@string.Format("/Coach/Coachpage?coachID={0}", item.CoachId)'>Details</a> |
                     <a href='@string.Format("/Coach/ChangeCoachPage?coachID={0}", item.CoachId)'>Wijzig</a>
                 </td>
             </tr>

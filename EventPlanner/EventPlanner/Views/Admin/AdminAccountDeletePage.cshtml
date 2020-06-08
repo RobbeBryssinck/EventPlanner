@@ -1,4 +1,4 @@
-@model IdentityUser
+﻿@model AccountDeletePageViewModel
 @{
     ViewData["Title"] = "Verwijder account";
 }
@@ -8,7 +8,7 @@
         <p>Weet je zeker dat je het account wilt verwijderen?</p>
     </div>
     <div class="row">
-        <form method="post" asp-controller="Account" asp-action="AccountDelete" asp-route-Id="User">
+        <form method="post" asp-controller="Admin" asp-action="AccountDelete" asp-route-Id="@Model.Id">
             <button class="btn btn-danger">Verwijder account</button>
         </form>
     </div>

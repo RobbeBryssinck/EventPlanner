@@ -59,8 +59,12 @@
                             </li>
                         </ul>
                     }
-                    <a class="nav-link" asp-area="" asp-controller="Coach" asp-action="Coaches" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
-                       onMouseOut="this.style.color='#000'"> Coaches </a>
+
+                    @if (User.IsInRole("Rockstar") || User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link" asp-area="" asp-controller="Coach" asp-action="Coaches" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
+                           onMouseOut="this.style.color='#000'"> Coaches </a>
+                    }
 
                     @if (User.IsInRole("Admin"))
                     {

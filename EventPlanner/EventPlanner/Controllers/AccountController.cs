@@ -88,7 +88,7 @@ namespace EventPlanner.Controllers
                     }
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt");
+                ModelState.AddModelError(string.Empty, "Ongeldige inlogpoging");
             }
 
             return View(model);
@@ -178,7 +178,7 @@ namespace EventPlanner.Controllers
             List<Event> events = new List<Event>();
             var user = await userManager.GetUserAsync(User);
             List<Registration> registrations = db.Registrations.Where(s => s.AccountId == user.Id).ToList();
-
+            
             foreach (var regristation in registrations)
             {
                 events.Add(db.Events.Where(s => s.EventId == regristation.EventId).ToList().FirstOrDefault());
@@ -199,9 +199,15 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
+        public IActionResult AccountDeletePage()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AccountDelete(string Id)
         {
-            var user = await userManager.FindByIdAsync(Id);
+            var user = await userManager.GetUserAsync(User);
 
             if (user == null)
             {
@@ -214,14 +220,15 @@ namespace EventPlanner.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("AdminAccountPage", "Admin");
+                    signInManager.SignOutAsync();
+                    return RedirectToAction("AccountDeleteComplete", "Account");
                 }
 
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-
+                
                 return View("Error");
             }
         }

@@ -27,11 +27,13 @@ namespace EventPlanner.Controllers
             _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
+        [Authorize(Roles = "Admin, Rockstar")]
         public IActionResult Coaches()
         {
             return View(db.Coaches.ToList());
         }
 
+        [Authorize(Roles = "Admin, Rockstar")]
         public IActionResult CoachPage(int coachID)
         {
             List<Coach> coaches = db.Coaches.Where(x => x.CoachId == coachID).ToList();

@@ -439,7 +439,6 @@ namespace EventPlanner.Controllers
 
         return View(model);
     }
-
     public IActionResult EventArchive()
     {
         List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
@@ -447,7 +446,6 @@ namespace EventPlanner.Controllers
         {
             return RedirectToAction("EventNotFound");
         }
-
         EventArchiveViewModel model = new EventArchiveViewModel()
         {
             Events = events
@@ -455,6 +453,19 @@ namespace EventPlanner.Controllers
 
         return View(model);
     }
+     [Authorize(Roles = "Rockstar, User")]
+        [HttpPost]
+    public async Task<IActionResult> EventJoin(int eventId)
+        {
+            Registration registration = new Registration();
+            var user = await userManager.GetUserAsync(User);
+        EventArchiveViewModel model = new EventArchiveViewModel()
+        {
+            Events = events
+        };
+
+        return View(model);
+        }
 
     [Authorize(Roles = "Rockstar, Admin")]
     public IActionResult EventArchiveForEmployees()
