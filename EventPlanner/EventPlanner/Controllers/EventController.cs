@@ -107,12 +107,24 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteCategory(int CategoryID)
         {
             List<Event> events = db.Events.Where(x => x.CategoryId == CategoryID).ToList();
-            foreach(var model in events)
+            List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
+
+            foreach (var model in events)
             {
                 model.hidden = true;
+                db.Events.Attach(model);
+                db.Entry(model).Property(x => x.hidden).IsModified = true;
+                db.SaveChanges();
             }
-            //   db.Categories.Remove(categories[0]);
-            //   db.SaveChanges();
+
+            foreach (var model in categories)
+            {
+                model.hidden = true;
+                db.Categories.Attach(model);
+                db.Entry(model).Property(x => x.hidden).IsModified = true;
+                db.SaveChanges();
+            }
+
             return View("CategoryDeleted");
         }
 

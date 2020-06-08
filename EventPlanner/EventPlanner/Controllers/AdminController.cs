@@ -231,7 +231,7 @@ namespace EventPlanner.Controllers
         {
             AdminCategoryPageViewModel model = new AdminCategoryPageViewModel();
             model.Categories = db.Categories.ToList();
-            model.Categories = db.Categories.ToList();
+           
             return View(model);
         }
         public IActionResult AccessDenied()
