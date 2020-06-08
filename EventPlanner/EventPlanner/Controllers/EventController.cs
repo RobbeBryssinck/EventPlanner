@@ -453,21 +453,7 @@ namespace EventPlanner.Controllers
 
         return View(model);
     }
-     [Authorize(Roles = "Rockstar, User")]
-        [HttpPost]
-    public async Task<IActionResult> EventJoin(int eventId)
-        {
-            Registration registration = new Registration();
-            var user = await userManager.GetUserAsync(User);
-        EventArchiveViewModel model = new EventArchiveViewModel()
-        {
-            Events = events
-        };
-
-        return View(model);
-        }
-
-    [Authorize(Roles = "Rockstar, Admin")]
+        [Authorize(Roles = "Rockstar, Admin")]
     public IActionResult EventArchiveForEmployees()
     {
         List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).ToList();
