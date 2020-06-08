@@ -222,7 +222,7 @@ namespace EventPlanner.Controllers
         public IActionResult AdminEventPage()
         {
             AdminEventPageViewModel model = new AdminEventPageViewModel();
-            model.Events = db.Events.ToList();
+            model.Events = db.Events.Where(x => x.hidden == false).ToList();
             model.Categories = db.Categories.ToList();
             return View(model);
         }

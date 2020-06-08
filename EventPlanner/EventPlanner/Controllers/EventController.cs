@@ -141,7 +141,7 @@ namespace EventPlanner.Controllers
     public IActionResult EventCreate()
     {
         EventViewModel model = new EventViewModel();
-        model.Categories = db.Categories.ToList();
+        model.Categories = db.Categories.Where(x => x.hidden == false).ToList();
         return View(model);
     }
 
@@ -159,7 +159,7 @@ namespace EventPlanner.Controllers
     public IActionResult EventArchived(int eventID)
     {
         EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
-        List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+        List<Event> events = db.Events.Where(x => x.EventId == eventID && x.hidden == false).ToList();
         if (events.Count > 0)
         {
             Event currentEvent = events[0];
@@ -180,7 +180,7 @@ namespace EventPlanner.Controllers
     public IActionResult EventArchivedForEmployees(int eventID)
     {
         EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
-        List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+        List<Event> events = db.Events.Where(x => x.EventId == eventID && x.hidden == false).ToList();
         if (events.Count > 0)
         {
             Event currentEvent = events[0];
@@ -375,7 +375,7 @@ namespace EventPlanner.Controllers
 
     public IActionResult Categories()
     {
-        List<Categorie> categories = db.Categories.ToList();
+        List<Categorie> categories = db.Categories.Where(x => x.hidden == false && x.hidden == false).ToList();
 
         CategoriesViewModel model = new CategoriesViewModel();
         model.Categories = new List<Categorie>();
@@ -389,8 +389,8 @@ namespace EventPlanner.Controllers
     public IActionResult CategoryPage(int CategoryID)
     {
         CategoryEventsViewModel model = new CategoryEventsViewModel();
-        model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now).ToList();
-        List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID).ToList();
+        model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now && s.hidden == false).ToList();
+        List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID && s.hidden == false).ToList();
         if (categories.Count > 0)
         {
             foreach (Event e in model.Events)
@@ -416,11 +416,11 @@ namespace EventPlanner.Controllers
 
         if (!String.IsNullOrEmpty(id))
         {
-            events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
+            events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
         }
         else
         {
-            events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
+            events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
         }
 
         if (events.Count == 0)
@@ -442,7 +442,7 @@ namespace EventPlanner.Controllers
 
     public IActionResult EventArchive()
     {
-        List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public).ToList();
+        List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
         if (events.Count == 0)
         {
             return RedirectToAction("EventNotFound");
@@ -456,10 +456,10 @@ namespace EventPlanner.Controllers
         return View(model);
     }
 
-    [Authorize(Roles = "Rockstar")]
+    [Authorize(Roles = "Rockstar, Admin")]
     public IActionResult EventArchiveForEmployees()
     {
-        List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
+        List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).ToList();
         if (events.Count == 0)
         {
             return RedirectToAction("EventNotFound");
@@ -476,7 +476,7 @@ namespace EventPlanner.Controllers
     [HttpGet]
     public IActionResult EventsForEmployees()
     {
-        List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees).ToList();
+        List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).ToList();
         foreach (var item in events)
         {
             var Participants = db.Registrations.Where(b => b.EventId == item.EventId).Count();
@@ -537,7 +537,7 @@ namespace EventPlanner.Controllers
     [Authorize(Roles = "Admin")]
     public IActionResult CategoryChangePage(int CategoryID)
     {
-        List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID).ToList();
+        List<Categorie> categories = db.Categories.Where(x => x.CategorieId == CategoryID && x.hidden == false).ToList();
         Categorie model = categories[0];
         CategoriesViewModel realmodel = new CategoriesViewModel();
         realmodel.CategorieId = model.CategorieId;
@@ -557,7 +557,7 @@ namespace EventPlanner.Controllers
             realmodel.CategorieName = model.CategorieName;
             realmodel.Info = model.Info;
 
-            List<Categorie> categories = db.Categories.Where(x => x.CategorieId == model.CategorieId).ToList();
+            List<Categorie> categories = db.Categories.Where(x => x.CategorieId == model.CategorieId && x.hidden == false).ToList();
             Categorie oldCategory = categories[0];
             db.Entry(oldCategory).CurrentValues.SetValues(realmodel);
             db.SaveChanges();
@@ -568,7 +568,7 @@ namespace EventPlanner.Controllers
             return Content("Het werkt niet");
         }
     }
-
+    [Authorize(Roles = "Rockstar, User")]
     public async Task<IActionResult> SignOutOfEvent(int eventId)
     {
         var user = await userManager.GetUserAsync(User);
@@ -577,6 +577,7 @@ namespace EventPlanner.Controllers
         db.SaveChanges();
         return RedirectToAction("EventRegistered", "Account");
     }
+    [Authorize(Roles = "Admin")]
     public IActionResult EventDeleted()
     {
             EventsViewModel realmodel = new EventsViewModel(); 
