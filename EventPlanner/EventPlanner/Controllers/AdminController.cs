@@ -96,46 +96,8 @@ namespace EventPlanner.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> EditUsersInRole(string roleId)
-        {
-            ViewBag.roleId = roleId;
-
-            var role = await roleManager.FindByIdAsync(roleId);
-
-            if (role == null)
-            {
-                // TODO: implement 404
-                return RedirectToAction("Index", "Home");
-            }
-
-            var model = new List<UserRoleViewModel>();
-
-            foreach (var user in userManager.Users)
-            {
-                var userRoleViewModel = new UserRoleViewModel
-                {
-                    UserId = user.Id,
-                    UserName = user.UserName
-                };
-
-                if (await userManager.IsInRoleAsync(user, role.Name))
-                {
-                    userRoleViewModel.IsSelected = true;
-                }
-                else
-                {
-                    userRoleViewModel.IsSelected = false;
-                }
-
-                model.Add(userRoleViewModel);
-            }
-
-            return View(model);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
+        public async Task<IActionResult> EditUsersInRolePost(List<UserRoleViewModel> model, string roleId)
         {
             var role = await roleManager.FindByIdAsync(roleId);
 
@@ -174,34 +136,168 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        public IActionResult AdminAccountPage()
+        public async Task<IActionResult> EditUsersInRole(string roleId, string id)
         {
-            AdminAccountPageViewModel model = new AdminAccountPageViewModel();
-            model.Users = db.Users.ToList();
+            ViewBag.roleId = roleId;
+
+            var role = await roleManager.FindByIdAsync(roleId);
+
+            if (role == null)
+            {
+                // TODO: implement 404
+                return RedirectToAction("Index", "Home");
+            }
+
+            List<UserRoleViewModel> model = new List<UserRoleViewModel>();
+
+            IQueryable<ApplicationUser> userList = userManager.Users;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                userList = userManager.Users.Where(s => s.UserName.Contains(id));
+            }
+            else
+            {
+                userList = userManager.Users;
+            }
+
+            if(userList.Count() == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            foreach (var user in userList)
+            {
+                UserRoleViewModel userRoleViewModel = new UserRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserName = user.UserName
+                };
+
+                if (await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    userRoleViewModel.IsSelected = true;
+                }
+                else
+                {
+                    userRoleViewModel.IsSelected = false;
+                }
+
+                model.Add(userRoleViewModel);
+            }
+
             return View(model);
         }
 
-        public IActionResult AdminCoachPage()
+        public IActionResult AdminAccountPage(string id)
         {
-            AdminCoachPageViewModel model = new AdminCoachPageViewModel();
-            model.Coaches = db.Coaches.ToList();
+            List<ApplicationUser> Users = new List<ApplicationUser>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Users = db.Users.Where(s => s.UserName.Contains(id)).ToList();
+            }
+            else
+            {
+                Users = db.Users.ToList();
+            }
+
+            if (Users.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminAccountPageViewModel model = new AdminAccountPageViewModel()
+            {
+                Users = Users
+            };
+
             return View(model);
         }
 
-        public IActionResult AdminEventPage()
+        public IActionResult AdminCoachPage(string id)
         {
-            AdminEventPageViewModel model = new AdminEventPageViewModel();
-            model.Events = db.Events.ToList();
-            model.Categories = db.Categories.ToList();
+            List<Coach> Coaches = new List<Coach>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Coaches = db.Coaches.Where(s => s.Name.Contains(id)).ToList();
+            }
+            else
+            {
+                Coaches = db.Coaches.ToList();
+            }
+
+            if (Coaches.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminCoachPageViewModel model = new AdminCoachPageViewModel()
+            {
+                Coaches = Coaches
+            };
             return View(model);
         }
 
-        public IActionResult AdminCategoryPage()
+        public IActionResult AdminEventPage(string id)
         {
-            AdminCategoryPageViewModel model = new AdminCategoryPageViewModel();
+            List<Event> Events = new List<Event>();
+            List<Categorie> Categories = new List<Categorie>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id)).ToList();
+            }
+            else
+            {
+                Events = db.Events.ToList();
+                Categories = db.Categories.ToList();
+            }
+
+            if (Events.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminEventPageViewModel model = new AdminEventPageViewModel()
+            {
+                Events = Events
+            };
             model.Categories = db.Categories.ToList();
-            model.Categories = db.Categories.ToList();
+
             return View(model);
+        }
+
+        public IActionResult AdminCategoryPage(string id)
+        {
+            List<Categorie> Categories = new List<Categorie>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id)).ToList();
+            }
+            else
+            {
+                Categories = db.Categories.ToList();
+            }
+
+            if (Categories.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            AdminCategoryPageViewModel model = new AdminCategoryPageViewModel()
+            {
+                Categories = Categories
+            };
+
+            return View(model);
+        } 
+        public IActionResult EventsNotFound()
+        {
+            return View();
         }
         public IActionResult AccessDenied()
         {

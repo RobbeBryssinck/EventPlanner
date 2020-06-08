@@ -5,7 +5,11 @@
     Layout = "_LayoutAdmin";
 }
 
-<form method="post">
+<form class="form-inline" asp-action="EditUsersInRole" asp-controller="Admin" asp-route-roleId="@roleId">
+    <input class="form-control mr-sm-" type="text" placeholder="Zoek een username" name="id" style="width:350px;">
+</form>
+
+<form asp-action="EditUsersInRolePost" asp-controller="Admin" asp-route-roleId="@roleId">
     <div class="card">
         <div class="card-header">
             <h2>Voeg gebruikers toe of verwijder ze van deze rol</h2>
