@@ -3,6 +3,7 @@
 @{
     var roleId = ViewBag.roleId;
     Layout = "_LayoutAdmin";
+        ViewData["Title"] = "Wijzig rol";
 }
 
 <form class="form-inline" asp-action="EditUsersInRole" asp-controller="Admin" asp-route-roleId="@roleId">
