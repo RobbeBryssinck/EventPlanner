@@ -42,6 +42,8 @@ namespace EventPlanner.Models
         public int CategoryId { get; set; }
         public int Visitors { get; set; }
 
+        public bool hidden { get; set; }
+
         [Required]
         [Display(Name = "Voor wie")]
         public EventGroup ForEmployees { get; set; }

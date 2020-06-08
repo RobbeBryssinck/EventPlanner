@@ -247,13 +247,13 @@ namespace EventPlanner.Controllers
 
             if (!String.IsNullOrEmpty(id))
             {
-                Events = db.Events.Where(s => s.EventName.Contains(id)).ToList();
-                Categories = db.Categories.Where(s => s.CategorieName.Contains(id)).ToList();
+                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
             }
             else
             {
-                Events = db.Events.ToList();
-                Categories = db.Categories.ToList();
+                Events = db.Events.Where(s => s.hidden == false).ToList();
+                Categories = db.Categories.Where(s => s.hidden == false).ToList();
             }
 
             if (Events.Count == 0)
@@ -276,11 +276,11 @@ namespace EventPlanner.Controllers
 
             if (!String.IsNullOrEmpty(id))
             {
-                Categories = db.Categories.Where(s => s.CategorieName.Contains(id)).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
             }
             else
             {
-                Categories = db.Categories.ToList();
+                Categories = db.Categories.Where(s => s.hidden == false).ToList();
             }
 
             if (Categories.Count == 0)
