@@ -6,24 +6,23 @@
 }
 
 <form class="form-inline" asp-action="EditUsersInRole" asp-controller="Admin" asp-route-roleId="@roleId">
-    <input class="form-control mr-sm-" type="text" placeholder="Zoek een persoon" name="id" style="width:100%;">
+    <input class="form-control mr-sm-" type="text" placeholder="Zoek een username" name="id" style="width:350px;">
 </form>
-<a asp-controller="Admin" asp-action="EditUsersInRole" asp-route-roleId="@roleId">hallo</a>
-<form method="post">
+
+<form asp-action="EditUsersInRolePost" asp-controller="Admin" asp-route-roleId="@roleId">
     <div class="card">
         <div class="card-header">
             <h2>Voeg gebruikers toe of verwijder ze van deze rol</h2>
         </div>
-
         <div class="card-body">
-            @foreach (var item in Model)
+            @for (int i = 0; i < Model.Count; i++)
             {
                 <div class="form-check m-1">
-                    <input type="hidden" asp-for="@item.UserId" />
-                    <input type="hidden" asp-for="@item.UserName" />
-                    <input asp-for="@item.IsSelected" class="form-check-input" />
-                    <label class="form-check-label" asp-for="@item.IsSelected">
-                        @item.UserName
+                    <input type="hidden" asp-for="@Model[i].UserId" />
+                    <input type="hidden" asp-for="@Model[i].UserName" />
+                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                        @Model[i].UserName
                     </label>
                 </div>
             }

@@ -128,7 +128,7 @@ namespace EventPlanner.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
+        public async Task<IActionResult> EditUsersInRolePost(List<UserRoleViewModel> model, string roleId)
         {
             var role = await roleManager.FindByIdAsync(roleId);
 
@@ -167,7 +167,6 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        [HttpGet]
         public async Task<IActionResult> EditUsersInRole(string roleId, string id)
         {
             ViewBag.roleId = roleId;
