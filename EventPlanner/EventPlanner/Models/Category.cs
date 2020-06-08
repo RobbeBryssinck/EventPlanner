@@ -19,6 +19,7 @@ namespace EventPlanner.Models
         [Required]
         [Display(Name = "Beschrijving")]
         public string Info { get; set; }
+        public bool hidden { get; set; }
         public List<Event> Events { get; set; }
     }
 }

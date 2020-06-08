@@ -25,6 +25,8 @@
     <tbody>
         @foreach (var item in Model.Categories)
         {
+            @if (item.hidden == false)
+            {
             <tr>
                 <td>
                     <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>
@@ -39,6 +41,7 @@
                     <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
                 </td>
             </tr>
+            }
         }
     </tbody>
 </table>
