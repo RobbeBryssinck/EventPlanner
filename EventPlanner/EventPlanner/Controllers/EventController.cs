@@ -490,10 +490,10 @@ namespace EventPlanner.Controllers
 
     [Authorize(Roles = "Rockstar, User")]
     [HttpPost]
-    public async Task<IActionResult> EventJoin(string userName, int eventId)
+    public async Task<IActionResult> EventJoin(int eventId)
     {
         Registration registration = new Registration();
-        ApplicationUser user = await userManager.FindByNameAsync(userName);
+        var user = await userManager.GetUserAsync(User);
 
         registration.AccountId = user.Id;
         registration.EventId = eventId;
