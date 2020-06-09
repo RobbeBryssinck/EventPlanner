@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EventPlanner.Models;
 using EventPlanner.Data;
+using System.Net.Mail;
+using DnsClient;
+using System.Net;
 
 namespace EventPlanner.Controllers
 {
@@ -39,6 +42,32 @@ namespace EventPlanner.Controllers
         public IActionResult ErrorUser()
         {
             return View("Error");
+        }
+        public void SendMail()
+        {
+            MailAddress to = new MailAddress("439702@student.fontys.nl");
+            MailAddress from = new MailAddress("notnotheracc@gmail.com");
+
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Good morning, Elizabeth";
+            message.Body = "Elizabeth, Long time no talk. Would you be up for lunch in Soho on Monday? I'm paying.;";
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
+            {
+                Credentials = new NetworkCredential("", ""),
+                EnableSsl = true
+            };
+            // code in brackets above needed if authentication required 
+
+            try
+            {
+                client.Send(message);
+                RedirectToAction("Home", "Index");
+            }
+            catch (SmtpException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }
