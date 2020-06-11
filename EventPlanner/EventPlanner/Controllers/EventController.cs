@@ -604,6 +604,17 @@ namespace EventPlanner.Controllers
             Registration registration = db.Registrations.Where(x => x.AccountId == user.Id && x.EventId == eventId).FirstOrDefault();
             db.Registrations.Remove(registration);
             db.SaveChanges();
+            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
+            foreach (var model in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+                model.TotalVisitors = model.VisitorLimit - Participants;
+                model.Visitors = Participants;
+                db.Events.Attach(model);
+                db.Entry(model).Property(x => x.TotalVisitors).IsModified = true;
+                db.Entry(model).Property(x => x.Visitors).IsModified = true;
+                db.SaveChanges();
+            }
             return RedirectToAction("EventRegistered", "Account");
         }
         [Authorize(Roles = "Admin")]
