@@ -521,8 +521,13 @@ namespace EventPlanner.Controllers
         public IActionResult DeleteEvent(int EventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == EventId).ToList();
-            db.Events.Remove(events[0]);
-            db.SaveChanges();
+            foreach (var model in events)
+            {
+                model.hidden = true;
+                db.Events.Attach(model);
+                db.Entry(model).Property(x => x.hidden).IsModified = true;
+                db.SaveChanges();
+            }       
             return RedirectToAction("EventDeleteComplete");
         }
 
