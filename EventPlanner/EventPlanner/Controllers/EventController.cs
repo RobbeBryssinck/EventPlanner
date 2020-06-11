@@ -414,6 +414,10 @@ namespace EventPlanner.Controllers
             //TODO: change List to IEnumerable or IReadOnly?
             List<Event> events = new List<Event>();
             List<Categorie> categories = db.Categories.Where(x => x.hidden == false && x.hidden == false).ToList();
+            if(pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
             decimal pagesize = 3;
             decimal eventcount;
             decimal page = Convert.ToDecimal(pageSelection);
