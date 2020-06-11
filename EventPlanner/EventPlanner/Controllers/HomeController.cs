@@ -23,7 +23,7 @@ namespace EventPlanner.Controllers
 
         public IActionResult Index()
         {
-            var emp_data = db.Events.Where(f => f.Date > DateTime.Now && f.ForEmployees != EventGroup.RockstarsEmployees).OrderBy(e => e.Date).ToList().Take(3);
+            var emp_data = db.Events.Where(f => f.Date > DateTime.Now && f.ForEmployees != EventGroup.RockstarsEmployees).OrderBy(e => e.Date).ToList().Take(6);
             HomeIndexViewModel model = new HomeIndexViewModel()
             {
                 Events = emp_data
