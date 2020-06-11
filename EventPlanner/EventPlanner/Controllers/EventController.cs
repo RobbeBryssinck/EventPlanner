@@ -516,18 +516,7 @@ namespace EventPlanner.Controllers
 
             db.Registrations.Add(registration);
             db.SaveChanges();
-
-            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
-            foreach (var model in events)
-            {
-                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
-                model.TotalVisitors = model.VisitorLimit - Participants;
-                model.Visitors = Participants;
-                db.Events.Attach(model);
-                db.Entry(model).Property(x => x.TotalVisitors).IsModified = true;
-                db.Entry(model).Property(x => x.Visitors).IsModified = true;
-                db.SaveChanges();
-            }
+            UpdateParticipants(eventId);
             return View("EventRegistrationSucceeded");
         }
 
@@ -605,16 +594,7 @@ namespace EventPlanner.Controllers
             db.Registrations.Remove(registration);
             db.SaveChanges();
             List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
-            foreach (var model in events)
-            {
-                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
-                model.TotalVisitors = model.VisitorLimit - Participants;
-                model.Visitors = Participants;
-                db.Events.Attach(model);
-                db.Entry(model).Property(x => x.TotalVisitors).IsModified = true;
-                db.Entry(model).Property(x => x.Visitors).IsModified = true;
-                db.SaveChanges();
-            }
+            UpdateParticipants(eventId);
             return RedirectToAction("EventRegistered", "Account");
         }
         [Authorize(Roles = "Admin")]
@@ -628,6 +608,20 @@ namespace EventPlanner.Controllers
             }
             realmodel.Events = events;
             return View(realmodel);
+        }
+        private void UpdateParticipants(int eventId)
+        {
+            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
+            foreach (var model in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+                model.TotalVisitors = model.VisitorLimit - Participants;
+                model.Visitors = Participants;
+                db.Events.Attach(model);
+                db.Entry(model).Property(x => x.TotalVisitors).IsModified = true;
+                db.Entry(model).Property(x => x.Visitors).IsModified = true;
+                db.SaveChanges();
+            }
         }
 
     }
