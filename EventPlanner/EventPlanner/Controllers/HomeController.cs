@@ -76,38 +76,55 @@ namespace EventPlanner.Controllers
         [HttpPost]
         public IActionResult MailSender(string email)
         {
-            MimeMessage message = new MimeMessage();
-            //from
-            MailboxAddress from = new MailboxAddress("Admin",
-            "rockstars.it.project@gmail.com");
-            message.From.Add(from);
+            List<MailSubscriber> mailSubscribers = db.MailSubscribers.Where(x => x.Email == email).ToList();
 
-            //to
-            MailboxAddress to = new MailboxAddress("User",
-            email);
-            message.To.Add(to);
+            if (mailSubscribers.Count == 0)
+            {
+                MimeMessage message = new MimeMessage();
+                //from
+                MailboxAddress from = new MailboxAddress("Rockstars IT",
+                "rockstars.it.project@gmail.com");
+                message.From.Add(from);
 
-            //subject
-            message.Subject = "This is een test";
+                //to
+                MailboxAddress to = new MailboxAddress("User",
+                email);
+                message.To.Add(to);
 
-            //body
-            BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = "<h1>Hello World!</h1>";
-            bodyBuilder.TextBody = "Hello World!";
+                //subject
+                message.Subject = "Nieuwsbrief";
 
-            message.Body = bodyBuilder.ToMessageBody();
+                //body
+                BodyBuilder bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = "<h1>U bent nu aangemeld voor de nieuwsbrief!</h1>";
+                bodyBuilder.TextBody = "wat goed!";
 
-            //connection
-            SmtpClient client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 465, true);
-            client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
+                message.Body = bodyBuilder.ToMessageBody();
 
-            //send message and dispose
-            client.Send(message);
-            client.Disconnect(true);
-            client.Dispose();
+                //connection
+                SmtpClient client = new SmtpClient();
+                client.Connect("smtp.gmail.com", 465, true);
+                client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
 
-            return View("index");
+                //send message and dispose
+                client.Send(message);
+                client.Disconnect(true);
+                client.Dispose();
+
+
+                MailSubscriber mailSubscriber = new MailSubscriber()
+                {
+                    Email = email
+                };
+                db.MailSubscribers.Add(mailSubscriber);
+                db.SaveChanges();
+            }
+            return RedirectToAction("EmailSubscribeSuccess", "Home");
+        }
+
+        public IActionResult EmailSubscribeSuccess()
+        {
+            return View();
         }
     }
 }
