@@ -122,8 +122,7 @@ namespace EventPlanner.Controllers
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                DateOfBirth = user.DateOfBirth,
-                Password = user.PasswordHash
+                DateOfBirth = user.DateOfBirth
             };
 
             return View(model);
