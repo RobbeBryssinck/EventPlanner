@@ -10,10 +10,6 @@ namespace EventPlanner.ViewModels
     {
         public string id { get; set; }
 
-        [Required(ErrorMessage = "Gebruikersnaam is vereist")]
-        [Display(Name = "Gebruikersnaam")]
-        public string Username { get; set; }
-
         [Required(ErrorMessage = "Email is vereist")]
         [EmailAddress]
         [Display(Name = "Email")]
