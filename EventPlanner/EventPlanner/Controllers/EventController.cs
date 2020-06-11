@@ -451,7 +451,8 @@ namespace EventPlanner.Controllers
                 Events = events,
                 Categories = categories,
                 Pages = pages,
-                SearchString = id
+                SearchString = id,
+                PageNumber = pageSelection
             };
             return View(model);
         }

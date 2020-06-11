@@ -31,7 +31,14 @@
     <ul class="pagination">
         @for (int i = 1; i <= Model.Pages; i++)
         {
-            <li class="page-item"> <a class="page-link" asp-controller="Event" asp-action="Events" asp-route-pageSelection="@i" asp-route-id="@Model.SearchString"> @i </a> </li>
+            if (i == Model.PageNumber)
+            {
+                <li class="page-item active"> <a class="page-link" asp-controller="Event" asp-action="Events" asp-route-pageSelection="@i" asp-route-id="@Model.SearchString"> @i </a> </li>
+            }
+            else
+            {
+                <li class="page-item"> <a class="page-link" asp-controller="Event" asp-action="Events" asp-route-pageSelection="@i" asp-route-id="@Model.SearchString"> @i </a> </li>
+            }
         }
     </ul>
 </nav>
