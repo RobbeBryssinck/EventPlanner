@@ -10,10 +10,6 @@ namespace EventPlanner.ViewModels
     {
         public string id { get; set; }
 
-        [Required(ErrorMessage = "Gebruikersnaam is vereist")]
-        [Display(Name = "Gebruikersnaam")]
-        public string Username { get; set; }
-
         [Required(ErrorMessage = "Email is vereist")]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -31,15 +27,5 @@ namespace EventPlanner.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Geboortedatum")]
         public DateTime DateOfBirth { get; set; }
-
-        [Required(ErrorMessage = "Wachtwoord is vereist")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Huidig wachtwoord")]
-        public string CurrentPassword { get; set; }
-
-        [Required(ErrorMessage = "Tweede wachtwoord is vereist")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Nieuw wachtwoord")]
-        public string Password { get; set; }
     }
 }

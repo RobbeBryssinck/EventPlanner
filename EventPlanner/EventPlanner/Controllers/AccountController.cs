@@ -36,7 +36,7 @@ namespace EventPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser 
+                var user = new ApplicationUser
                 {
                     UserName = model.Username,
                     Email = model.Email,
@@ -44,7 +44,7 @@ namespace EventPlanner.Controllers
                     LastName = model.LastName,
                     DateOfBirth = model.DateOfBirth
                 };
-                
+
                 var result = await userManager.CreateAsync(user, model.Password);
                 userManager.AddToRoleAsync(user, "User").Wait();
 
@@ -119,7 +119,6 @@ namespace EventPlanner.Controllers
             var model = new AccountChangeViewModel
             {
                 id = user.Id,
-                Username = user.UserName,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -142,33 +141,14 @@ namespace EventPlanner.Controllers
             }
             else
             {
-                var resultPassword = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.Password);
-                if (!resultPassword.Succeeded)
-                {
-                    foreach (var error in resultPassword.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                }
-
+                
                 user.Email = model.Email;
-                user.UserName = model.Username;
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.DateOfBirth = model.DateOfBirth;
                 var result = await userManager.UpdateAsync(user);
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-
-                if (result.Succeeded && resultPassword.Succeeded)
-                {
-                    return RedirectToAction("AccountPage");
-                }
-
-                return View(model);
+                return RedirectToAction("AccountPage");
             }
         }
 
@@ -178,7 +158,7 @@ namespace EventPlanner.Controllers
             List<Event> events = new List<Event>();
             var user = await userManager.GetUserAsync(User);
             List<Registration> registrations = db.Registrations.Where(s => s.AccountId == user.Id).ToList();
-            
+
             foreach (var regristation in registrations)
             {
                 events.Add(db.Events.Where(s => s.EventId == regristation.EventId).ToList().FirstOrDefault());
@@ -228,7 +208,7 @@ namespace EventPlanner.Controllers
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                
+
                 return View("Error");
             }
         }
@@ -240,6 +220,48 @@ namespace EventPlanner.Controllers
         public IActionResult AccessDenied()
         {
             return View("AccessDenied");
+        }
+
+        public IActionResult AccountPasswordChange()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AccountPasswordChange(AccountPasswordChangeViewModel model)
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with id = {User} cannot be found";
+                return View("Error");
+            }
+            else
+            {
+                var resultPassword = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.Password);
+                if (!resultPassword.Succeeded)
+                {
+                    foreach (var error in resultPassword.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+
+                var result = await userManager.UpdateAsync(user);
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                if (result.Succeeded && resultPassword.Succeeded)
+                {
+                    return RedirectToAction("AccountPage");
+                }
+
+                return View(model);
+            }
         }
     }
 }
