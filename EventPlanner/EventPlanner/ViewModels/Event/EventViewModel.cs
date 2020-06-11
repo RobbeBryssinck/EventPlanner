@@ -56,5 +56,6 @@ namespace EventPlanner.Models
 
         public List<Categorie> Categories { get; set; }
         public bool Registered { get; set; }
+        public int TotalVisitors { get; set; }
     }
 }

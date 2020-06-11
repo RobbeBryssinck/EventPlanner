@@ -34,7 +34,7 @@
                 <h5 class="card-title">Ben je geïnteresseerd?</h5>
                 @if (!(Model.VisitorLimit == Model.Visitors))
                 {
-                    <p class="card-text">Er zijn nog @(Model.VisitorLimit - Model.Visitors) plaatsen vrij!</p>
+                    <p class="card-text">Er zijn nog @(Model.TotalVisitors) plaatsen vrij!</p>
                 }
                 else
                 {

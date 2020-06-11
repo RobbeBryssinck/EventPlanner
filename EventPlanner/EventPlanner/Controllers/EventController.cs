@@ -43,7 +43,7 @@ namespace EventPlanner.Controllers
             {
                 Event model = events[0];
                 EventViewModel realmodel = new EventViewModel();
-                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+              //  var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
                 realmodel.EventId = model.EventId;
                 realmodel.EventName = model.EventName;
                 realmodel.Date = model.Date;
@@ -53,7 +53,9 @@ namespace EventPlanner.Controllers
                 realmodel.Location = model.Location;
                 realmodel.CategoryId = model.CategoryId;
                 realmodel.Email = model.Email;
-                realmodel.Visitors = Participants;
+                realmodel.Visitors = model.Visitors;
+                realmodel.TotalVisitors = model.TotalVisitors;
+                
 
                 if (User.Identity.IsAuthenticated)
                 {
@@ -66,6 +68,7 @@ namespace EventPlanner.Controllers
                 }
                 else
                     realmodel.Registered = false;
+
                 if (model.hidden == false || User.IsInRole("Admin") && model.hidden == true)
                 {
                     return View(realmodel);
@@ -365,6 +368,7 @@ namespace EventPlanner.Controllers
                 realmodel.CategoryId = model.CategoryId;
                 realmodel.Email = model.Email;
                 realmodel.ForEmployees = model.ForEmployees;
+                realmodel.TotalVisitors = model.VisitorLimit;
 
                 db.Events.Add(realmodel);
                 db.SaveChanges();
@@ -399,11 +403,13 @@ namespace EventPlanner.Controllers
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID && s.hidden == false).ToList();
             if (categories.Count > 0)
             {
+                /*
                 foreach (Event e in model.Events)
                 {
                     var Participants = db.Registrations.Where(b => b.EventId == e.EventId).Count();
                     e.Visitors = Participants;
                 }
+                */
 
                 model.CategoryInfo = categories[0].Info;
                 model.CategoryName = categories[0].CategorieName;
@@ -434,11 +440,13 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
+            /*
             foreach (var models in events)
             {
                 var Participants = db.Registrations.Where(b => b.EventId == models.EventId).Count();
                 models.Visitors = Participants;
             }
+            */
             EventsViewModel model = new EventsViewModel()
             {
                 Events = events,
@@ -481,12 +489,13 @@ namespace EventPlanner.Controllers
         public IActionResult EventsForEmployees()
         {
             List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).ToList();
+            /*
             foreach (var item in events)
             {
                 var Participants = db.Registrations.Where(b => b.EventId == item.EventId).Count();
                 item.Visitors = Participants;
             }
-
+            */
             EventsForEmployeesViewModel model = new EventsForEmployeesViewModel()
             {
                 Events = events
@@ -508,6 +517,17 @@ namespace EventPlanner.Controllers
             db.Registrations.Add(registration);
             db.SaveChanges();
 
+            List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
+            foreach (var model in events)
+            {
+                var Participants = db.Registrations.Where(b => b.EventId == model.EventId).Count();
+                model.TotalVisitors = model.VisitorLimit - Participants;
+                model.Visitors = Participants;
+                db.Events.Attach(model);
+                db.Entry(model).Property(x => x.TotalVisitors).IsModified = true;
+                db.Entry(model).Property(x => x.Visitors).IsModified = true;
+                db.SaveChanges();
+            }
             return View("EventRegistrationSucceeded");
         }
 

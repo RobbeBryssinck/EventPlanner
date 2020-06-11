@@ -41,6 +41,7 @@ namespace EventPlanner.Models
         public string ImageSrc { get; set; }
         public int CategoryId { get; set; }
         public int Visitors { get; set; }
+        public int TotalVisitors { get; set; }
 
         public bool hidden { get; set; }
 
