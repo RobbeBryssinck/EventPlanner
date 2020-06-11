@@ -199,7 +199,7 @@ namespace EventPlanner.Controllers
 
                 if (result.Succeeded)
                 {
-                    signInManager.SignOutAsync();
+                    await signInManager.SignOutAsync();
                     return RedirectToAction("AccountDeleteComplete", "Account");
                 }
 

@@ -22,6 +22,7 @@ namespace EventPlanner.Data
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<Categorie> Categories { get; set; }
+        public DbSet<MailSubscriber> MailSubscribers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,7 @@ namespace EventPlanner.Data
             modelBuilder.Entity<Rating>().ToTable("Rating");
             modelBuilder.Entity<Registration>().ToTable("Registration");
             modelBuilder.Entity<Categorie>().ToTable("Categorie");
+            modelBuilder.Entity<MailSubscriber>().ToTable("MailSubscriber");
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Rockstar", NormalizedName = "Rockstar".ToUpper() });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "User".ToUpper() });
