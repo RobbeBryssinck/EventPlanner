@@ -409,19 +409,20 @@ namespace EventPlanner.Controllers
             }
         }
 
-        public IActionResult Events(string id)
+        public IActionResult Events(string id, int page)
         {
             //TODO: change List to IEnumerable or IReadOnly?
             List<Event> events = new List<Event>();
             List<Categorie> categories = db.Categories.Where(x => x.hidden == false && x.hidden == false).ToList();
+            int pagesize = 3;
 
             if (!String.IsNullOrEmpty(id))
             {
-                events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
+                events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Skip((page - 1)* pagesize).Take(pagesize).ToList();
             }
             else
             {
-                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
+                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Skip((page - 1) * pagesize).Take(pagesize).ToList();
             }
 
             if (events.Count == 0)
