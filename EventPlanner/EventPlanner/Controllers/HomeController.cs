@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EventPlanner.Models;
 using EventPlanner.Data;
-using System.Net.Mail;
+//using System.Net.Mail;
 using DnsClient;
 using System.Net;
+using MailKit.Net.Smtp;
+using MimeKit;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EventPlanner.Controllers
 {
@@ -43,7 +46,7 @@ namespace EventPlanner.Controllers
         {
             return View("Error");
         }
-        public void SendMail()
+        /*public void SendMail()
         {
             MailAddress to = new MailAddress("439702@student.fontys.nl");
             MailAddress from = new MailAddress("notnotheracc@gmail.com");
@@ -68,6 +71,43 @@ namespace EventPlanner.Controllers
             {
                 Console.WriteLine(ex.ToString());
             }
+        }*/
+
+        [HttpPost]
+        public IActionResult MailSender(string email)
+        {
+            MimeMessage message = new MimeMessage();
+            //from
+            MailboxAddress from = new MailboxAddress("Admin",
+            "rockstars.it.project@gmail.com");
+            message.From.Add(from);
+
+            //to
+            MailboxAddress to = new MailboxAddress("User",
+            email);
+            message.To.Add(to);
+
+            //subject
+            message.Subject = "This is een test";
+
+            //body
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = "<h1>Hello World!</h1>";
+            bodyBuilder.TextBody = "Hello World!";
+
+            message.Body = bodyBuilder.ToMessageBody();
+
+            //connection
+            SmtpClient client = new SmtpClient();
+            client.Connect("smtp.gmail.com", 465, true);
+            client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
+
+            //send message and dispose
+            client.Send(message);
+            client.Disconnect(true);
+            client.Dispose();
+
+            return View("Ïndex");
         }
     }
 }
