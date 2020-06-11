@@ -9,5 +9,6 @@ namespace EventPlanner.ViewModels
     public class EventsViewModel
     {
         public List<Event> Events { get; set; }
+        public List<Categorie> Categories { get; set; }
     }
 }

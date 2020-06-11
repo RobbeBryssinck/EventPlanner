@@ -413,6 +413,7 @@ namespace EventPlanner.Controllers
         {
             //TODO: change List to IEnumerable or IReadOnly?
             List<Event> events = new List<Event>();
+            List<Categorie> categories = db.Categories.Where(x => x.hidden == false && x.hidden == false).ToList();
 
             if (!String.IsNullOrEmpty(id))
             {
@@ -434,9 +435,9 @@ namespace EventPlanner.Controllers
             }
             EventsViewModel model = new EventsViewModel()
             {
-                Events = events
+                Events = events,
+                Categories = categories
             };
-
             return View(model);
         }
         public IActionResult EventArchive()
