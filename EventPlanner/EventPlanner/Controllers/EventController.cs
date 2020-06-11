@@ -66,8 +66,14 @@ namespace EventPlanner.Controllers
                 }
                 else
                     realmodel.Registered = false;
-
-                return View(realmodel);
+                if (model.hidden == false || User.IsInRole("Admin") && model.hidden == true)
+                {
+                    return View(realmodel);
+                }
+                else
+                {
+                    return View("PageNotFoundError");
+                }
             }
             else
             {
