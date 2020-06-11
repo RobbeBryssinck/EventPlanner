@@ -36,7 +36,7 @@
                             <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Event" asp-action="Events" id="navbardrop" data-toggle="dropdown" style="color:black" onMouseOver="this.stylegit .color='#7e8691'"
                                onMouseOut="this.style.color='#000'"> Evenementen </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Event" asp-action="Events" asp-route-page="1"> Alle Evenementen </a>
+                                <a class="dropdown-item" asp-controller="Event" asp-action="Events" asp-route-pageSelection="1"> Alle Evenementen </a>
                                 <a class="dropdown-item" asp-controller="Event" asp-action="Categories"> Categorieën </a>
                                 <a class="dropdown-item" asp-controller="Event" asp-action="EventArchive"> Gearchiveerde Evenementen </a>
                                 @if (User.IsInRole("Admin"))

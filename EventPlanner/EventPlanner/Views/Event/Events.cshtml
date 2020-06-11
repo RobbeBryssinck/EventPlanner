@@ -26,3 +26,12 @@
 {
   <partial name="_EventTemplatePartial" model="item" />
 }
+
+<nav aria-label="Event navigation">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.Pages; i++)
+        {
+            <li class="page-item"> <a class="page-link" asp-controller="Event" asp-action="Events" asp-route-pageSelection="@i" asp-route-id="@Model.SearchString"> @i </a> </li>
+        }
+    </ul>
+</nav>

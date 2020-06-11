@@ -409,21 +409,29 @@ namespace EventPlanner.Controllers
             }
         }
 
-        public IActionResult Events(string id, int page)
+        public IActionResult Events(string id, int pageSelection)
         {
             //TODO: change List to IEnumerable or IReadOnly?
             List<Event> events = new List<Event>();
             List<Categorie> categories = db.Categories.Where(x => x.hidden == false && x.hidden == false).ToList();
-            int pagesize = 3;
+            decimal pagesize = 3;
+            decimal eventcount;
+            decimal page = Convert.ToDecimal(pageSelection);
 
             if (!String.IsNullOrEmpty(id))
             {
-                events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Skip((page - 1)* pagesize).Take(pagesize).ToList();
+                events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false)
+                    .Skip((int)((page - 1)* pagesize)).Take((int)pagesize).ToList();
+                eventcount = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
             }
             else
             {
-                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Skip((page - 1) * pagesize).Take(pagesize).ToList();
+                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false)
+                    .Skip((int)((page - 1) * pagesize)).Take((int)pagesize).ToList();
+                eventcount = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
             }
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventcount / pagesize));
 
             if (events.Count == 0)
             {
@@ -437,7 +445,9 @@ namespace EventPlanner.Controllers
             EventsViewModel model = new EventsViewModel()
             {
                 Events = events,
-                Categories = categories
+                Categories = categories,
+                Pages = pages,
+                SearchString = id
             };
             return View(model);
         }
