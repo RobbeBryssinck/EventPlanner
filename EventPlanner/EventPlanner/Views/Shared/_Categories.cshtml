@@ -1,11 +1,7 @@
-﻿@model EventsViewModel
+﻿@model CategoriesViewModel
 @{
-    ViewData["Title"] = "Events";
+
 }
-
-
-<h1>Alle Evenementen</h1>
-<br />
 
 <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -15,14 +11,9 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         @foreach (var item in Model.Categories)
         {
-            <a class="dropdown-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { CategoryId = item.CategorieId })</a>
+            <a class="list-group-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { CategoryId = item.CategorieId })</a>
         }
         <div class="dropdown-divider" href="#"></div>
         <a class="dropdown-item" href="#">Alle categorieën</a>
     </div>
 </div>
-
-@foreach (var item in Model.Events)
-{
-  <partial name="_EventTemplatePartial" model="item" />
-}
