@@ -497,7 +497,19 @@ namespace EventPlanner.Data
             }
             context.SaveChanges();
 
-        
+            var MailSubscribers = new MailSubscriber[]
+            {
+                new MailSubscriber
+                {
+                    Email="rockstars.it.project@gmail.com"
+                }
+            };
+
+            foreach(MailSubscriber mailSubscriber in MailSubscribers)
+            {
+                context.MailSubscribers.Add(mailSubscriber);
+            }
+            context.SaveChanges();
         }
     }
 }

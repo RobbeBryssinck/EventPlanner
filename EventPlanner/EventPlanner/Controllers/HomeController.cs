@@ -107,7 +107,7 @@ namespace EventPlanner.Controllers
             client.Disconnect(true);
             client.Dispose();
 
-            return View("Ïndex");
+            return View("index");
         }
     }
 }
