@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.ViewModels;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Hosting;
+using MimeKit;
 
 namespace EventPlanner.Controllers
 {
@@ -161,7 +163,7 @@ namespace EventPlanner.Controllers
                 userList = userManager.Users;
             }
 
-            if(userList.Count() == 0)
+            if (userList.Count() == 0)
             {
                 return RedirectToAction("EventsNotFound");
             }
@@ -294,7 +296,7 @@ namespace EventPlanner.Controllers
             };
 
             return View(model);
-        } 
+        }
         public IActionResult EventsNotFound()
         {
             return View();
@@ -345,6 +347,96 @@ namespace EventPlanner.Controllers
         public IActionResult AdminAccountDeleteComplete()
         {
             return View();
+        }
+        public IActionResult AdminNewsletterPage(string id)
+        {
+            List<Event> Events = new List<Event>();
+            List<AdminNewsletterPageViewModel> NewsLetterList = new List<AdminNewsletterPageViewModel>();
+
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Events = db.Events.Where(f => f.EventName.Contains(id) && f.Date > DateTime.Now && f.ForEmployees != EventGroup.RockstarsEmployees && f.hidden == false).ToList();
+            }
+            else
+            {
+                Events = db.Events.Where(f => f.Date > DateTime.Now && f.ForEmployees != EventGroup.RockstarsEmployees && f.hidden == false).ToList();
+            }
+
+            if (Events.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+            foreach (var item in Events)
+            {
+                AdminNewsletterPageViewModel newsletterEvent = new AdminNewsletterPageViewModel
+                {
+                    EventId = item.EventId,
+                    EventName = item.EventName
+                };
+                NewsLetterList.Add(newsletterEvent);
+            }
+
+            return View(NewsLetterList);
+
+        }
+        [HttpPost]
+        public IActionResult NewsLetterPost(List<AdminNewsletterPageViewModel> model)
+        {
+            List<AdminNewsletterPageViewModel> events = new List<AdminNewsletterPageViewModel>();
+            List<MailSubscriber> mailSubscribers = db.MailSubscribers.ToList();
+            foreach (var eventmodel in model)
+            {
+                if (eventmodel.IsSelected)
+                {
+                    events.Add(eventmodel);
+                }
+            }
+
+            if (mailSubscribers.Count > 0)
+            {
+                MimeMessage message = new MimeMessage();
+                //from
+                MailboxAddress from = new MailboxAddress("Rockstars IT",
+                "rockstars.it.project@gmail.com");
+                message.From.Add(from);
+
+                //to
+                foreach (var mailsubscriber in mailSubscribers)
+                {
+                    MailboxAddress to = new MailboxAddress("User",
+                    mailsubscriber.Email);
+                    message.To.Add(to);
+
+                    //subject
+                    message.Subject = "Nieuwsbrief Rockstars IT";
+
+                    //body
+                    BodyBuilder bodyBuilder = new BodyBuilder();
+                  //  bodyBuilder.HtmlBody = "<h1>Dit zijn de nieuwe evenementen van deze week!</h1>";
+                    foreach (var item in events)
+                    {
+                        bodyBuilder.HtmlBody += "<p>" + item.EventName + "</p>";
+                    }
+                    bodyBuilder.TextBody = "wat goed!";
+
+                    message.Body = bodyBuilder.ToMessageBody();
+
+                    //connection
+                    SmtpClient client = new SmtpClient();
+                    client.Connect("smtp.gmail.com", 465, true);
+                    client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
+
+                    //send message and dispose
+                    client.Send(message);
+                    client.Disconnect(true);
+                    client.Dispose();
+
+                }
+
+            }
+            return RedirectToAction("EmailSubscribeSuccess", "Home");
+
         }
     }
 }
