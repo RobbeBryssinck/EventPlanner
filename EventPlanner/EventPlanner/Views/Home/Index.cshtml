@@ -112,12 +112,15 @@
     <div class="container">
         <div class=" row welcome text-center">
             <div class="col-12">
-                <h1 class="display-4">Aankomende events.</h1>
+                <h1 class="display-4">Aankomende evenementen</h1>
             </div>
             <hr />
             <div class="col-12">
                 <p class="lead">
-                    @*Text for under the aankomende events*@
+                    @if (Model.Events.Count() == 0)
+                    {
+                        <p class="text-secondary">Er zijn geen aankomende evenementen</p>
+                    }
                 </p>
             </div>
         </div>
@@ -149,7 +152,7 @@
     <div class="container">
         <div class="row padding">
             <div class="col-md-12 col-lg-6">
-                <h2>Meer over ons.</h2>
+                <h2>Meer over ons</h2>
                 <p class="text-secondary">
                     <a href="#" class="text-secondary"><b>Team Up IT</b></a> is de opleidingstak van <a href="#" class="text-secondary"><b>Team Rockstars IT</b></a>.
                     Team Up IT staat voor ontwikkeling.
