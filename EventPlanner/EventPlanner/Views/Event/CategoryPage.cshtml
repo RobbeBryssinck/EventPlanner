@@ -1,15 +1,13 @@
 ﻿@model CategoryEventsViewModel
-@{
-    ViewData["Title"] = Model.CategoryName;
-}
+@{ ViewData["Title"] = Model.CategoryName; }
 
 <h1>@Model.CategoryName</h1>
 <p>@Model.CategoryInfo</p>
 <br />
-<br />
+
+<a asp-action="Events">Alle evenementen</a>
 
 @foreach (var item in Model.Events)
 {
-    <partial name="_EventTemplatePartial" model="item" />
-}
+<partial name="_EventTemplatePartial" model="item" />}
 

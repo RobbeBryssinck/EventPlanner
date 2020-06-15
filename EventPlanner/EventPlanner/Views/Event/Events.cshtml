@@ -15,10 +15,9 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         @foreach (var item in Model.Categories)
         {
-            <a class="dropdown-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { CategoryId = item.CategorieId })</a>
-        }
+    <a class="dropdown-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { CategoryId = item.CategorieId })</a>}
         <div class="dropdown-divider" href="#"></div>
-        <a class="dropdown-item" href="#">Alle categorieën</a>
+        <a class="dropdown-item" asp-controller="Event" asp-action="Categories">Alle categorieën</a>
     </div>
 </div>
 
