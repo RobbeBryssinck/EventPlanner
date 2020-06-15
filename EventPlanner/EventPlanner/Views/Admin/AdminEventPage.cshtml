@@ -59,3 +59,19 @@
     </tbody>
 </table>
 
+<nav aria-label="Admin navigation">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.Pages; i++)
+        {
+            if (i == Model.PageNumber)
+            {
+                <li class="page-item active"> <a class="page-link" asp-controller="Admin" asp-action="AdminEventPage" asp-route-pageSelection="@i"> @i </a> </li>
+            }
+            else
+            {
+                <li class="page-item"> <a class="page-link" asp-controller="Admin" asp-action="AdminEventPage" asp-route-pageSelection="@i"> @i </a> </li>
+            }
+        }
+    </ul>
+</nav>
+

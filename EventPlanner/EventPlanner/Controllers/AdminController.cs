@@ -215,17 +215,26 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        public IActionResult AdminCoachPage(string id)
+        public IActionResult AdminCoachPage(string id, int pageSelection)
         {
             List<Coach> Coaches = new List<Coach>();
 
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 10;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
             if (!String.IsNullOrEmpty(id))
             {
-                Coaches = db.Coaches.Where(s => s.Name.Contains(id)).ToList();
+                Coaches = db.Coaches.Where(s => s.Name.Contains(id))
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
             }
             else
             {
-                Coaches = db.Coaches.ToList();
+                Coaches = db.Coaches.Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
             }
 
             if (Coaches.Count == 0)
@@ -233,27 +242,43 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventsNotFound");
             }
 
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+
             AdminCoachPageViewModel model = new AdminCoachPageViewModel()
             {
-                Coaches = Coaches
+                Coaches = Coaches,
+                Pages = pages,
+                PageNumber = pageSelection
             };
             return View(model);
         }
 
-        public IActionResult AdminEventPage(string id)
+        public IActionResult AdminEventPage(string id, int pageSelection)
         {
             List<Event> Events = new List<Event>();
             List<Categorie> Categories = new List<Categorie>();
 
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
             if (!String.IsNullOrEmpty(id))
             {
                 Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).ToList();
-                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).Count();
             }
             else
             {
-                Events = db.Events.Where(s => s.hidden == false).ToList();
+                Events = db.Events.Where(s => s.hidden == false)
+                     .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
+                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).Count();
             }
 
             if (Events.Count == 0)
@@ -261,9 +286,13 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventsNotFound");
             }
 
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+
             AdminEventPageViewModel model = new AdminEventPageViewModel()
             {
-                Events = Events
+                Events = Events,
+                Pages = pages,
+                PageNumber = pageSelection
             };
             model.Categories = db.Categories.ToList();
 

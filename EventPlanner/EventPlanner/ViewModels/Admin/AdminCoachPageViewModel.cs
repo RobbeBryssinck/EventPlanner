@@ -10,5 +10,7 @@ namespace EventPlanner.ViewModels
     public class AdminCoachPageViewModel
     {
         public List<Coach> Coaches { get; set; }
+        public int Pages { get; set; }
+        public int PageNumber { get; set; }
     }
 }
