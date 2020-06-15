@@ -195,7 +195,7 @@ namespace EventPlanner.Controllers
                 Coach oldCoach = coaches[0];
                 db.Entry(oldCoach).CurrentValues.SetValues(realmodel);
                 db.SaveChanges();
-                return RedirectToAction("CoachPage", new { realmodel.CoachId });
+                return RedirectToAction("AdminCoachPage", "Admin",new { realmodel.CoachId });
             }
             else
             {

@@ -204,7 +204,7 @@ namespace EventPlanner.Controllers
 
             if (Users.Count == 0)
             {
-                return RedirectToAction("EventsNotFound");
+                return RedirectToAction("NotFoundAccounts");
             }
 
             AdminAccountPageViewModel model = new AdminAccountPageViewModel()
@@ -230,7 +230,7 @@ namespace EventPlanner.Controllers
 
             if (Coaches.Count == 0)
             {
-                return RedirectToAction("EventsNotFound");
+                return RedirectToAction("NotFoundCoaches");
             }
 
             AdminCoachPageViewModel model = new AdminCoachPageViewModel()
@@ -258,7 +258,7 @@ namespace EventPlanner.Controllers
 
             if (Events.Count == 0)
             {
-                return RedirectToAction("EventsNotFound");
+                return RedirectToAction("NotFoundEvents");
             }
 
             AdminEventPageViewModel model = new AdminEventPageViewModel()
@@ -285,7 +285,7 @@ namespace EventPlanner.Controllers
 
             if (Categories.Count == 0)
             {
-                return RedirectToAction("EventsNotFound");
+                return RedirectToAction("NotFoundCategory");
             }
 
             AdminCategoryPageViewModel model = new AdminCategoryPageViewModel()
@@ -295,7 +295,19 @@ namespace EventPlanner.Controllers
 
             return View(model);
         } 
-        public IActionResult EventsNotFound()
+        public IActionResult NotFoundEvents()
+        {
+            return View();
+        }
+        public IActionResult NotFoundCoaches()
+        {
+            return View();
+        }
+        public IActionResult NotFoundCategory()
+        {
+            return View();
+        }
+        public IActionResult NotFoundAccounts()
         {
             return View();
         }
