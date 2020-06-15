@@ -458,21 +458,30 @@ namespace EventPlanner.Controllers
         }
         public IActionResult EventArchive(int pageSelection)
         {
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
             decimal pageSize = 3;
             decimal eventCount;
             decimal page = Convert.ToDecimal(pageSelection);
 
             List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false)
                 .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+
             eventCount = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
 
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+            
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
             }
             EventArchiveViewModel model = new EventArchiveViewModel()
             {
-                Events = events
+                Events = events,
+                Pages = pages,
+                PageNumber = pageSelection
             };
 
             return View(model);

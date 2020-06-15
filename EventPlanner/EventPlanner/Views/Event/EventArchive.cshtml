@@ -17,11 +17,11 @@
         {
             if (i == Model.PageNumber)
             {
-                <li class="page-item active"> <a class="page-link" asp-controller="Event" asp-action="Events" asp-route-pageSelection="@i" asp-route-id="@Model.SearchString"> @i </a> </li>
+                <li class="page-item active"> <a class="page-link" asp-controller="Event" asp-action="EventArchive" asp-route-pageSelection="@i"> @i </a> </li>
             }
             else
             {
-                <li class="page-item"> <a class="page-link" asp-controller="Event" asp-action="Events" asp-route-pageSelection="@i" asp-route-id="@Model.SearchString"> @i </a> </li>
+                <li class="page-item"> <a class="page-link" asp-controller="Event" asp-action="EventArchive" asp-route-pageSelection="@i"> @i </a> </li>
             }
         }
     </ul>
