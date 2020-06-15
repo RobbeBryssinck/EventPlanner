@@ -3,10 +3,9 @@
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Admin omgeving - Nieuwsbrief";
 }
-<form class="form-inline" asp-action="AdminNewsLetterPage" asp-controller="Admin">
-    <input class="form-control mr-sm-" type="text" placeholder="Zoek een event" name="id" style="width:350px;">
-</form>
-
+    <form class="form-inline" asp-action="AdminNewsLetterPage" asp-controller="Admin">
+        <input class="form-control mr-sm-" type="text" placeholder="Zoek een event" name="id" style="width:350px;">
+    </form>
 <form asp-action="NewsLetterPost" asp-controller="Admin">
     <div class="card">
         <div class="card-header">
@@ -29,7 +28,6 @@
         <div class="card-footer">
             <input type="submit" value="Update" class="btn btn-primary"
                    style="width:auto" />
-            <a class="btn btn-primary" style="width:auto">Annuleren</a>
         </div>
     </div>
 </form>

@@ -393,50 +393,53 @@ namespace EventPlanner.Controllers
                 }
             }
 
-            if (mailSubscribers.Count > 0)
+
+            MimeMessage message = new MimeMessage();
+            //from
+            MailboxAddress from = new MailboxAddress("Rockstars IT",
+            "rockstars.it.project@gmail.com");
+            message.From.Add(from);
+
+            //to
+            foreach (var mailsubscriber in mailSubscribers)
             {
-                MimeMessage message = new MimeMessage();
-                //from
-                MailboxAddress from = new MailboxAddress("Rockstars IT",
-                "rockstars.it.project@gmail.com");
-                message.From.Add(from);
+                MailboxAddress to = new MailboxAddress("User",
+                mailsubscriber.Email);
+                message.To.Add(to);
 
-                //to
-                foreach (var mailsubscriber in mailSubscribers)
+                //subject
+                message.Subject = "Nieuwsbrief Rockstars IT";
+
+                //body
+                BodyBuilder bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = "<h1>Dit zijn de nieuwe evenementen van deze week!</h1>";
+                foreach (var item in events)
                 {
-                    MailboxAddress to = new MailboxAddress("User",
-                    mailsubscriber.Email);
-                    message.To.Add(to);
-
-                    //subject
-                    message.Subject = "Nieuwsbrief Rockstars IT";
-
-                    //body
-                    BodyBuilder bodyBuilder = new BodyBuilder();
-                  //  bodyBuilder.HtmlBody = "<h1>Dit zijn de nieuwe evenementen van deze week!</h1>";
-                    foreach (var item in events)
-                    {
-                        bodyBuilder.HtmlBody += "<p>" + item.EventName + "</p>";
-                    }
-                    bodyBuilder.TextBody = "wat goed!";
-
-                    message.Body = bodyBuilder.ToMessageBody();
-
-                    //connection
-                    SmtpClient client = new SmtpClient();
-                    client.Connect("smtp.gmail.com", 465, true);
-                    client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
-
-                    //send message and dispose
-                    client.Send(message);
-                    client.Disconnect(true);
-                    client.Dispose();
-
+                    bodyBuilder.HtmlBody += "<a href='https://i406843core.venus.fhict.nl/Event/EventPage?eventID=" + item.EventId + "'>" + item.EventName + "</a><br>";
                 }
 
-            }
-            return RedirectToAction("EmailSubscribeSuccess", "Home");
+                bodyBuilder.TextBody = "wat goed!";
 
+                message.Body = bodyBuilder.ToMessageBody();
+
+                //connection
+                SmtpClient client = new SmtpClient();
+                client.Connect("smtp.gmail.com", 465, true);
+                client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
+
+                //send message and dispose
+                client.Send(message);
+                client.Disconnect(true);
+                client.Dispose();
+
+            }
+
+            return RedirectToAction("AdminMailSendSuccess", "Admin");
+
+        }
+        public IActionResult AdminMailSendSuccess()
+        {
+            return View();
         }
     }
 }

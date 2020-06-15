@@ -119,10 +119,18 @@ namespace EventPlanner.Controllers
                 db.MailSubscribers.Add(mailSubscriber);
                 db.SaveChanges();
             }
+            else
+            {
+                return RedirectToAction("EmailSubscribeFail", "Home");
+            }
             return RedirectToAction("EmailSubscribeSuccess", "Home");
         }
 
         public IActionResult EmailSubscribeSuccess()
+        {
+            return View();
+        }
+        public IActionResult EmailSubscribeFail()
         {
             return View();
         }

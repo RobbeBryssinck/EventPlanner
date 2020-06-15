@@ -11,5 +11,6 @@ namespace EventPlanner.ViewModels
         public int EventId { get; set; }
         public string EventName { get; set; }
         public bool IsSelected { get; set; }
+        public string MailName { get; set; }
     }
 }
