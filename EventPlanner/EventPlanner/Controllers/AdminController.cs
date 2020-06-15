@@ -262,7 +262,7 @@ namespace EventPlanner.Controllers
             {
                 pageSelection = 1;
             }
-            decimal pageSize = 3;
+            decimal pageSize = 4;
             decimal eventCount;
             decimal page = Convert.ToDecimal(pageSelection);
 
