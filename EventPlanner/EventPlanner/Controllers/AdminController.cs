@@ -242,12 +242,12 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventsNotFound");
             }
 
-            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+            //int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
 
             AdminCoachPageViewModel model = new AdminCoachPageViewModel()
             {
                 Coaches = Coaches,
-                Pages = pages,
+                //Pages = pages,
                 PageNumber = pageSelection
             };
             return View(model);
@@ -278,7 +278,7 @@ namespace EventPlanner.Controllers
                 Events = db.Events.Where(s => s.hidden == false)
                      .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
-                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).Count();
+                eventCount = db.Events.Where(s => s.hidden == false).Count();
             }
 
             if (Events.Count == 0)
