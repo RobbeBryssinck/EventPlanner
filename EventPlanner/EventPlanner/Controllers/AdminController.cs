@@ -48,63 +48,6 @@ namespace EventPlanner.Controllers
             return View(roles);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> EditRole(string id)
-        {
-            var role = await roleManager.FindByIdAsync(id);
-
-            if (role == null)
-            {
-                // TODO: implement 404
-                return RedirectToAction("Index", "Home");
-            }
-
-            var model = new EditRoleViewModel()
-            {
-                Id = role.Id,
-                RoleName = role.Name
-            };
-
-            foreach (var user in userManager.Users)
-            {
-                if (await userManager.IsInRoleAsync(user, role.Name))
-                {
-                    model.Users.Add(user.UserName);
-                }
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditRole(EditRoleViewModel model)
-        {
-            var role = await roleManager.FindByIdAsync(model.Id);
-
-            if (role == null)
-            {
-                // TODO: implement 404
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                role.Name = model.RoleName;
-                var result = await roleManager.UpdateAsync(role);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("ListRoles");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-
-                return View(model);
-            }
-        }
-
         [HttpPost]
         public async Task<IActionResult> EditUsersInRolePost(List<UserRoleViewModel> model, string roleId)
         {
