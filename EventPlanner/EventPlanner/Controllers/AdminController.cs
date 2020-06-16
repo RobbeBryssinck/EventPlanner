@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MimeKit;
 
@@ -252,22 +253,27 @@ namespace EventPlanner.Controllers
 
             if (!String.IsNullOrEmpty(id))
             {
-                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).ToList();
+                Events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.hidden == false).ToList();
                 Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false)
                     .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).Count();
             }
             else
             {
-                Events = db.Events.Where(s => s.hidden == false)
+                Events = db.Events.Where(s => s.Date > DateTime.Now && s.hidden == false)
                      .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
                 eventCount = db.Events.Where(s => s.hidden == false).Count();
             }
 
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+
             AdminEventPageViewModel model = new AdminEventPageViewModel()
             {
-                Events = Events
+                Events = Events,
+                Pages = pages,
+                PageNumber = pageSelection
+                
             };
             model.Categories = db.Categories.ToList();
 
@@ -289,15 +295,17 @@ namespace EventPlanner.Controllers
 
             if (!String.IsNullOrEmpty(id))
             {
-                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now).ToList();
+                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
                 eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now).Count();
             }
             else
             {
-                Events = db.Events.Where(s => s.hidden == false && s.Date < DateTime.Now).ToList();
+                Events = db.Events.Where(s => s.hidden == false && s.Date < DateTime.Now)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
-                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now).Count();
+                eventCount = db.Events.Where(s => s.hidden == false && s.Date < DateTime.Now).Count();
             }
 
             int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
