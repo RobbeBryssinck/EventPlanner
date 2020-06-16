@@ -1,9 +1,10 @@
 ﻿@model EventsViewModel
 @{
+    Layout = "_LayoutAdmin";
     ViewData["Title"] = "Events";
 }
 
-<h1>Alle Evenementen</h1>
+<h1>Verwijderde Evenementen</h1>
 <br />
 
 @foreach (var item in Model.Events)
