@@ -213,18 +213,19 @@ namespace EventPlanner.Controllers
             EventFeedbackDeleteViewModel model = new EventFeedbackDeleteViewModel()
             {
                 RatingId = ratings[0].RatingId,
-                RatingTitle = ratings[0].RatingTitle
+                RatingTitle = ratings[0].RatingTitle,
+                EventId = ratings[0].EventId
             };
             return View(model);
         }
 
         [Authorize(Roles = "Rockstar, User")]
-        public IActionResult DeleteFeedback(int ratingID)
+        public IActionResult DeleteFeedback(int ratingID, int eventID)
         {
             List<Rating> ratings = db.Ratings.Where(x => x.RatingId == ratingID).ToList();
             db.Ratings.Remove(ratings[0]);
             db.SaveChanges();
-            return RedirectToAction("EventDeleteFeedbackComplete");
+            return RedirectToAction("EventArchived", "Event", new { eventID = eventID });
         }
 
         [Authorize(Roles = "Rockstar, User")]
@@ -325,7 +326,7 @@ namespace EventPlanner.Controllers
             {
                 db.Ratings.Add(rating);
                 db.SaveChanges();
-                return View("EventFeedbackSubmitted");
+                return RedirectToAction("EventArchived", "Event", new { eventID = eventID });
             }
 
             else
@@ -623,6 +624,7 @@ namespace EventPlanner.Controllers
                 db.SaveChanges();
             }
         }
+
 
     }
 }
