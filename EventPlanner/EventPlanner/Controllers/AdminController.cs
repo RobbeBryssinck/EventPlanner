@@ -246,12 +246,37 @@ namespace EventPlanner.Controllers
 
             if (!String.IsNullOrEmpty(id))
             {
-                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).ToList();
+                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date > DateTime.Now).ToList();
                 Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
             }
             else
             {
-                Events = db.Events.Where(s => s.hidden == false).ToList();
+                Events = db.Events.Where(s => s.hidden == false && s.Date > DateTime.Now).ToList();
+                Categories = db.Categories.Where(s => s.hidden == false).ToList();
+            }
+
+            AdminEventPageViewModel model = new AdminEventPageViewModel()
+            {
+                Events = Events
+            };
+            model.Categories = db.Categories.ToList();
+
+            return View(model);
+        }
+
+        public IActionResult AdminArchivedEventPage(string id)
+        {
+            List<Event> Events = new List<Event>();
+            List<Categorie> Categories = new List<Categorie>();
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
+            }
+            else
+            {
+                Events = db.Events.Where(s => s.hidden == false && s.Date < DateTime.Now).ToList();
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
             }
 
