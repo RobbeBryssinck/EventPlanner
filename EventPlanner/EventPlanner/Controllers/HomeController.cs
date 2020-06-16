@@ -13,6 +13,7 @@ using System.Net;
 using MailKit.Net.Smtp;
 using MimeKit;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace EventPlanner.Controllers
 {
@@ -20,11 +21,17 @@ namespace EventPlanner.Controllers
     {
         private EventPlannerContext db;
         private readonly ILogger<HomeController> _logger;
+        private readonly string smtpString;
+        private readonly string emailFrom;
+        private readonly string mailPassword;
 
-        public HomeController(ILogger<HomeController> logger, EventPlannerContext db)
+        public HomeController(ILogger<HomeController> logger, EventPlannerContext db, IConfiguration config)
         {
             this.db = db;
             _logger = logger;
+            smtpString = config.GetValue<string>("smtpString");
+            emailFrom = config.GetValue<string>("emailFrom");
+            mailPassword = config.GetValue<string>("mailPassword");
         }
 
         public IActionResult Index()
@@ -77,52 +84,61 @@ namespace EventPlanner.Controllers
         public IActionResult MailSender(string email)
         {
             List<MailSubscriber> mailSubscribers = db.MailSubscribers.Where(x => x.Email == email).ToList();
-
-            if (mailSubscribers.Count == 0)
-            {
-                MimeMessage message = new MimeMessage();
-                //from
-                MailboxAddress from = new MailboxAddress("Rockstars IT",
-                "rockstars.it.project@gmail.com");
-                message.From.Add(from);
-
-                //to
-                MailboxAddress to = new MailboxAddress("User",
-                email);
-                message.To.Add(to);
-
-                //subject
-                message.Subject = "Nieuwsbrief";
-
-                //body
-                BodyBuilder bodyBuilder = new BodyBuilder();
-                bodyBuilder.HtmlBody = "<h1>U bent nu aangemeld voor de nieuwsbrief!</h1>";
-                bodyBuilder.TextBody = "wat goed!";
-
-                message.Body = bodyBuilder.ToMessageBody();
-
-                //connection
-                SmtpClient client = new SmtpClient();
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
-
-                //send message and dispose
-                client.Send(message);
-                client.Disconnect(true);
-                client.Dispose();
-
-
-                MailSubscriber mailSubscriber = new MailSubscriber()
+            
+                if (mailSubscribers.Count == 0)
                 {
-                    Email = email
-                };
-                db.MailSubscribers.Add(mailSubscriber);
-                db.SaveChanges();
-            }
-            return RedirectToAction("EmailSubscribeSuccess", "Home");
+                    MimeMessage message = new MimeMessage();
+                    //from
+                    MailboxAddress from = new MailboxAddress("Rockstars IT",
+                    "rockstars.it.project@gmail.com");
+                    message.From.Add(from);
+
+                    //to
+                    MailboxAddress to = new MailboxAddress("User",
+                    email);
+                    message.To.Add(to);
+
+                    //subject
+                    message.Subject = "Nieuwsbrief";
+
+                    //body
+                    BodyBuilder bodyBuilder = new BodyBuilder();
+                    bodyBuilder.HtmlBody = "<h1>U bent nu aangemeld voor de nieuwsbrief!</h1>";
+                    bodyBuilder.TextBody = "wat goed!";
+
+                    message.Body = bodyBuilder.ToMessageBody();
+
+                    //connection
+                    SmtpClient client = new SmtpClient();
+                    client.Connect(smtpString, 465, true);
+                    client.Authenticate(emailFrom, mailPassword);
+
+                    //send message and dispose
+                    client.Send(message);
+                    client.Disconnect(true);
+                    client.Dispose();
+
+
+                    MailSubscriber mailSubscriber = new MailSubscriber()
+                    {
+                        Email = email
+                    };
+                    db.MailSubscribers.Add(mailSubscriber);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    return RedirectToAction("EmailSubscribeFail", "Home");
+                }
+                return RedirectToAction("EmailSubscribeSuccess", "Home");
         }
 
+
         public IActionResult EmailSubscribeSuccess()
+        {
+            return View();
+        }
+        public IActionResult EmailSubscribeFail()
         {
             return View();
         }
