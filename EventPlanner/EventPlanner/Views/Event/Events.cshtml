@@ -11,17 +11,17 @@
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Categorieën
     </button>
-
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         @foreach (var item in Model.Categories)
         {
-    <a class="dropdown-item">@Html.ActionLink(item.CategorieName, "CategoryPage", new { CategoryId = item.CategorieId })</a>}
-        <div class="dropdown-divider" href="#"></div>
-        <a class="dropdown-item" asp-controller="Event" asp-action="Categories">Alle categorieën</a>
+            <a class="dropdown-item" asp-controller="Event" asp-action="CategoryPage" asp-route-CategoryId="@item.CategorieId">@item.CategorieName</a>
+        }
+        <hr />
+        <a class="dropdown-item" asp-controller="Event" asp-action="Categories">Zoek een categorie</a>
     </div>
 </div>
 
 @foreach (var item in Model.Events)
 {
-  <partial name="_EventTemplatePartial" model="item" />
+    <partial name="_EventTemplatePartial" model="item" />
 }
