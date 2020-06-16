@@ -136,7 +136,7 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        public async Task<IActionResult> EditUsersInRole(string roleId, string id)
+        public async Task<IActionResult> EditUsersInRole(string roleId, string id, int pageSelection)
         {
             ViewBag.roleId = roleId;
 
@@ -144,21 +144,32 @@ namespace EventPlanner.Controllers
 
             if (role == null)
             {
-                // TODO: implement 404
-                return RedirectToAction("Index", "Home");
+               
+                return RedirectToAction("ErrorUser", "Home");
             }
 
-            List<UserRoleViewModel> model = new List<UserRoleViewModel>();
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 10;
+            decimal accountCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            UserRoleViewModel realmodel = new UserRoleViewModel();
+            realmodel.model = new List<UserRoleViewModel>();
 
             IQueryable<ApplicationUser> userList = userManager.Users;
 
             if (!String.IsNullOrEmpty(id))
             {
-                userList = userManager.Users.Where(s => s.UserName.Contains(id));
+                userList = userManager.Users.Where(s => s.UserName.Contains(id)).Skip((int)((page - 1) * pageSize)).Take((int)pageSize);
+                accountCount = userManager.Users.Where(s => s.UserName.Contains(id)).Count();
             }
             else
             {
-                userList = userManager.Users;
+                userList = userManager.Users.Skip((int)((page - 1) * pageSize)).Take((int)pageSize);
+                accountCount = userManager.Users.Count();
             }
 
             if(userList.Count() == 0)
@@ -166,12 +177,14 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventsNotFound");
             }
 
+            int pages = Convert.ToInt32(Math.Ceiling(accountCount / pageSize));
+
             foreach (var user in userList)
             {
                 UserRoleViewModel userRoleViewModel = new UserRoleViewModel
                 {
                     UserId = user.Id,
-                    UserName = user.UserName
+                    UserName = user.UserName,
                 };
 
                 if (await userManager.IsInRoleAsync(user, role.Name))
@@ -182,24 +195,36 @@ namespace EventPlanner.Controllers
                 {
                     userRoleViewModel.IsSelected = false;
                 }
-
-                model.Add(userRoleViewModel);
+               
+                realmodel.model.Add(userRoleViewModel);
             }
+            realmodel.PageNumber = pageSelection;
+            realmodel.Pages = pages;
 
-            return View(model);
+            return View(realmodel);
         }
 
-        public IActionResult AdminAccountPage(string id)
+        public IActionResult AdminAccountPage(string id, int pageSelection)
         {
             List<ApplicationUser> Users = new List<ApplicationUser>();
 
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 10;
+            decimal accountCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
             if (!String.IsNullOrEmpty(id))
             {
-                Users = db.Users.Where(s => s.UserName.Contains(id)).ToList();
+                Users = db.Users.Where(s => s.UserName.Contains(id)).Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                accountCount = db.Users.Where(s => s.UserName.Contains(id)).Count();
             }
             else
             {
-                Users = db.Users.ToList();
+                Users = db.Users.Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                accountCount = db.Users.Count();
             }
 
             if (Users.Count == 0)
@@ -207,9 +232,13 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventsNotFound");
             }
 
+            int pages = Convert.ToInt32(Math.Ceiling(accountCount / pageSize));
+
             AdminAccountPageViewModel model = new AdminAccountPageViewModel()
             {
-                Users = Users
+                Users = Users,
+                Pages = pages,
+                PageNumber = pageSelection
             };
 
             return View(model);
