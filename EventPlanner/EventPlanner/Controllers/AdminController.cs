@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using MimeKit;
 
@@ -26,12 +27,18 @@ namespace EventPlanner.Controllers
         private EventPlannerContext db;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly string smtpString;
+        private readonly string emailFrom;
+        private readonly string mailPassword;
 
-        public AdminController(EventPlannerContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public AdminController(EventPlannerContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             this.db = db;
             this.roleManager = roleManager;
             this.userManager = userManager;
+            smtpString = config.GetValue<string>("smtpString");
+            emailFrom = config.GetValue<string>("emailFrom");
+            mailPassword = config.GetValue<string>("mailPassword");
         }
 
         [HttpGet]
@@ -418,14 +425,13 @@ namespace EventPlanner.Controllers
                     bodyBuilder.HtmlBody += "<a href='https://i406843core.venus.fhict.nl/Event/EventPage?eventID=" + item.EventId + "'>" + item.EventName + "</a><br>";
                 }
 
-                bodyBuilder.TextBody = "wat goed!";
 
                 message.Body = bodyBuilder.ToMessageBody();
 
                 //connection
                 SmtpClient client = new SmtpClient();
-                client.Connect("smtp.gmail.com", 465, true);
-                client.Authenticate("rockstars.it.project@gmail.com", "zrqcdplfwrgsvgxk");
+                client.Connect(smtpString, 465, true);
+                client.Authenticate(emailFrom, mailPassword);
 
                 //send message and dispose
                 client.Send(message);
