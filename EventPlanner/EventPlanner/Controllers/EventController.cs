@@ -186,8 +186,9 @@ namespace EventPlanner.Controllers
         }
 
         [Authorize(Roles = "Rockstar, User")]
-        public IActionResult EventArchivedForEmployees(int eventID)
+        public IActionResult EventArchivedForEmployees(int eventID, int pageSelection)
         {
+            decimal pageCount;
             EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
             List<Event> events = db.Events.Where(x => x.EventId == eventID && x.hidden == false).ToList();
             if (events.Count > 0)
@@ -422,20 +423,33 @@ namespace EventPlanner.Controllers
             }
         }
 
-        public IActionResult Events(string id)
+        public IActionResult Events(string id, int pageSelection)
         {
             //TODO: change List to IEnumerable or IReadOnly?
             List<Event> events = new List<Event>();
             List<Categorie> categories = db.Categories.Where(x => x.hidden == false && x.hidden == false).ToList();
+            if(pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
 
             if (!String.IsNullOrEmpty(id))
             {
-                events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
+                events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false)
+                    .Skip((int)((page - 1)* pageSize)).Take((int)pageSize).ToList();
+                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
             }
             else
             {
-                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
+                events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                eventCount = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
             }
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
 
             if (events.Count == 0)
             {
@@ -451,28 +465,61 @@ namespace EventPlanner.Controllers
             EventsViewModel model = new EventsViewModel()
             {
                 Events = events,
-                Categories = categories
+                Categories = categories,
+                Pages = pages,
+                SearchString = id,
+                PageNumber = pageSelection
             };
             return View(model);
         }
-        public IActionResult EventArchive()
+        public IActionResult EventArchive(int pageSelection)
         {
-            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).ToList();
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false)
+                .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+
+            eventCount = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+            
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
             }
             EventArchiveViewModel model = new EventArchiveViewModel()
             {
-                Events = events
+                Events = events,
+                Pages = pages,
+                PageNumber = pageSelection
             };
 
             return View(model);
         }
         [Authorize(Roles = "Rockstar, Admin")]
-        public IActionResult EventArchiveForEmployees()
+        public IActionResult EventArchiveForEmployees(int pageSelection)
         {
-            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).ToList();
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            List<Event> events = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false)
+                 .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+
+            eventCount = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).Count();
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
@@ -480,26 +527,38 @@ namespace EventPlanner.Controllers
 
             EventArchiveViewModel model = new EventArchiveViewModel()
             {
-                Events = events
+                Events = events,
+                Pages = pages,
+                PageNumber = pageSelection
             };
 
             return View(model);
         }
         [Authorize(Roles = "Admin, Rockstar")]
         [HttpGet]
-        public IActionResult EventsForEmployees()
+        public IActionResult EventsForEmployees(int pageSelection)
         {
-            List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).ToList();
-            /*
-            foreach (var item in events)
+            if (pageSelection == 0)
             {
-                var Participants = db.Registrations.Where(b => b.EventId == item.EventId).Count();
-                item.Visitors = Participants;
+                pageSelection = 1;
             }
-            */
+
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            List<Event> events = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false)
+                .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+
+            eventCount = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).Count();
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+            
             EventsForEmployeesViewModel model = new EventsForEmployeesViewModel()
             {
-                Events = events
+                Events = events,
+                Pages = pages,
+                PageNumber = pageSelection,
             };
 
             return View(model);
@@ -599,15 +658,34 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EventRegistered", "Account");
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult EventDeleted()
+        public IActionResult EventDeleted(int pageSelection)
         {
-            EventsViewModel realmodel = new EventsViewModel();
-            List<Event> events = db.Events.Where(x => x.hidden == true).ToList();
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            
+            List<Event> events = db.Events.Where(x => x.hidden == true)
+                .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+
+            eventCount = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).Count();
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
             }
-            realmodel.Events = events;
+            EventsViewModel realmodel = new EventsViewModel()
+            {
+                Events = events,
+                Pages = pages,
+                PageNumber = pageSelection
+            };
             return View(realmodel);
         }
         private void UpdateParticipants(int eventId)

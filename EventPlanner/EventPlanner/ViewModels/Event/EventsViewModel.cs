@@ -10,5 +10,8 @@ namespace EventPlanner.ViewModels
     {
         public List<Event> Events { get; set; }
         public List<Categorie> Categories { get; set; }
+        public int Pages { get; set; }
+        public string SearchString { get; set; }
+        public int PageNumber { get; set; }
     }
 }

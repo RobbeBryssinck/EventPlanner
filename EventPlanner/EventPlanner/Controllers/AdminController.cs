@@ -88,7 +88,7 @@ namespace EventPlanner.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
-        public async Task<IActionResult> EditUsersInRole(string roleId, string id)
+        public async Task<IActionResult> EditUsersInRole(string roleId, string id, int pageSelection)
         {
             ViewBag.roleId = roleId;
 
@@ -96,21 +96,32 @@ namespace EventPlanner.Controllers
 
             if (role == null)
             {
-                // TODO: implement 404
-                return RedirectToAction("Index", "Home");
+
+                return RedirectToAction("ErrorUser", "Home");
             }
 
-            List<UserRoleViewModel> model = new List<UserRoleViewModel>();
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 10;
+            decimal accountCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            UserRoleViewModel realmodel = new UserRoleViewModel();
+            realmodel.model = new List<UserRoleViewModel>();
 
             IQueryable<ApplicationUser> userList = userManager.Users;
 
             if (!String.IsNullOrEmpty(id))
             {
-                userList = userManager.Users.Where(s => s.UserName.Contains(id));
+                userList = userManager.Users.Where(s => s.UserName.Contains(id)).Skip((int)((page - 1) * pageSize)).Take((int)pageSize);
+                accountCount = userManager.Users.Where(s => s.UserName.Contains(id)).Count();
             }
             else
             {
-                userList = userManager.Users;
+                userList = userManager.Users.Skip((int)((page - 1) * pageSize)).Take((int)pageSize);
+                accountCount = userManager.Users.Count();
             }
 
             if (userList.Count() == 0)
@@ -118,12 +129,14 @@ namespace EventPlanner.Controllers
                 return RedirectToAction("EventsNotFound");
             }
 
+            int pages = Convert.ToInt32(Math.Ceiling(accountCount / pageSize));
+
             foreach (var user in userList)
             {
                 UserRoleViewModel userRoleViewModel = new UserRoleViewModel
                 {
                     UserId = user.Id,
-                    UserName = user.UserName
+                    UserName = user.UserName,
                 };
 
                 if (await userManager.IsInRoleAsync(user, role.Name))
@@ -135,67 +148,121 @@ namespace EventPlanner.Controllers
                     userRoleViewModel.IsSelected = false;
                 }
 
-                model.Add(userRoleViewModel);
+                realmodel.model.Add(userRoleViewModel);
             }
+            realmodel.PageNumber = pageSelection;
+            realmodel.Pages = pages;
 
-            return View(model);
+            return View(realmodel);
         }
 
-        public IActionResult AdminAccountPage(string id)
+        public IActionResult AdminAccountPage(string id, int pageSelection)
         {
             List<ApplicationUser> Users = new List<ApplicationUser>();
 
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 10;
+            decimal accountCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
             if (!String.IsNullOrEmpty(id))
             {
-                Users = db.Users.Where(s => s.UserName.Contains(id)).ToList();
+                Users = db.Users.Where(s => s.UserName.Contains(id)).Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                accountCount = db.Users.Where(s => s.UserName.Contains(id)).Count();
             }
             else
             {
-                Users = db.Users.ToList();
+                Users = db.Users.Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                accountCount = db.Users.Count();
             }
+
+            if (Users.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            int pages = Convert.ToInt32(Math.Ceiling(accountCount / pageSize));
 
             AdminAccountPageViewModel model = new AdminAccountPageViewModel()
             {
-                Users = Users
+                Users = Users,
+                Pages = pages,
+                PageNumber = pageSelection
             };
 
             return View(model);
         }
 
-        public IActionResult AdminCoachPage(string id)
+        public IActionResult AdminCoachPage(string id, int pageSelection)
         {
             List<Coach> Coaches = new List<Coach>();
 
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 10;
+            decimal coachCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
             if (!String.IsNullOrEmpty(id))
             {
-                Coaches = db.Coaches.Where(s => s.Name.Contains(id)).ToList();
+                Coaches = db.Coaches.Where(s => s.Name.Contains(id))
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                coachCount = db.Coaches.Where(s => s.Name.Contains(id) && s.CoachId > 0).Count();
+
             }
             else
             {
-                Coaches = db.Coaches.ToList();
+                Coaches = db.Coaches.Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                coachCount = db.Coaches.Where(s => s.CoachId > 0).Count();
             }
+
+            if (Coaches.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            int pages = Convert.ToInt32(Math.Ceiling(coachCount / pageSize));
 
             AdminCoachPageViewModel model = new AdminCoachPageViewModel()
             {
-                Coaches = Coaches
+                Coaches = Coaches,
+                Pages = pages,
+                PageNumber = pageSelection
             };
             return View(model);
         }
 
-        public IActionResult AdminEventPage(string id)
+        public IActionResult AdminEventPage(string id, int pageSelection)
         {
             List<Event> Events = new List<Event>();
             List<Categorie> Categories = new List<Categorie>();
 
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 4;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
             if (!String.IsNullOrEmpty(id))
             {
-                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date > DateTime.Now).ToList();
-                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
+                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false).Count();
             }
             else
             {
-                Events = db.Events.Where(s => s.hidden == false && s.Date > DateTime.Now).ToList();
+                Events = db.Events.Where(s => s.hidden == false)
+                     .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
+                eventCount = db.Events.Where(s => s.hidden == false).Count();
             }
 
             AdminEventPageViewModel model = new AdminEventPageViewModel()
@@ -207,47 +274,82 @@ namespace EventPlanner.Controllers
             return View(model);
         }
 
-        public IActionResult AdminArchivedEventPage(string id)
+        public IActionResult AdminArchivedEventPage(string id, int pageSelection)
         {
             List<Event> Events = new List<Event>();
             List<Categorie> Categories = new List<Categorie>();
+
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 4;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
 
             if (!String.IsNullOrEmpty(id))
             {
                 Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now).ToList();
                 Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
+                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now).Count();
             }
             else
             {
                 Events = db.Events.Where(s => s.hidden == false && s.Date < DateTime.Now).ToList();
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
+                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == false && s.Date < DateTime.Now).Count();
             }
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
 
             AdminEventPageViewModel model = new AdminEventPageViewModel()
             {
-                Events = Events
+                Events = Events,
+                Pages = pages,
+                PageNumber = pageSelection
             };
             model.Categories = db.Categories.ToList();
 
             return View(model);
         }
 
-        public IActionResult AdminCategoryPage(string id)
+        public IActionResult AdminCategoryPage(string id, int pageSelection)
         {
             List<Categorie> Categories = new List<Categorie>();
 
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 4;
+            decimal categoryCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
             if (!String.IsNullOrEmpty(id))
             {
-                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                categoryCount = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == false).Count();
             }
             else
             {
-                Categories = db.Categories.Where(s => s.hidden == false).ToList();
+                Categories = db.Categories.Where(s => s.hidden == false)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                categoryCount = db.Categories.Where(s => s.hidden == false).Count();
             }
+
+            if (Categories.Count == 0)
+            {
+                return RedirectToAction("EventsNotFound");
+            }
+
+            int pages = Convert.ToInt32(Math.Ceiling(categoryCount / pageSize));
 
             AdminCategoryPageViewModel model = new AdminCategoryPageViewModel()
             {
-                Categories = Categories
+                Categories = Categories,
+                PageNumber = pageSelection,
+                Pages = pages
             };
 
             return View(model);

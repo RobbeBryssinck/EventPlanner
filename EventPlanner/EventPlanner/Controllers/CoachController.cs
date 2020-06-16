@@ -28,9 +28,28 @@ namespace EventPlanner.Controllers
         }
 
         [Authorize(Roles = "Admin, Rockstar")]
-        public IActionResult Coaches()
+        public IActionResult Coaches(int pageSelection)
         {
-            return View(db.Coaches.ToList());
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            List<Coach> coaches = db.Coaches.Where(x => x.CoachId > 0).Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+            eventCount = db.Coaches.Where(x => x.CoachId > 0).Count();
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+
+            CoachViewModel model = new CoachViewModel()
+            {
+                Coaches = coaches,
+                Pages = pages,
+                PageNumber = pageSelection
+            };
+            return View(model);
+
         }
 
         [Authorize(Roles = "Admin, Rockstar")]

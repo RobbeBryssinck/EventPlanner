@@ -2,7 +2,7 @@
 
 @{
     Layout = "_LayoutAdmin";
-        ViewData["Title"] = "Admin omgeving - categorie";
+    ViewData["Title"] = "Admin omgeving - categorie";
 }
 <h1>Categorieën</h1>
 <form class="form-inline" asp-action="AdminCategoryPage" asp-controller="Admin">
@@ -28,21 +28,37 @@
         {
             @if (item.hidden == false)
             {
-            <tr>
-                <td>
-                    <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>
-                        @Html.DisplayFor(modelItem => item.CategorieName)
-                    </a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Info)
-                </td>
-                <td>
-                    <a href='@string.Format("/Event/CategoryChangePage?CategoryID={0}", item.CategorieId)'>Wijzig</a>  |
-                    <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <a href='@string.Format("/Event/CategoryPage?CategoryID={0}", item.CategorieId)'>
+                            @Html.DisplayFor(modelItem => item.CategorieName)
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Info)
+                    </td>
+                    <td>
+                        <a href='@string.Format("/Event/CategoryChangePage?CategoryID={0}", item.CategorieId)'>Wijzig</a>  |
+                        <a href='@string.Format("/Event/CategoryDeletePage?CategoryId={0}", item.CategorieId)'>Verwijder</a>
+                    </td>
+                </tr>
             }
         }
     </tbody>
 </table>
+
+<nav aria-label="Admin navigation">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.Pages; i++)
+        {
+            if (i == Model.PageNumber)
+            {
+                <li class="page-item active"> <a class="page-link" asp-controller="Admin" asp-action="AdminCategoryPage" asp-route-pageSelection="@i"> @i </a> </li>
+            }
+            else
+            {
+                <li class="page-item"> <a class="page-link" asp-controller="Admin" asp-action="AdminCategoryPage" asp-route-pageSelection="@i"> @i </a> </li>
+            }
+        }
+    </ul>
+</nav>
