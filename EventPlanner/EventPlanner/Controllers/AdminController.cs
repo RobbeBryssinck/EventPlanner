@@ -202,11 +202,6 @@ namespace EventPlanner.Controllers
                 Users = db.Users.ToList();
             }
 
-            if (Users.Count == 0)
-            {
-                return RedirectToAction("NotFoundAccounts");
-            }
-
             AdminAccountPageViewModel model = new AdminAccountPageViewModel()
             {
                 Users = Users
@@ -226,11 +221,6 @@ namespace EventPlanner.Controllers
             else
             {
                 Coaches = db.Coaches.ToList();
-            }
-
-            if (Coaches.Count == 0)
-            {
-                return RedirectToAction("NotFoundCoaches");
             }
 
             AdminCoachPageViewModel model = new AdminCoachPageViewModel()
@@ -256,11 +246,6 @@ namespace EventPlanner.Controllers
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
             }
 
-            if (Events.Count == 0)
-            {
-                return RedirectToAction("NotFoundEvents");
-            }
-
             AdminEventPageViewModel model = new AdminEventPageViewModel()
             {
                 Events = Events
@@ -283,11 +268,6 @@ namespace EventPlanner.Controllers
                 Categories = db.Categories.Where(s => s.hidden == false).ToList();
             }
 
-            if (Categories.Count == 0)
-            {
-                return RedirectToAction("NotFoundCategory");
-            }
-
             AdminCategoryPageViewModel model = new AdminCategoryPageViewModel()
             {
                 Categories = Categories
@@ -295,22 +275,7 @@ namespace EventPlanner.Controllers
 
             return View(model);
         } 
-        public IActionResult NotFoundEvents()
-        {
-            return View();
-        }
-        public IActionResult NotFoundCoaches()
-        {
-            return View();
-        }
-        public IActionResult NotFoundCategory()
-        {
-            return View();
-        }
-        public IActionResult NotFoundAccounts()
-        {
-            return View();
-        }
+        
         public IActionResult AccessDenied()
         {
             return View("AccessDenied");
