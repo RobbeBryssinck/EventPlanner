@@ -400,7 +400,7 @@ namespace EventPlanner.Controllers
         public IActionResult CategoryPage(int CategoryID)
         {
             CategoryEventsViewModel model = new CategoryEventsViewModel();
-            model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now && s.hidden == false).ToList();
+            model.Events = db.Events.Where(s => s.CategoryId == CategoryID && s.Date > DateTime.Now && s.hidden == false && s.ForEmployees == EventGroup.Public).ToList();
             List<Categorie> categories = db.Categories.Where(s => s.CategorieId == CategoryID && s.hidden == false).ToList();
             if (categories.Count > 0)
             {
