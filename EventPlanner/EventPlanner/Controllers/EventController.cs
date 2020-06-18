@@ -89,9 +89,14 @@ namespace EventPlanner.Controllers
             return View();
         }
 
+        public IActionResult CategoryCreate()
+        {
+            return View();
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult CreateCategorie(Categorie model)
+        public IActionResult CategoryCreatePage(Categorie model)
         {
             if (ModelState.IsValid)
             {

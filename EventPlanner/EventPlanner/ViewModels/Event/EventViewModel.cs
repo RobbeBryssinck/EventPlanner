@@ -42,7 +42,7 @@ namespace EventPlanner.Models
         public string Email { get; set; }
         public string ImageSrc { get; set; }
         [Required]
-        [Display(Name = "Category Type")]
+        [Display(Name = "Categorie")]
         public int CategoryId { get; set; }
         public int Visitors { get; set; }
 
