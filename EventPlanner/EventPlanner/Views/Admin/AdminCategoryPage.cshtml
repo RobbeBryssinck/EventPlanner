@@ -4,11 +4,12 @@
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Admin omgeving - categorie";
 }
-    <p>
-        <a asp-area="" asp-controller="Event" asp-action="CategoryCreate">Maak een nieuwe categorie aan</a>
-    </p>
+
 
 <h1>Categorieën</h1>
+<p>
+    <a asp-area="" asp-controller="Event" asp-action="CategoryCreate">Maak een nieuwe categorie aan</a>
+</p>
 <form class="form-inline" asp-action="AdminCategoryPage" asp-controller="Admin">
     <input class="form-control mr-sm-" type="text" placeholder="Zoek een categorie" name="id" style="width:350px;">
 </form>
