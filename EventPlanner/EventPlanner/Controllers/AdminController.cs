@@ -125,11 +125,6 @@ namespace EventPlanner.Controllers
                 accountCount = userManager.Users.Count();
             }
 
-            if (userList.Count() == 0)
-            {
-                return RedirectToAction("EventsNotFound");
-            }
-
             int pages = Convert.ToInt32(Math.Ceiling(accountCount / pageSize));
 
             foreach (var user in userList)
@@ -180,11 +175,6 @@ namespace EventPlanner.Controllers
                 accountCount = db.Users.Count();
             }
 
-            if (Users.Count == 0)
-            {
-                return RedirectToAction("EventsNotFound");
-            }
-
             int pages = Convert.ToInt32(Math.Ceiling(accountCount / pageSize));
 
             AdminAccountPageViewModel model = new AdminAccountPageViewModel()
@@ -220,11 +210,6 @@ namespace EventPlanner.Controllers
             {
                 Coaches = db.Coaches.Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 coachCount = db.Coaches.Where(s => s.CoachId > 0).Count();
-            }
-
-            if (Coaches.Count == 0)
-            {
-                return RedirectToAction("EventsNotFound");
             }
 
             int pages = Convert.ToInt32(Math.Ceiling(coachCount / pageSize));
@@ -346,11 +331,6 @@ namespace EventPlanner.Controllers
                 categoryCount = db.Categories.Where(s => s.hidden == false).Count();
             }
 
-            if (Categories.Count == 0)
-            {
-                return RedirectToAction("EventsNotFound");
-            }
-
             int pages = Convert.ToInt32(Math.Ceiling(categoryCount / pageSize));
 
             AdminCategoryPageViewModel model = new AdminCategoryPageViewModel()
@@ -424,10 +404,6 @@ namespace EventPlanner.Controllers
                 Events = db.Events.Where(f => f.Date > DateTime.Now && f.ForEmployees != EventGroup.RockstarsEmployees && f.hidden == false).ToList();
             }
 
-            if (Events.Count == 0)
-            {
-                return RedirectToAction("EventsNotFound");
-            }
             foreach (var item in Events)
             {
                 AdminNewsletterPageViewModel newsletterEvent = new AdminNewsletterPageViewModel
