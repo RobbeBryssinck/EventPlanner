@@ -55,6 +55,7 @@ namespace EventPlanner.Controllers
                 realmodel.Email = model.Email;
                 realmodel.Visitors = model.Visitors;
                 realmodel.TotalVisitors = model.TotalVisitors;
+                realmodel.Hidden = model.hidden;
                 
 
                 if (User.Identity.IsAuthenticated)
@@ -657,37 +658,7 @@ namespace EventPlanner.Controllers
             UpdateParticipants(eventId);
             return RedirectToAction("EventRegistered", "Account");
         }
-        [Authorize(Roles = "Admin")]
-        public IActionResult EventDeleted(int pageSelection)
-        {
-            if (pageSelection == 0)
-            {
-                pageSelection = 1;
-            }
-
-            decimal pageSize = 3;
-            decimal eventCount;
-            decimal page = Convert.ToDecimal(pageSelection);
-
-            
-            List<Event> events = db.Events.Where(x => x.hidden == true)
-                .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
-
-            eventCount = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).Count();
-
-            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
-            if (events.Count == 0)
-            {
-                return RedirectToAction("EventNotFound");
-            }
-            EventsViewModel realmodel = new EventsViewModel()
-            {
-                Events = events,
-                Pages = pages,
-                PageNumber = pageSelection
-            };
-            return View(realmodel);
-        }
+        
         private void UpdateParticipants(int eventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();

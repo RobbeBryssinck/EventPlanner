@@ -501,5 +501,77 @@ namespace EventPlanner.Controllers
         {
             return View();
         }
+        public IActionResult EventDeleted(string id, int pageSelection)
+        {
+            List<Event> Events = new List<Event>();
+            List<Categorie> Categories = new List<Categorie>();
+
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+            decimal pageSize = 4;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                Events = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == true)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                Categories = db.Categories.Where(s => s.CategorieName.Contains(id) && s.hidden == true).ToList();
+                eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.hidden == true).Count();
+            }
+            else
+            {
+                Events = db.Events.Where(s => s.hidden == true)
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+                Categories = db.Categories.Where(s => s.hidden == false).ToList();
+                eventCount = db.Events.Where(s => s.hidden == false && s.Date < DateTime.Now).Count();
+            }
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+
+            AdminEventPageViewModel model = new AdminEventPageViewModel()
+            {
+                Events = Events,
+                Pages = pages,
+                PageNumber = pageSelection
+            };
+            model.Categories = db.Categories.ToList();
+
+            return View(model);
+        }
+
+        /*[Authorize(Roles = "Admin")]
+        public IActionResult EventDeleted(int pageSelection)
+        {
+            if (pageSelection == 0)
+            {
+                pageSelection = 1;
+            }
+
+            decimal pageSize = 3;
+            decimal eventCount;
+            decimal page = Convert.ToDecimal(pageSelection);
+
+
+            List<Event> events = db.Events.Where(x => x.hidden == true)
+                .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
+
+            eventCount = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).Count();
+
+            int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
+            if (events.Count == 0)
+            {
+                return RedirectToAction("EventNotFound");
+            }
+            AdminEventPageViewModel realmodel = new AdminEventPageViewModel()
+            {
+                Events = events,
+                Pages = pages,
+                PageNumber = pageSelection
+            };
+            return View(realmodel);
+        }*/
     }
 }

@@ -24,6 +24,9 @@
             <h5 class="card-title">@Model.Date.ToString("g")</h5>
             <p class="card-text">@Model.Description</p>
         </div>
+        @if (Model.Hidden == false)
+        {
+
         <div class="col-lg-2">
             <div class="apply-card" style="border: none;">
                 <h5 class="card-title">Deel dit evenement</h5>
@@ -61,6 +64,7 @@
             }
             <p> </p>
         </div>
+        }
     </div>
 </div>
 <div class="row">
