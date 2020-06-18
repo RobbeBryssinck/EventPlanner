@@ -83,10 +83,10 @@ namespace EventPlanner.Controllers
                     if (i < (model.Count - 1))
                         continue;
                     else
-                        return RedirectToAction("EditRole", new { Id = roleId });
+                        return RedirectToAction("ListRoles");
                 }
             }
-            return RedirectToAction("EditRole", new { Id = roleId });
+            return RedirectToAction("ListRoles");
         }
 
         public async Task<IActionResult> EditUsersInRole(string roleId, string id, int pageSelection)

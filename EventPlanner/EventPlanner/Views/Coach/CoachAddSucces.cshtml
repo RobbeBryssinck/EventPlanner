@@ -1,7 +1,7 @@
 ﻿@model Coach
 
 @{
-    ViewData["Title"] = Model.Name;
+    ViewData["Title"] = "Coach toegevoegd";
     Layout = "_LayoutAdmin";
 }
 
@@ -9,6 +9,6 @@
     <div class="container">
         <h2 class="text-md-left"> Coach is toegevoegd! </h2>
         <br />
-        <a asp-area="" asp-controller="Coach" asp-action="Coaches" class="btn btn-outline-primary">Ga door</a>
+        <a asp-area="" asp-controller="Admin" asp-action="AdminCoachPage" class="btn btn-outline-primary">Ga door</a>
     </div>
 </div>
