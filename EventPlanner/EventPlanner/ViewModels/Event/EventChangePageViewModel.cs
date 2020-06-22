@@ -55,6 +55,7 @@ namespace EventPlanner.Models
 
         public List<Categorie> Categories { get; set; }
 
+        [Display(Name = "Categorie")]
         public int CategoryId { get; set; }
     }
     
