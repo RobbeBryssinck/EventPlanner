@@ -190,9 +190,8 @@ namespace EventPlanner.Controllers
         }
 
         [Authorize(Roles = "Rockstar, User")]
-        public IActionResult EventArchivedForEmployees(int eventID, int pageSelection)
+        public IActionResult EventArchivedForEmployees(int eventID)
         {
-            decimal pageCount;
             EventRatingViewModel ratingEventViewModel = new EventRatingViewModel();
             List<Event> events = db.Events.Where(x => x.EventId == eventID && x.hidden == false).ToList();
             if (events.Count > 0)
