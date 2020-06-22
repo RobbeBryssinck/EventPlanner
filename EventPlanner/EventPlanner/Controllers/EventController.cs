@@ -310,6 +310,7 @@ namespace EventPlanner.Controllers
                 Event oldEvent = events[0];
                 db.Entry(oldEvent).CurrentValues.SetValues(realmodel);
                 db.SaveChanges();
+                UpdateParticipants(realmodel.EventId);
                 return RedirectToAction("AdminEventPage", "Admin", new { realmodel.EventId });
             }
             else
