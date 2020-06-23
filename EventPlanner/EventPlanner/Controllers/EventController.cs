@@ -38,12 +38,24 @@ namespace EventPlanner.Controllers
 
         public async Task<IActionResult> EventPage(int eventID)
         {
+            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+
             if (User.IsInRole("Admin") || User.IsInRole("Rockstar"))
             {
-                List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
                 if (events.Count > 0)
                 {
-                    GetEventPage(events[0]);
+                    return await GetEventPage(events[0]);
+                }
+                else
+                {
+                    return View("PageNotFoundError");
+                }
+            }
+            else
+            {
+                if (events.Count > 0 && events[0].ForEmployees == EventGroup.Public)
+                {
+                    return await GetEventPage(events[0]);
                 }
                 else
                 {
@@ -71,7 +83,7 @@ namespace EventPlanner.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = await userManager.GetUserAsync(User);
-                List<Registration> registrations = db.Registrations.Where(x => x.AccountId == user.Id && x.EventId == eventID).ToList();
+                List<Registration> registrations = db.Registrations.Where(x => x.AccountId == user.Id && x.EventId == realmodel.EventId).ToList();
                 if (registrations.Count == 0)
                     realmodel.Registered = false;
                 else
