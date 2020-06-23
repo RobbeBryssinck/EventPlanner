@@ -35,54 +35,60 @@ namespace EventPlanner.Controllers
             _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
+
         public async Task<IActionResult> EventPage(int eventID)
         {
-            List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
-            if (events.Count > 0)
+            if (User.IsInRole("Admin") || User.IsInRole("Rockstar"))
             {
-                Event model = events[0];
-                EventViewModel realmodel = new EventViewModel();
-                realmodel.EventId = model.EventId;
-                realmodel.EventName = model.EventName;
-                realmodel.Date = model.Date;
-                realmodel.ImageSrc = model.ImageSrc;
-                realmodel.VisitorLimit = model.VisitorLimit;
-                realmodel.Description = model.Description;
-                realmodel.Location = model.Location;
-                realmodel.CategoryId = model.CategoryId;
-                realmodel.Email = model.Email;
-                realmodel.Visitors = model.Visitors;
-                realmodel.TotalVisitors = model.TotalVisitors;
-                realmodel.Hidden = model.hidden;
-                
-
-                if (User.Identity.IsAuthenticated)
+                List<Event> events = db.Events.Where(x => x.EventId == eventID).ToList();
+                if (events.Count > 0)
                 {
-                    var user = await userManager.GetUserAsync(User);
-                    List<Registration> registrations = db.Registrations.Where(x => x.AccountId == user.Id && x.EventId == eventID).ToList();
-                    if (registrations.Count == 0)
-                        realmodel.Registered = false;
-                    else
-                        realmodel.Registered = true;
-                }
-                else
-                    realmodel.Registered = false;
-
-                if (model.hidden == false || User.IsInRole("Admin") && model.hidden == true)
-                {
-                    return View(realmodel);
+                    GetEventPage(events[0]);
                 }
                 else
                 {
                     return View("PageNotFoundError");
                 }
             }
+        }
+
+        private async Task<IActionResult> GetEventPage(Event model)
+        {
+            EventViewModel realmodel = new EventViewModel();
+            realmodel.EventId = model.EventId;
+            realmodel.EventName = model.EventName;
+            realmodel.Date = model.Date;
+            realmodel.ImageSrc = model.ImageSrc;
+            realmodel.VisitorLimit = model.VisitorLimit;
+            realmodel.Description = model.Description;
+            realmodel.Location = model.Location;
+            realmodel.CategoryId = model.CategoryId;
+            realmodel.Email = model.Email;
+            realmodel.Visitors = model.Visitors;
+            realmodel.TotalVisitors = model.TotalVisitors;
+            realmodel.Hidden = model.hidden;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await userManager.GetUserAsync(User);
+                List<Registration> registrations = db.Registrations.Where(x => x.AccountId == user.Id && x.EventId == eventID).ToList();
+                if (registrations.Count == 0)
+                    realmodel.Registered = false;
+                else
+                    realmodel.Registered = true;
+            }
+            else
+                realmodel.Registered = false;
+
+            if (model.hidden == false || User.IsInRole("Admin") && model.hidden == true)
+            {
+                return View(realmodel);
+            }
             else
             {
                 return View("PageNotFoundError");
             }
         }
-
 
         public IActionResult EventCategories()
         {
@@ -424,7 +430,7 @@ namespace EventPlanner.Controllers
             //TODO: change List to IEnumerable or IReadOnly?
             List<Event> events = new List<Event>();
             List<Categorie> categories = db.Categories.Where(x => x.hidden == false && x.hidden == false).ToList();
-            if(pageSelection == 0)
+            if (pageSelection == 0)
             {
                 pageSelection = 1;
             }
@@ -435,7 +441,7 @@ namespace EventPlanner.Controllers
             if (!String.IsNullOrEmpty(id))
             {
                 events = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false)
-                    .Skip((int)((page - 1)* pageSize)).Take((int)pageSize).ToList();
+                    .Skip((int)((page - 1) * pageSize)).Take((int)pageSize).ToList();
                 eventCount = db.Events.Where(s => s.EventName.Contains(id) && s.Date > DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
             }
             else
@@ -451,7 +457,7 @@ namespace EventPlanner.Controllers
             {
                 return RedirectToAction("EventNotFound");
             }
-            
+
             EventsViewModel model = new EventsViewModel()
             {
                 Events = events,
@@ -478,7 +484,7 @@ namespace EventPlanner.Controllers
             eventCount = db.Events.Where(s => s.Date < DateTime.Now && s.ForEmployees == EventGroup.Public && s.hidden == false).Count();
 
             int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
-            
+
             if (events.Count == 0)
             {
                 return RedirectToAction("EventNotFound");
@@ -543,7 +549,7 @@ namespace EventPlanner.Controllers
             eventCount = db.Events.Where(s => s.Date > DateTime.Now && s.ForEmployees == EventGroup.RockstarsEmployees && s.hidden == false).Count();
 
             int pages = Convert.ToInt32(Math.Ceiling(eventCount / pageSize));
-            
+
             EventsForEmployeesViewModel model = new EventsForEmployeesViewModel()
             {
                 Events = events,
@@ -592,7 +598,7 @@ namespace EventPlanner.Controllers
                 db.Events.Attach(model);
                 db.Entry(model).Property(x => x.hidden).IsModified = true;
                 db.SaveChanges();
-            }       
+            }
             return RedirectToAction("EventDeleteComplete");
         }
 
@@ -647,7 +653,7 @@ namespace EventPlanner.Controllers
             UpdateParticipants(eventId);
             return RedirectToAction("EventRegistered", "Account");
         }
-        
+
         private void UpdateParticipants(int eventId)
         {
             List<Event> events = db.Events.Where(x => x.EventId == eventId).ToList();
